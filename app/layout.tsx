@@ -61,7 +61,7 @@ const schemaOrg = {
     'Agence de production vidéo, drone et stratégie marketing basée en Guadeloupe. Nous accompagnons les PMEs françaises dans leur développement digital.',
   url: 'https://phoenixprod.fr',
   telephone: '+590690573870',
-  email: 'contact@rckydigital.com',
+  email: 'rckydigital@outlook.fr',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Guadeloupe',

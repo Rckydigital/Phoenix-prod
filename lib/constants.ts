@@ -10,7 +10,7 @@ export const SITE = {
   description:
     'Phoenix Prod par Rcky Digital — agence de production vidéo, drone et stratégie marketing basée en Guadeloupe. Nous capturons votre vision, nous amplifions votre message.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://phoenixprod.fr',
-  email: 'contact@rckydigital.com',
+  email: 'rckydigital@outlook.fr',
   phone: '+590 690 57 38 70',
   address: 'Guadeloupe, 971',
   siret: '980 046 965 00011',

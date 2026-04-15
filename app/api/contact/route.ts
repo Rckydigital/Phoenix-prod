@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     await resend.emails.send({
-      from: 'Phoenix Prod <contact@phoenixprod.fr>',
-      to: process.env.CONTACT_EMAIL || 'contact@rckydigital.com',
+      from: 'Phoenix Prod <onboarding@resend.dev>',
+      to: process.env.CONTACT_EMAIL || 'rckydigital@outlook.fr',
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
