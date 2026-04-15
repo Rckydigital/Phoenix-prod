@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       `,
     })
 
-    return NextResponse.redirect(new URL('/contact/merci', request.url))
+    return NextResponse.redirect(new URL('/contact?sent=true', request.url))
   } catch (error) {
     console.error('Erreur formulaire contact:', error)
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })

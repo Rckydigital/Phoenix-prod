@@ -7,10 +7,27 @@ export const metadata: Metadata = {
     'Prenez un rendez-vous stratégie gratuit avec Phoenix Prod. Appelez-nous ou envoyez un message — nous répondons sous 24h.',
 }
 
-export default function ContactPage() {
+export default function ContactPage({
+  searchParams,
+}: {
+  searchParams: { sent?: string }
+}) {
+  const sent = searchParams.sent === 'true'
+
   return (
     <div className="pt-24 pb-20 px-4">
       <div className="max-w-5xl mx-auto">
+        {/* Bannière de confirmation */}
+        {sent && (
+          <div className="mb-10 p-6 bg-green-500/10 border border-green-500/30 rounded-2xl text-center">
+            <div className="text-4xl mb-3">✅</div>
+            <h2 className="text-xl font-bold text-white mb-2">Message bien reçu !</h2>
+            <p className="text-gray-400 text-sm">
+              Merci pour votre message. Nous vous répondrons sous <strong className="text-white">24h ouvrées</strong>.
+            </p>
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center mb-16">
           <span className="inline-block bg-brand/20 text-brand text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
@@ -28,11 +45,6 @@ export default function ContactPage() {
             {/* CTA rapides */}
             <div className="card">
               <h2 className="text-xl font-bold text-white mb-6">Réserver un RDV stratégie</h2>
-
-              {/* ========================================================
-                  BLOC CALENDLY — Remplacer l'URL ci-dessous par votre lien
-                  Créez un compte sur calendly.com et copiez votre lien ici
-                  ======================================================== */}
               <div className="bg-dark-400 rounded-xl p-8 text-center mb-4">
                 <p className="text-gray-400 text-sm mb-4">
                   📅 Calendly — Sélectionnez un créneau disponible
@@ -45,9 +57,6 @@ export default function ContactPage() {
                 >
                   Voir les disponibilités →
                 </a>
-                <p className="text-gray-600 text-xs mt-3">
-                  Remplacez ce lien dans lib/constants.ts → SITE.calendly
-                </p>
               </div>
             </div>
 
@@ -138,7 +147,7 @@ export default function ContactPage() {
                   className="mt-1 accent-brand"
                 />
                 <label htmlFor="rgpd" className="text-xs text-gray-500">
-                  J'accepte que mes données soient traitées par Rcky Digital dans le cadre de ma demande, conformément à la{' '}
+                  J&apos;accepte que mes données soient traitées par Rcky Digital dans le cadre de ma demande, conformément à la{' '}
                   <a href="/politique-confidentialite" className="text-brand underline">
                     politique de confidentialité
                   </a>
