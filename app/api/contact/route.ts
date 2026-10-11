@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { SITE } from '@/lib/constants'
+import { SITE, SERVICES, PACKS } from '@/lib/constants'
+import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
 
 // Reçoit le formulaire de contact (envoi classique ou JSON),
 // envoie un email à l'agence via Resend si RESEND_API_KEY est configurée,
@@ -51,32 +52,56 @@ export async function POST(request: NextRequest) {
     return back('/contact?error=1') ?? NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
   }
 
+  const serviceTitle =
+    [...SERVICES, ...PACKS].find((s) => s.id === data.service)?.title || data.service
+
   const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    console.error('RESEND_API_KEY manquante : message non envoyé', { name: data.name, email: data.email })
+  if (!apiKey && !crmConfigured()) {
+    console.error('Ni RESEND_API_KEY ni CRM_GITHUB_TOKEN : demande non enregistrée', { name: data.name })
     return back('/contact?error=config') ?? NextResponse.json({ error: 'Envoi non configuré' }, { status: 500 })
   }
 
-  try {
-    const resend = new Resend(apiKey)
-    const rows = [
-      ['Nom', data.name],
-      ['Email', data.email],
-      ['Téléphone', data.phone || '—'],
-      ['Entreprise', data.business || '—'],
-      ['Service', data.service || '—'],
-    ]
-    await resend.emails.send({
-      from: process.env.CONTACT_FROM_EMAIL || 'RCKY DIGITAL <onboarding@resend.dev>',
-      to: process.env.CONTACT_EMAIL || SITE.email,
-      reply_to: data.email,
-      subject: `Nouvelle demande site : ${data.name}${data.business ? ` (${data.business})` : ''}`,
-      html: `<h2>Nouvelle demande depuis le site</h2>
+  // 1. Fiche client dans le cerveau (CRM Obsidian)
+  let savedToCrm = false
+  if (crmConfigured()) {
+    try {
+      await saveLeadToCrm({ ...data, service: serviceTitle })
+      savedToCrm = true
+    } catch (err) {
+      console.error('Erreur CRM', err)
+    }
+  }
+
+  // 2. Email de notification
+  let emailed = false
+  if (apiKey) {
+    try {
+      const resend = new Resend(apiKey)
+      const rows = [
+        ['Nom', data.name],
+        ['Email', data.email],
+        ['Téléphone', data.phone || '—'],
+        ['Entreprise', data.business || '—'],
+        ['Service', serviceTitle || '—'],
+      ]
+      const { error } = await resend.emails.send({
+        from: process.env.CONTACT_FROM_EMAIL || 'RCKY DIGITAL <onboarding@resend.dev>',
+        to: process.env.CONTACT_EMAIL || SITE.email,
+        reply_to: data.email,
+        subject: `Nouvelle demande site : ${data.name}${data.business ? ` (${data.business})` : ''}`,
+        html: `<h2>Nouvelle demande depuis le site</h2>
 <table>${rows.map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${escapeHtml(v)}</td></tr>`).join('')}</table>
-<p><strong>Message :</strong></p><p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>`,
-    })
-  } catch (err) {
-    console.error('Erreur Resend', err)
+<p><strong>Message :</strong></p><p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>
+<p>${savedToCrm ? 'Fiche créée dans le CRM du cerveau.' : 'Attention : fiche CRM non créée.'}</p>`,
+      })
+      if (error) throw error
+      emailed = true
+    } catch (err) {
+      console.error('Erreur Resend', err)
+    }
+  }
+
+  if (!savedToCrm && !emailed) {
     return back('/contact?error=1') ?? NextResponse.json({ error: 'Erreur envoi' }, { status: 500 })
   }
 
