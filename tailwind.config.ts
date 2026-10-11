@@ -9,21 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Couleurs du logo RCKY DIGITAL
         brand: {
-          DEFAULT: '#E85D26',
-          dark: '#C44D1E',
-          light: '#FF7A45',
+          DEFAULT: '#E8742A', // orange du phénix (décor, grandes surfaces)
+          deep: '#B4511A', // orange foncé : boutons et textes (contraste suffisant)
+          soft: '#FDF0E6', // fond orangé très clair
         },
-        dark: {
-          DEFAULT: '#0A0A0A',
-          100: '#111111',
-          200: '#1A1A1A',
-          300: '#222222',
-          400: '#333333',
-        }
+        teal: { DEFAULT: '#2A93A8', deep: '#1F6F80', soft: '#E7F4F6' },
+        plum: { DEFAULT: '#7A2E6B', soft: '#F5EAF2' },
+        ember: '#C8383C',
+        ink: { DEFAULT: '#1E2A33', soft: '#4B5863', muted: '#6B7680' },
+        sand: '#FAF7F3',
+        line: '#ECE6DF',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
+      },
+      maxWidth: {
+        site: '72rem',
       },
     },
   },

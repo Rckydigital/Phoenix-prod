@@ -3,72 +3,58 @@ import Link from 'next/link'
 import { REALISATIONS } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Nos réalisations — Portfolio Phoenix Prod',
-  description:
-    'Découvrez nos projets : films institutionnels, prises de vue drone, stratégie marketing pour des clients en Guadeloupe et aux Antilles.',
+  title: 'Réalisations',
+  description: 'Les projets réalisés par RCKY DIGITAL pour des entreprises de Guadeloupe.',
 }
-
-const categories = ['Tous', 'Vidéo', 'Drone', 'Marketing']
 
 export default function RealisationsPage() {
   return (
-    <div className="pt-24 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block bg-brand/20 text-brand text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-            Notre travail
-          </span>
-          <h1 className="section-title text-5xl">Nos réalisations</h1>
-          <p className="section-subtitle mx-auto">
-            Des projets concrets, des résultats mesurables, des clients satisfaits.
+    <>
+      <section className="bg-sand pb-16 pt-32 md:pt-40">
+        <div className="container-site">
+          <span className="eyebrow">Réalisations</span>
+          <h1 className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
+            Nos projets, en toute transparence.
+          </h1>
+          <p className="section-subtitle">
+            RCKY DIGITAL est une jeune agence : chaque projet ajouté ici est un vrai client, avec son accord.
           </p>
         </div>
+      </section>
 
-        {/* Filtres catégories */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
-          {categories.map((cat) => (
-            <span
-              key={cat}
-              className={`px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all ${
-                cat === 'Tous'
-                  ? 'bg-brand text-white'
-                  : 'bg-dark-200 text-gray-400 hover:text-white border border-dark-400'
-              }`}
-            >
-              {cat}
-            </span>
-          ))}
-        </div>
-
-        {/* Grille projets */}
-        <div className="grid md:grid-cols-3 gap-6">
+      <section className="py-16 md:py-20">
+        <div className="container-site grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REALISATIONS.map((r) => (
-            <div key={r.id} className="card group hover:scale-[1.02] transition-transform duration-300">
-              <div className="h-52 bg-dark-400 rounded-xl mb-5 flex items-center justify-center overflow-hidden">
-                <span className="text-6xl opacity-20">🎬</span>
-              </div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs bg-brand/20 text-brand px-3 py-1 rounded-full font-medium">
-                  {r.category}
-                </span>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2 leading-tight">{r.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{r.description}</p>
-            </div>
+            <article key={r.id} className="card">
+              <span className="inline-block rounded-full bg-plum-soft px-3 py-1 text-sm font-semibold text-plum">
+                {r.category}
+              </span>
+              <h2 className="mt-4 text-xl font-bold text-ink">{r.title}</h2>
+              <p className="mt-2 leading-relaxed text-ink-soft">{r.description}</p>
+              {r.link && (
+                <a
+                  href={r.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-block text-sm font-semibold text-brand-deep hover:underline"
+                >
+                  Voir le compte →
+                </a>
+              )}
+            </article>
           ))}
 
-          {/* Carte "Votre projet ici" */}
-          <div className="card border-dashed border-dark-400 flex flex-col items-center justify-center text-center py-10 group hover:border-brand transition-colors">
-            <div className="text-4xl mb-4 opacity-40">✨</div>
-            <h3 className="text-lg font-bold text-gray-400 mb-2">Votre projet ici</h3>
-            <p className="text-gray-600 text-sm mb-6">Prochaine réalisation disponible</p>
-            <Link href="/contact" className="btn-primary text-sm py-2">
+          <article className="flex flex-col items-start justify-center rounded-3xl border-2 border-dashed border-brand bg-brand-soft p-8">
+            <h2 className="text-xl font-bold text-ink">Votre projet ici ?</h2>
+            <p className="mt-2 text-ink-soft">
+              Profitez de l’offre de lancement : -30 % pour nos 3 premiers clients.
+            </p>
+            <Link href="/contact" className="btn-primary mt-6">
               Démarrer mon projet
             </Link>
-          </div>
+          </article>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   )
 }

@@ -1,46 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-:root {
-  --brand: #E85D26;
-  --brand-dark: #C44D1E;
-}
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0A0A0A;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #1E2A33;
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar personnalisée */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { background: #E85D26; border-radius: 3px; }
+::selection { background: #E8742A; color: #fff; }
 
-/* Sélection de texte */
-::selection { background: #E85D26; color: #fff; }
+:focus-visible {
+  outline: 3px solid #2A93A8;
+  outline-offset: 2px;
+}
 
 @layer components {
+  .container-site {
+    @apply max-w-site mx-auto px-4 sm:px-6;
+  }
   .btn-primary {
-    @apply bg-brand hover:bg-brand-dark text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-flex items-center gap-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-deep px-6 py-3 font-semibold text-white transition-colors hover:bg-[#93410f];
   }
   .btn-outline {
-    @apply border border-brand text-brand hover:bg-brand hover:text-white font-semibold px-6 py-3 rounded-lg transition-all duration-200 inline-flex items-center gap-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-ink px-6 py-3 font-semibold text-ink transition-colors hover:bg-ink hover:text-white;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-sm font-semibold text-brand-deep;
   }
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-white mb-4;
+    @apply text-3xl md:text-4xl font-bold tracking-tight text-ink;
   }
   .section-subtitle {
-    @apply text-gray-400 text-lg mb-12 max-w-2xl;
+    @apply mt-4 max-w-2xl text-lg text-ink-soft;
   }
   .card {
-    @apply bg-dark-200 border border-dark-400 rounded-2xl p-6 hover:border-brand transition-all duration-300;
+    @apply rounded-3xl border border-line bg-white p-6 transition-shadow hover:shadow-[0_12px_40px_-12px_rgba(30,42,51,0.18)];
   }
 }

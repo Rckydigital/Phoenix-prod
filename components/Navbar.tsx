@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SITE, NAV_LINKS } from '@/lib/constants'
+import { NAV_LINKS } from '@/lib/constants'
+import Logo from '@/components/Logo'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -11,80 +12,73 @@ export default function Navbar() {
   const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => setIsOpen(false), [pathname])
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark/95 backdrop-blur-md border-b border-dark-300 py-3' : 'bg-transparent py-5'
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled || isOpen ? 'border-b border-line bg-white/95 backdrop-blur py-3' : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-2xl font-black text-white">
-            PHOENIX<span className="text-brand">PROD</span>
-          </span>
+      <nav className="container-site flex items-center justify-between" aria-label="Navigation principale">
+        <Link href="/" aria-label="RCKY DIGITAL, accueil">
+          <Logo />
         </Link>
 
-        {/* Navigation desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={`text-sm font-medium transition-colors ${
-                pathname === link.href ? 'text-brand' : 'text-gray-300 hover:text-white'
+                pathname === link.href ? 'text-brand-deep' : 'text-ink-soft hover:text-ink'
               }`}
             >
               {link.label}
             </Link>
           ))}
-        </div>
-
-        {/* CTA desktop */}
-        <div className="hidden md:flex items-center gap-3">
-          <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} className="text-sm text-gray-400 hover:text-white transition-colors">
-            {SITE.phone}
-          </a>
-          <Link href="/contact" className="btn-primary text-sm py-2 px-5">
-            RDV gratuit
+          <Link href="/contact" className="btn-primary px-5 py-2.5 text-sm">
+            Échange gratuit
           </Link>
         </div>
 
-        {/* Burger mobile */}
         <button
-          className="md:hidden text-white p-2"
+          type="button"
+          className="rounded-full p-2 text-ink md:hidden"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Menu"
+          aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={isOpen}
         >
-          <div className="w-6 h-0.5 bg-current mb-1.5 transition-all" />
-          <div className="w-6 h-0.5 bg-current mb-1.5 transition-all" />
-          <div className="w-6 h-0.5 bg-current transition-all" />
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            {isOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          </svg>
         </button>
-      </div>
+      </nav>
 
-      {/* Menu mobile */}
       {isOpen && (
-        <div className="md:hidden bg-dark-100 border-t border-dark-300 px-4 py-6 space-y-4">
+        <div className="container-site space-y-1 pb-6 pt-4 md:hidden">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="block text-gray-300 hover:text-brand font-medium transition-colors py-2"
-              onClick={() => setIsOpen(false)}
+              className={`block rounded-xl px-3 py-3 font-medium ${
+                pathname === link.href ? 'bg-brand-soft text-brand-deep' : 'text-ink'
+              }`}
             >
               {link.label}
             </Link>
           ))}
-          <Link href="/contact" className="btn-primary w-full justify-center mt-4" onClick={() => setIsOpen(false)}>
-            Prendre un RDV gratuit
+          <Link href="/contact" className="btn-primary mt-4 w-full">
+            Réserver un échange gratuit
           </Link>
         </div>
       )}
-    </nav>
+    </header>
   )
 }
