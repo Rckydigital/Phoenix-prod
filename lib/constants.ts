@@ -12,7 +12,7 @@ export const SITE = {
     "RCKY DIGITAL, agence digitale en Guadeloupe : shooting photo et vidéo, gestion des réseaux sociaux et sites avec réservation pour le tourisme, la beauté et le bien-être.",
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://phoenix-prod-two.vercel.app',
   email: 'rckydigital@outlook.fr',
-  phone: '+590 690 57 38 70',
+  phone: '+590 690 05 73 87',
   address: 'Guadeloupe (971)',
   siret: '980 046 965 00011',
   // Lien de prise de RDV (Calendly ou autre). Laisser vide pour masquer le bloc.
@@ -129,11 +129,19 @@ export const SECTORS = [
 // Réalisations : uniquement des projets réels.
 export const REALISATIONS = [
   {
-    id: 'nailsgoto',
-    title: 'Nailsgoto',
+    id: 'nails-to-go',
+    title: 'Nails to go',
     category: 'Beauté',
     description: 'Création du compte Instagram, puis création et publication des premiers posts.',
-    link: 'https://www.instagram.com/nailsgoto/',
+    link: 'https://www.instagram.com/_nails_to.go_/',
+  },
+  {
+    id: 'cfa-iuts',
+    title: 'CFA IUTS',
+    category: 'Formation',
+    description:
+      "Création et animation du compte Instagram d'un centre de formation, réalisées dans le cadre de mon alternance.",
+    link: 'https://www.instagram.com/cfa_iuts/',
   },
 ]
 
