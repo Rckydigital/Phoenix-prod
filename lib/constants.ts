@@ -56,7 +56,7 @@ export const SERVICES: Service[] = [
     priceNote: '/ mois',
     description:
       'Nous créons et publions vos contenus chaque mois, avec une ligne éditoriale claire, pour que votre compte travaille pour vous pendant que vous gérez votre activité.',
-    features: ['8 à 12 publications / mois', 'Création des visuels', 'Publication et légendes', 'Rapport mensuel'],
+    features: ['Instagram, Facebook, WhatsApp Business, TikTok, LinkedIn, X', '8 à 12 publications / mois', 'Création des visuels et légendes', 'Rapport mensuel'],
     forWho: 'Toute entreprise qui veut être visible régulièrement',
   },
   {
