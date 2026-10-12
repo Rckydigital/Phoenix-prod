@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const FAQ = [
   {
     q: 'Pourquoi des prix « à partir de » ?',
-    a: 'Chaque projet est différent (taille du lieu, nombre de vidéos, pages du site…). Le prix affiché est le point de départ ; vous recevez un devis précis et gratuit avant tout engagement.',
+    a: 'Chaque projet est différent (taille du lieu, nombre de vidéos, pages du site…). Le prix affiché est le point de départ ; vous recevez un devis précis et gratuit avant tout engagement. Nos prix sont finaux : TVA non applicable (art. 293 B du CGI), rien ne s'ajoute.',
   },
   {
     q: 'Est-ce que vous vous déplacez ?',
@@ -38,7 +38,7 @@ export default function ServicesPage() {
             Tout ce qu’il faut pour être vu, et choisi.
           </h1>
           <p className="section-subtitle">
-            Des prix de départ clairs. Un devis précis et gratuit pour chaque projet.
+            Des prix de départ clairs et finaux : pas de TVA à ajouter. Un devis précis et gratuit pour chaque projet.
           </p>
           {LAUNCH_OFFER.active && (
             <p className="mt-8 inline-block rounded-2xl bg-ink px-5 py-3 text-white">

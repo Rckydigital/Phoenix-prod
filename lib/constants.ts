@@ -66,7 +66,7 @@ export const SERVICES: Service[] = [
     price: 'dès 450 €',
     description:
       "Un site vitrine moderne, adapté au mobile, avec réservation ou prise de rendez-vous en ligne. Vos clients réservent même quand vous êtes occupé.",
-    features: ['Design adapté au mobile', 'Réservation / prise de RDV', 'Référencement local de base', 'Maintenance dès 30 €/mois'],
+    features: ['Design adapté au mobile', 'Réservation / prise de RDV', 'Référencement local de base', 'Maintenance dès 30 €/mois', 'Abonnement Wix (~30 €/mois) au nom du client'],
     forWho: 'Hébergements, activités, salons, instituts',
   },
   {
