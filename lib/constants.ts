@@ -57,7 +57,7 @@ export const SERVICES: Service[] = [
     priceNote: '/ mois',
     description:
       'Nous créons et publions vos contenus chaque mois, avec une ligne éditoriale claire, pour que votre compte travaille pour vous pendant que vous gérez votre activité.',
-    features: ['1 à 2 réseaux inclus (Instagram, Facebook…)', 'Réseau supplémentaire : +80 €/mois (TikTok, LinkedIn, X…)', '8 à 12 publications / mois, visuels et légendes', 'Rapport mensuel'],
+    features: ['1 à 2 réseaux inclus (Instagram, Facebook…)', 'Réseau supplémentaire : +80 €/mois (TikTok, LinkedIn, X…)', '8 à 12 publications / mois, visuels et légendes', 'Réponses aux messages et commentaires', 'Rapport mensuel'],
     forWho: 'Toute entreprise qui veut être visible régulièrement',
   },
   {
