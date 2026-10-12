@@ -147,7 +147,20 @@ export const REALISATIONS = [
 
 // Vidéos affichées dans « Réalisations » (Instagram : post ou reel ; YouTube : vidéo ou short).
 // Ajouter une ligne par vidéo : { platform: 'instagram' | 'youtube', url: '…', title: '…', client: '…' }
-export const VIDEOS: { platform: 'youtube' | 'instagram'; url: string; title: string; client?: string }[] = []
+export const VIDEOS: { platform: 'youtube' | 'instagram'; url: string; title: string; client?: string }[] = [
+  {
+    platform: 'youtube',
+    url: 'https://youtu.be/ir8422oiO5A',
+    title: 'Le Moule en 4K, vue du ciel (DJI Mini 2)',
+    client: 'Guadeloupe · Cinématique',
+  },
+  {
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/DO1TWzsCZsf/',
+    title: 'Effet hologramme (entraînement)',
+    client: 'Montage · Effets visuels',
+  },
+]
 
 export const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
