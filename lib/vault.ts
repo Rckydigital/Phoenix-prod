@@ -141,9 +141,10 @@ export type AgentDef = {
 
 export const AGENTS: AgentDef[] = [
   { id: 'directeur', folder: '70 - Fichiers/Directeur', name: 'Directeur', role: 'Chef d’orchestre, briefing et mails', schedule: 'Lun-ven · 6h45', match: ['directeur'], color: '#E8742A' },
-  { id: 'commercial', folder: '70 - Fichiers/Commercial', name: 'Commercial', role: 'Prospects, relances, devis', schedule: 'Lundi', match: ['commercial'], reportPrefix: 'Commercial', color: '#2A93A8' },
+  { id: 'commercial', folder: '70 - Fichiers/Commercial', name: 'Commercial', role: 'Prospects, relances, devis', schedule: 'Lundi · 5h50', match: ['commercial'], reportPrefix: 'Commercial', color: '#2A93A8' },
   { id: 'marketing', folder: '70 - Fichiers/Marketing', name: 'Marketing', role: 'Contenus et visibilité de l’agence', schedule: 'Mercredi', match: ['marketing'], reportPrefix: 'Contenu', color: '#7A2E6B' },
-  { id: 'finance', folder: '70 - Fichiers/Finance', name: 'Finance & Admin', role: 'CA, factures, échéances', schedule: 'Vendredi', match: ['finance'], reportPrefix: 'Finance', color: '#C8383C' },
+  { id: 'finance', folder: '70 - Fichiers/Finance', name: 'Finance & Admin', role: 'CA, factures, échéances', schedule: 'Vendredi · 12h35', match: ['finance'], reportPrefix: 'Finance', color: '#C8383C' },
+  { id: 'secretaire', folder: '70 - Fichiers/Secrétaire', name: 'Secrétaire', role: 'Agenda, rendez-vous, accueil', schedule: 'Lun-ven · 6h45', match: ['secrétaire', 'secretaire'], reportPrefix: 'Secrétaire', color: '#C9A227' },
   { id: 'veille', folder: '70 - Fichiers/Veille', name: 'Veille', role: 'Tendances, ressources, apprentissage', schedule: 'Mardi et jeudi', match: ['veille'], reportPrefix: 'Veille', color: '#3F7D4E' },
 ]
 

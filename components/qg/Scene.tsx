@@ -134,6 +134,7 @@ const DESKS: Record<string, { x: number; y: number; seat: [number, number] }> = 
   marketing: { x: 10.3, y: 1.5, seat: [11.3, 1.05] },
   finance: { x: 6.3, y: 4.2, seat: [7.3, 3.75] },
   veille: { x: 10.3, y: 4.2, seat: [11.3, 3.75] },
+  secretaire: { x: 11.3, y: 7.6, seat: [12.6, 7.25] }, // derrière le comptoir d'accueil
 }
 
 // Trajet aller (bureau → café) ; le retour est le chemin inverse
@@ -142,9 +143,10 @@ const ROUTES: Record<string, Way[]> = {
   commercial: [{ x: 7.3, y: 1.05, wait: 11 }, { x: 9.2, y: 1.05 }, { x: 9.2, y: 7.0 }, { x: 7.6, y: 8.9, wait: 5 }],
   marketing: [{ x: 11.3, y: 1.05, wait: 16 }, { x: 9.4, y: 1.05 }, { x: 9.4, y: 7.0 }, { x: 8.6, y: 8.2, wait: 4 }],
   finance: [{ x: 7.3, y: 3.75, wait: 19 }, { x: 9.2, y: 3.75 }, { x: 9.2, y: 7.0 }, { x: 8.4, y: 9.4, wait: 5 }],
-  veille: [{ x: 11.3, y: 3.75, wait: 13 }, { x: 9.4, y: 3.75 }, { x: 9.4, y: 7.2 }, { x: 13.0, y: 7.4, wait: 3 }],
+  veille: [{ x: 11.3, y: 3.75, wait: 13 }, { x: 9.4, y: 3.75 }, { x: 9.4, y: 7.2 }, { x: 14.6, y: 8.6, wait: 3 }],
+  secretaire: [{ x: 12.6, y: 7.25, wait: 20 }, { x: 10.9, y: 7.25 }, { x: 9.6, y: 7.6 }, { x: 8.9, y: 8.8, wait: 4 }],
 }
-const OFFSET: Record<string, number> = { directeur: 3, commercial: 9, marketing: 0, finance: 15, veille: 6 }
+const OFFSET: Record<string, number> = { directeur: 3, commercial: 9, marketing: 0, finance: 15, veille: 6, secretaire: 11 }
 const SPEED = 1.15 // tuiles par seconde
 
 function buildTimeline(route: Way[]) {
@@ -256,7 +258,7 @@ export default function Scene({
     add(20.3, <g key="water"><Box x={9.9} y={10.2} w={0.5} d={0.5} h={28} color="#E9ECEF" /><Box x={9.95} y={10.25} w={0.4} d={0.4} h={18} z={28} color="#9ED3E0" shadow={false} /></g>)
 
     // Salle d'attente / accueil
-    add(19.0, <g key="reception"><Box x={11.3} y={7.6} w={2.6} d={0.8} h={34} color="#E8742A" top="#F2F0EC" /></g>)
+    add(20.6, <g key="reception"><Box x={11.3} y={7.6} w={2.6} d={0.8} h={34} color="#E8742A" top="#F2F0EC" /></g>)
     add(24.9, <g key="sofa"><Box x={12.6} y={9.9} w={3.0} d={0.9} h={14} color="#2A93A8" /><Box x={12.6} y={10.6} w={3.0} d={0.25} h={32} color="#237E90" shadow={false} /></g>)
     add(23.8, <Box key="low-table" x={13.2} y={8.9} w={1.6} d={0.7} h={10} color="#C9A27A" top="#D9B58F" />)
     add(18.6, <Plant key="wait-plant" x={15.5} y={7.4} big />)
@@ -284,7 +286,7 @@ export default function Scene({
     const pos = positionAt(a.id, t)
     const atDesk = pos.seated
     // Bureau (table + écran + chaise)
-    items.push({
+    if (a.id !== 'secretaire') items.push({
       depth: d.x + 1 + d.y + 0.45,
       node: (
         <g key={`desk-${a.id}`} {...click(a.id)}>
