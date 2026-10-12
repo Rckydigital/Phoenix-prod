@@ -160,6 +160,12 @@ export const VIDEOS: { platform: 'youtube' | 'instagram'; url: string; title: st
     title: 'Effet hologramme (entraînement)',
     client: 'Montage · Effets visuels',
   },
+  {
+    platform: 'instagram',
+    url: 'https://www.instagram.com/reel/DJmvCrXPzHl/',
+    title: 'Présentation de la post-production vidéo',
+    client: 'Montage · Post-production',
+  },
 ]
 
 export const NAV_LINKS = [
