@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /api/
-Disallow: /mentions-legales
-Disallow: /politique-confidentialite
-
-Sitemap: https://phoenixprod.fr/sitemap.xml
