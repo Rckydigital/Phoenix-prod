@@ -23,7 +23,7 @@ export default function PolitiqueConfidentialitePage() {
             </h2>
             <div className="bg-sand rounded-xl p-6 text-sm space-y-2">
               <p><strong className="text-ink">Entité :</strong> RCKY DIGITAL (Ricky GALIN, entrepreneur individuel)</p>
-              <p><strong className="text-ink">Contact DPO :</strong>{' '}
+              <p><strong className="text-ink">Contact :</strong>{' '}
                 <a href={`mailto:${SITE.email}`} className="text-brand-deep underline">{SITE.email}</a>
               </p>
               <p><strong className="text-ink">Adresse :</strong> {SITE.address}</p>
@@ -46,9 +46,9 @@ export default function PolitiqueConfidentialitePage() {
                 </thead>
                 <tbody className="divide-y divide-line">
                   {[
-                    { data: 'Nom, prénom', purpose: 'Traitement des demandes', duration: '3 ans' },
-                    { data: 'E-mail', purpose: 'Réponse aux demandes, relation client', duration: '3 ans' },
-                    { data: 'Téléphone', purpose: 'Contact commercial', duration: '3 ans' },
+                    { data: 'Nom, prénom', purpose: 'Traitement des demandes', duration: '3 ans après le dernier contact' },
+                    { data: 'E-mail', purpose: 'Réponse aux demandes, relation client', duration: '3 ans après le dernier contact' },
+                    { data: 'Téléphone', purpose: 'Contact commercial', duration: '3 ans après le dernier contact' },
                     { data: 'Messages envoyés', purpose: 'Suivi des demandes', duration: '1 an' },
                   ].map((row) => (
                     <tr key={row.data} className="text-ink-soft hover:bg-sand transition-colors">
@@ -109,16 +109,16 @@ export default function PolitiqueConfidentialitePage() {
               5. Cookies
             </h2>
             <p className="text-sm">
-              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience. Si un outil de statistiques est ajouté plus tard, votre consentement sera demandé au préalable.
+              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience, c'est pourquoi aucun bandeau de consentement n'est affiché. Les vidéos YouTube et Instagram ne sont chargées que si vous cliquez dessus : ces plateformes peuvent alors déposer leurs propres cookies, selon leurs politiques. Un cookie technique, strictement nécessaire, est utilisé uniquement pour l'espace privé de gestion réservé à l'éditeur. Si un outil de statistiques est ajouté plus tard, votre consentement sera demandé au préalable lorsque la loi l'exige.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-ink mb-4 border-l-4 border-brand pl-4">
-              6. Transferts hors UE
+              6. Destinataires et transferts hors UE
             </h2>
             <p className="text-sm">
-              Vos données sont hébergées sur les serveurs de Vercel Inc. (États-Unis). Ce transfert est encadré par les garanties appropriées (Clauses Contractuelles Types de la Commission Européenne).
+              Vos données ne sont ni vendues ni cédées. Elles sont uniquement accessibles à Ricky GALIN et aux prestataires techniques nécessaires au fonctionnement du site : Vercel Inc. (hébergement du site), Resend (envoi de l'e-mail de notification lors d'une demande de contact) et GitHub Inc. (stockage privé du fichier de suivi des demandes). Ces prestataires sont situés aux États-Unis ; ces transferts sont encadrés par des garanties appropriées (Clauses Contractuelles Types de la Commission européenne et/ou Data Privacy Framework UE-États-Unis).
             </p>
           </section>
 
