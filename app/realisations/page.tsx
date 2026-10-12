@@ -53,7 +53,7 @@ export default function RealisationsPage() {
                   rel="noopener noreferrer"
                   className="mt-5 inline-block text-sm font-semibold text-brand-deep hover:underline"
                 >
-                  Voir le compte →
+                  {r.link.includes('instagram.com') ? 'Voir le compte →' : 'Voir le site →'}
                 </a>
               )}
             </article>
