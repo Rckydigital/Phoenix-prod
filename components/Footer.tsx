@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SITE, NAV_LINKS } from '@/lib/constants'
+import { SITE, NAV_LINKS, LAST_UPDATE } from '@/lib/constants'
 import Logo from '@/components/Logo'
 
 export default function Footer() {
