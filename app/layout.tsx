@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   alternates: { canonical: './' },
+  // Validation Google Search Console : variable GOOGLE_SITE_VERIFICATION dans Vercel
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
 }
 
 const schemaOrg = {
