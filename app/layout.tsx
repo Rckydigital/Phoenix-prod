@@ -51,7 +51,7 @@ const schemaOrg = {
     addressRegion: 'Guadeloupe',
     addressCountry: 'FR',
   },
-  sameAs: [SITE.social.instagram],
+  sameAs: [SITE.social.instagram, SITE.social.google],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

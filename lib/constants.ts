@@ -19,6 +19,7 @@ export const SITE = {
   calendly: process.env.NEXT_PUBLIC_CALENDLY_URL || '',
   social: {
     instagram: 'https://www.instagram.com/_rcky_digital/',
+    google: 'https://share.google/eoM0Q4PmMPo3JHaZK',
   },
 }
 
