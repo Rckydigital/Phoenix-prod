@@ -181,5 +181,42 @@ export const NAV_LINKS = [
   { href: '/', label: 'Accueil' },
   { href: '/services', label: 'Services & tarifs' },
   { href: '/realisations', label: 'Réalisations' },
+  { href: '/a-propos', label: 'À propos' },
   { href: '/contact', label: 'Contact' },
 ]
+
+// FAQ (page Services, données structurées et /ai/faq.json). Doit rester cohérente avec les CGV.
+export const FAQ = [
+  {
+    q: 'Pourquoi des prix « à partir de » ?',
+    a: 'Chaque projet est différent (taille du lieu, nombre de vidéos, pages du site…). Le prix affiché est le point de départ ; vous recevez un devis précis et gratuit avant tout engagement. Nos prix sont finaux : TVA non applicable (art. 293 B du CGI), rien ne s’ajoute.',
+  },
+  {
+    q: 'Est-ce que vous vous déplacez ?',
+    a: 'Oui, partout en Guadeloupe pour les shootings (frais de déplacement indiqués sur le devis hors Grande-Terre). Le reste (montage, réseaux, site) se fait à distance, avec des points réguliers.',
+  },
+  {
+    q: 'Qui possède les photos et vidéos ?',
+    a: 'Une fois le projet réglé, vous pouvez utiliser les contenus pour la promotion de votre activité : site, réseaux sociaux, plateformes de réservation, newsletters et supports imprimés. Les droits cédés sont précisés sur le devis et dans nos conditions générales de vente.',
+  },
+  {
+    q: 'Comment se passe le paiement ?',
+    a: 'Un acompte de 40 % à la commande, le solde à la livraison. Les forfaits mensuels (réseaux sociaux, maintenance) se règlent en début de mois, avec une durée minimale de 3 mois puis un préavis de 30 jours.',
+  },
+  {
+    q: 'Quels types d’entreprises accompagnez-vous ?',
+    a: 'Surtout les petites entreprises de Guadeloupe : gîtes, villas et locations saisonnières, excursions et activités, salons de coiffure, instituts de beauté, barbiers, ongleries et commerces locaux.',
+  },
+  {
+    q: 'Le site avec réservation inclut-il l’abonnement ?',
+    a: 'Le site est créé sur Wix avec réservation ou prise de rendez-vous en ligne. L’abonnement Wix (environ 30 € par mois) est pris au nom du client, qui reste propriétaire de son site et de son nom de domaine.',
+  },
+]
+
+// Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
+export const LAST_UPDATE = '2026-10-12'
+
+export const priceNumber = (p: string) => {
+  const m = p.match(/(\d[\d\s]*)/)
+  return m ? Number(m[1].replace(/\s/g, '')) : undefined
+}

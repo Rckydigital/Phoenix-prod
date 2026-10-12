@@ -1,0 +1,7 @@
+# ai.txt — RCKY DIGITAL
+# Les robots d'IA peuvent lire et citer les pages publiques de ce site.
+User-Agent: *
+Allow: /
+Disallow: /qg
+Disallow: /api/
+# Résumé pour les IA : /llms.txt · /ai/summary.json · /ai/service.json · /ai/faq.json

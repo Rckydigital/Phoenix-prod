@@ -74,7 +74,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 text-xs text-white/60 md:flex-row">
           <p>
-            © {new Date().getFullYear()} {SITE.name} — {SITE.owner}, entrepreneur individuel. SIRET {SITE.siret}
+            © {new Date().getFullYear()} {SITE.name} — {SITE.owner}, entrepreneur individuel. SIRET {SITE.siret} · Mis à jour le <time dateTime={LAST_UPDATE}>{new Date(LAST_UPDATE + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
           </p>
           <div className="flex gap-6">
             <Link href="/mentions-legales" className="hover:text-white">

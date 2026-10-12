@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { SERVICES, PACKS, LAUNCH_OFFER, SITE } from '@/lib/constants'
+import { SERVICES, PACKS, LAUNCH_OFFER, SITE, FAQ } from '@/lib/constants'
 import ServiceCard from '@/components/ServiceCard'
 
 export const metadata: Metadata = {
@@ -9,28 +9,17 @@ export const metadata: Metadata = {
     'Shooting photo et vidéo, gestion des réseaux sociaux, site avec réservation, montage vidéo : les services et tarifs de RCKY DIGITAL en Guadeloupe.',
 }
 
-const FAQ = [
-  {
-    q: 'Pourquoi des prix « à partir de » ?',
-    a: 'Chaque projet est différent (taille du lieu, nombre de vidéos, pages du site…). Le prix affiché est le point de départ ; vous recevez un devis précis et gratuit avant tout engagement. Nos prix sont finaux : TVA non applicable (art. 293 B du CGI), rien ne s’ajoute.',
-  },
-  {
-    q: 'Est-ce que vous vous déplacez ?',
-    a: 'Oui, partout en Guadeloupe pour les shootings. Le reste (montage, réseaux, site) se fait à distance, avec des points réguliers.',
-  },
-  {
-    q: 'Qui possède les photos et vidéos ?',
-    a: 'Vous. Une fois le projet réglé, vous pouvez utiliser les contenus librement sur votre site, vos réseaux et vos annonces.',
-  },
-  {
-    q: 'Comment se passe le paiement ?',
-    a: 'Un acompte à la commande, le solde à la livraison. Pour les forfaits mensuels, un paiement par mois, sans engagement de durée.',
-  },
-]
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+}
 
 export default function ServicesPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <section className="bg-sand pb-16 pt-32 md:pt-40">
         <div className="container-site">
           <span className="eyebrow">Services et tarifs</span>
