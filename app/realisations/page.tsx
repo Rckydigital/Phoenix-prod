@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { REALISATIONS } from '@/lib/constants'
+import { REALISATIONS, VIDEOS } from '@/lib/constants'
+import VideoEmbed from '@/components/VideoEmbed'
 
 export const metadata: Metadata = {
   title: 'Réalisations',
@@ -21,6 +22,20 @@ export default function RealisationsPage() {
           </p>
         </div>
       </section>
+
+      {VIDEOS.length > 0 && (
+        <section className="pt-16 md:pt-20">
+          <div className="container-site">
+            <h2 className="section-title">En vidéo</h2>
+            <p className="section-subtitle">Quelques contenus réalisés, à regarder directement ici.</p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {VIDEOS.map((v) => (
+                <VideoEmbed key={v.url} video={v} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-16 md:py-20">
         <div className="container-site grid gap-6 md:grid-cols-2 lg:grid-cols-3">
