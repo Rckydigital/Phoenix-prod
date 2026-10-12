@@ -144,6 +144,14 @@ export const REALISATIONS = [
       "Création et animation du compte Instagram d'un centre de formation, réalisées dans le cadre de mon alternance.",
     link: 'https://www.instagram.com/cfa_iuts/',
   },
+  {
+    id: 'certylux',
+    title: 'CertyLux',
+    category: 'E-commerce',
+    description:
+      "Projet de master : conception d'une marque fictive de luxe de seconde main et de son site e-commerce complet (WordPress, WooCommerce), du catalogue au parcours d'achat.",
+    link: 'https://certylux.fr',
+  },
 ]
 
 // Vidéos affichées dans « Réalisations » (Instagram : post ou reel ; YouTube : vidéo ou short).
