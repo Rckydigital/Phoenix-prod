@@ -48,6 +48,53 @@ async function listDir(path: string): Promise<{ name: string; path: string }[]> 
   return data.filter((f: { type: string }) => f.type === 'file').map((f: { name: string; path: string }) => ({ name: f.name, path: f.path }))
 }
 
+export type TreeFile = { path: string; size: number }
+
+export async function listTree(): Promise<TreeFile[]> {
+  const local = await localFs()
+  if (local) {
+    const out: TreeFile[] = []
+    const walk = async (rel: string) => {
+      const entries = await local.fs.readdir(local.p.join(local.dir, rel), { withFileTypes: true }).catch(() => [])
+      for (const e of entries) {
+        if (e.name.startsWith('.git') && e.name !== '.gitkeep') continue
+        const r = rel ? `${rel}/${e.name}` : e.name
+        if (e.isDirectory()) await walk(r)
+        else out.push({ path: r, size: (await local.fs.stat(local.p.join(local.dir, r))).size })
+      }
+    }
+    await walk('')
+    return out
+  }
+  const token = process.env.CRM_GITHUB_TOKEN
+  if (!token) throw new Error('CRM_GITHUB_TOKEN manquant')
+  const res = await fetch(`https://api.github.com/repos/${REPO()}/git/trees/HEAD?recursive=1`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+    next: { revalidate: 120 },
+  })
+  if (!res.ok) throw new Error(`GitHub ${res.status} (arborescence)`)
+  const json = await res.json()
+  return (json.tree || []).filter((t: { type: string }) => t.type === 'blob').map((t: { path: string; size: number }) => ({ path: t.path, size: t.size || 0 }))
+}
+
+// Lecture brute d'un fichier (pour l'affichage / le téléchargement depuis le QG)
+export async function readRaw(path: string): Promise<ArrayBuffer | null> {
+  const local = await localFs()
+  if (local) {
+    const buf = await local.fs.readFile(local.p.join(local.dir, path)).catch(() => null)
+    return buf ? buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength) as ArrayBuffer : null
+  }
+  const token = process.env.CRM_GITHUB_TOKEN
+  if (!token) return null
+  const url = `https://api.github.com/repos/${REPO()}/contents/${path.split('/').map(encodeURIComponent).join('/')}`
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.raw', 'X-GitHub-Api-Version': '2022-11-28' },
+    cache: 'no-store',
+  })
+  if (!res.ok) return null
+  return res.arrayBuffer()
+}
+
 export function frontmatter(md: string): Record<string, string> {
   const m = md.match(/^---\n([\s\S]*?)\n---/)
   const out: Record<string, string> = {}
@@ -88,16 +135,20 @@ export type AgentDef = {
   schedule: string
   match: string[] // mots repérés dans la colonne « Agent » du journal
   reportPrefix?: string // préfixe des rapports dans 30 - Agents/Journaux
+  folder: string // dossier de fichiers dans le cerveau
   color: string
 }
 
 export const AGENTS: AgentDef[] = [
-  { id: 'directeur', name: 'Directeur', role: 'Chef d’orchestre, briefing et mails', schedule: 'Lun-ven · 6h45', match: ['directeur'], color: '#E8742A' },
-  { id: 'commercial', name: 'Commercial', role: 'Prospects, relances, devis', schedule: 'Lundi', match: ['commercial'], reportPrefix: 'Commercial', color: '#2A93A8' },
-  { id: 'marketing', name: 'Marketing', role: 'Contenus et visibilité de l’agence', schedule: 'Mercredi', match: ['marketing'], reportPrefix: 'Contenu', color: '#7A2E6B' },
-  { id: 'finance', name: 'Finance & Admin', role: 'CA, factures, échéances', schedule: 'Vendredi', match: ['finance'], reportPrefix: 'Finance', color: '#C8383C' },
-  { id: 'veille', name: 'Veille', role: 'Tendances, ressources, apprentissage', schedule: 'Mardi et jeudi', match: ['veille'], reportPrefix: 'Veille', color: '#3F7D4E' },
+  { id: 'directeur', folder: '70 - Fichiers/Directeur', name: 'Directeur', role: 'Chef d’orchestre, briefing et mails', schedule: 'Lun-ven · 6h45', match: ['directeur'], color: '#E8742A' },
+  { id: 'commercial', folder: '70 - Fichiers/Commercial', name: 'Commercial', role: 'Prospects, relances, devis', schedule: 'Lundi', match: ['commercial'], reportPrefix: 'Commercial', color: '#2A93A8' },
+  { id: 'marketing', folder: '70 - Fichiers/Marketing', name: 'Marketing', role: 'Contenus et visibilité de l’agence', schedule: 'Mercredi', match: ['marketing'], reportPrefix: 'Contenu', color: '#7A2E6B' },
+  { id: 'finance', folder: '70 - Fichiers/Finance', name: 'Finance & Admin', role: 'CA, factures, échéances', schedule: 'Vendredi', match: ['finance'], reportPrefix: 'Finance', color: '#C8383C' },
+  { id: 'veille', folder: '70 - Fichiers/Veille', name: 'Veille', role: 'Tendances, ressources, apprentissage', schedule: 'Mardi et jeudi', match: ['veille'], reportPrefix: 'Veille', color: '#3F7D4E' },
 ]
+
+export type AgentFile = { path: string; name: string; group: string; size: number; ext: string }
+export type Post = { path: string; name: string; statut: string; date_prevue: string; date_publication: string; canva: string; format: string }
 
 export type QGData = {
   today: string
@@ -105,6 +156,9 @@ export type QGData = {
     last?: JournalEntry
     recent: JournalEntry[]
     report?: { name: string; excerpt: string }
+    files: AgentFile[]
+    groups: string[]
+    posts?: Post[]
   })[]
   aValider: string[]
   priorites: string[]
@@ -122,7 +176,7 @@ export async function loadQG(): Promise<QGData> {
   const today = todayGP()
   const empty: QGData = {
     today,
-    agents: AGENTS.map((a) => ({ ...a, recent: [] })),
+    agents: AGENTS.map((a) => ({ ...a, recent: [], files: [], groups: [] })),
     aValider: [],
     priorites: [],
     crm: { total: 0, nouveaux: 0, prospects: 0, enCours: 0, actifs: 0, recents: [] },
@@ -131,11 +185,12 @@ export async function loadQG(): Promise<QGData> {
   }
 
   try {
-    const [journalMd, dashboardMd, reports, fiches] = await Promise.all([
+    const [journalMd, dashboardMd, reports, fiches, tree] = await Promise.all([
       readFile('30 - Agents/Journaux/Journal.md'),
       readFile('Tableau de bord.md'),
       listDir('30 - Agents/Journaux'),
       listDir('50 - Clients/Fiches'),
+      listTree().catch(() => [] as TreeFile[]),
     ])
 
     const journal: JournalEntry[] = (journalMd || '')
@@ -165,7 +220,43 @@ export async function loadQG(): Promise<QGData> {
             }
           }
         }
-        return { ...a, last: mine[0], recent: mine.slice(0, 5), report }
+        const groups = Array.from(
+          new Set(
+            tree
+              .filter((t) => t.path.startsWith(a.folder + '/'))
+              .map((t) => t.path.slice(a.folder.length + 1).split('/'))
+              .filter((p) => p.length > 1)
+              .map((p) => p[0]),
+          ),
+        ).sort()
+        const files: AgentFile[] = tree
+          .filter((t) => t.path.startsWith(a.folder + '/') && !t.path.endsWith('.gitkeep') && !t.path.endsWith('.base'))
+          .map((t) => {
+            const rest = t.path.slice(a.folder.length + 1)
+            const parts = rest.split('/')
+            const name = parts[parts.length - 1]
+            return { path: t.path, name, group: parts.length > 1 ? parts[0] : 'Général', size: t.size, ext: (name.split('.').pop() || '').toLowerCase() }
+          })
+          .sort((x, y) => x.group.localeCompare(y.group) || x.name.localeCompare(y.name))
+        let posts: Post[] | undefined
+        if (a.id === 'marketing') {
+          const postFiles = files.filter((f) => f.group === 'Posts' && f.ext === 'md')
+          posts = await Promise.all(
+            postFiles.map(async (f) => {
+              const fm = frontmatter((await readFile(f.path)) || '')
+              return {
+                path: f.path,
+                name: f.name.replace(/\.md$/, ''),
+                statut: fm.statut || 'À valider',
+                date_prevue: fm.date_prevue || '',
+                date_publication: fm.date_publication || '',
+                canva: fm.canva || '',
+                format: fm.format || '',
+              }
+            }),
+          )
+        }
+        return { ...a, last: mine[0], recent: mine.slice(0, 5), report, groups: groups.filter((g) => !(a.id === 'marketing' && g === 'Posts')), files: files.filter((f) => !(a.id === 'marketing' && f.group === 'Posts')), posts }
       }),
     )
 

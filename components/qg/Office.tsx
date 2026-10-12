@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { QGData, JournalEntry } from '@/lib/vault'
+import type { QGData, JournalEntry, AgentFile, Post } from '@/lib/vault'
 
 // ---------- Géométrie isométrique ----------
 const TW = 36 // demi-largeur d'une tuile
@@ -308,7 +308,7 @@ export default function Office({ data }: { data: QGData }) {
           </div>
 
           {/* Panneau de détail */}
-          <aside className="rounded-3xl border border-line bg-white p-6" aria-live="polite">
+          <aside className="rounded-3xl border border-line bg-white p-6 lg:max-h-[760px] lg:overflow-y-auto" aria-live="polite">
             <Panel sel={sel} data={data} statuses={statuses} />
           </aside>
         </div>
@@ -428,6 +428,8 @@ function Panel({ sel, data, statuses }: { sel: Sel; data: QGData; statuses: Reco
       ) : (
         <p className="mt-2 text-ink-soft">Pas encore d’activité. {a.id === 'directeur' ? 'Premier briefing lundi à 6h45.' : 'Cet agent sera activé plus tard.'}</p>
       )}
+      {a.posts && <Posts posts={a.posts} />}
+      <Folder files={a.files} groups={a.groups} folder={a.folder} />
       {a.report && (
         <>
           <h3 className="mt-6 font-bold text-ink">Dernier rapport</h3>
@@ -435,6 +437,111 @@ function Panel({ sel, data, statuses }: { sel: Sel; data: QGData; statuses: Reco
           <p className="mt-2 whitespace-pre-line rounded-xl bg-sand px-3 py-2 text-sm text-ink-soft">{a.report.excerpt}</p>
         </>
       )}
+    </div>
+  )
+}
+
+const fileUrl = (path: string, download = false) => `/api/qg/file?path=${encodeURIComponent(path)}${download ? '&download=1' : ''}`
+const isImage = (ext: string) => ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'].includes(ext)
+const fmtDate = (d: string) => (d ? new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) : '')
+const fmtSize = (n: number) => (n > 1048576 ? `${(n / 1048576).toFixed(1)} Mo` : n > 1024 ? `${Math.round(n / 1024)} Ko` : `${n} o`)
+
+function FileIcon({ ext }: { ext: string }) {
+  const label = ext === 'md' ? 'FICHE' : ext.toUpperCase().slice(0, 4)
+  const color = ext === 'pdf' ? '#C8383C' : ext === 'csv' ? '#3F7D4E' : ext === 'md' ? '#7A2E6B' : '#2A93A8'
+  return (
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[9px] font-bold text-white" style={{ background: color }} aria-hidden="true">
+      {label}
+    </span>
+  )
+}
+
+function Folder({ files, groups, folder }: { files: AgentFile[]; groups: string[]; folder: string }) {
+  const allGroups = Array.from(new Set([...groups, ...files.map((f) => f.group)]))
+  return (
+    <div className="mt-6">
+      <h3 className="font-bold text-ink">Dossier</h3>
+      <p className="mt-1 text-xs text-ink-muted">Dans Obsidian : {folder}</p>
+      {allGroups.length === 0 && <p className="mt-2 text-sm text-ink-soft">Aucun fichier pour l’instant.</p>}
+      <div className="mt-3 space-y-4">
+        {allGroups.map((g) => {
+          const list = files.filter((f) => f.group === g)
+          return (
+            <div key={g}>
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">{g} · {list.length}</p>
+              {list.length === 0 ? (
+                <p className="mt-1 text-sm text-ink-muted">Vide</p>
+              ) : (
+                <ul className="mt-2 space-y-2">
+                  {list.map((f) => (
+                    <li key={f.path} className="flex items-center gap-3 rounded-xl border border-line px-3 py-2">
+                      {isImage(f.ext) ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={fileUrl(f.path)} alt="" className="h-9 w-9 shrink-0 rounded-lg border border-line bg-white object-contain" />
+                      ) : (
+                        <FileIcon ext={f.ext} />
+                      )}
+                      <a href={fileUrl(f.path)} target="_blank" rel="noopener noreferrer" className="min-w-0 flex-1 truncate text-sm font-medium text-ink hover:text-brand-deep">
+                        {f.name}
+                      </a>
+                      <span className="hidden text-xs text-ink-muted sm:inline">{fmtSize(f.size)}</span>
+                      <a href={fileUrl(f.path, true)} className="rounded-full px-2 py-1 text-xs font-semibold text-brand-deep hover:bg-brand-soft" aria-label={`Télécharger ${f.name}`}>
+                        ↓
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+const POST_STATUS = [
+  { key: 'À valider', color: 'bg-brand-soft text-brand-deep' },
+  { key: 'Programmé', color: 'bg-teal-soft text-teal-deep' },
+  { key: 'Publié', color: 'bg-[#EAF3EC] text-[#2E6B3C]' },
+]
+
+function Posts({ posts }: { posts: Post[] }) {
+  const sorted = [...posts].sort((a, b) => (a.date_prevue || '').localeCompare(b.date_prevue || ''))
+  return (
+    <div className="mt-6">
+      <h3 className="font-bold text-ink">Posts Instagram</h3>
+      <div className="mt-2 flex flex-wrap gap-2 text-xs">
+        {POST_STATUS.map((s) => (
+          <span key={s.key} className={`rounded-full px-2.5 py-1 font-semibold ${s.color}`}>
+            {s.key} : {posts.filter((p) => p.statut === s.key).length}
+          </span>
+        ))}
+      </div>
+      <ul className="mt-3 space-y-2">
+        {sorted.map((p) => {
+          const st = POST_STATUS.find((s) => s.key === p.statut) || POST_STATUS[0]
+          return (
+            <li key={p.path} className="rounded-xl border border-line px-3 py-2">
+              <div className="flex items-start justify-between gap-2">
+                <a href={fileUrl(p.path)} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-ink hover:text-brand-deep">
+                  {p.name}
+                </a>
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${st.color}`}>{p.statut}</span>
+              </div>
+              <p className="mt-1 text-xs text-ink-muted">
+                {p.statut === 'Publié' && p.date_publication ? `Publié le ${fmtDate(p.date_publication)}` : p.date_prevue ? `Prévu le ${fmtDate(p.date_prevue)}` : 'Date à définir'}
+                {p.canva && (
+                  <>
+                    {' · '}
+                    <a href={p.canva} target="_blank" rel="noopener noreferrer" className="font-semibold text-teal-deep hover:underline">Visuel Canva</a>
+                  </>
+                )}
+              </p>
+            </li>
+          )
+        })}
+      </ul>
     </div>
   )
 }
