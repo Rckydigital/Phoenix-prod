@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: './' },
   // Validation Google Search Console (code public, non secret)
-  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || 'PK-xn4-K9kic7yoxOSGH46YbhyYD56xfKr_oEFeiWpI' },
+  verification: { google: 'PK-xn4-K9kic7yoxOSGH46YbhyYD56xfKr_oEFeiWpI' },
 }
 
 const schemaOrg = {
