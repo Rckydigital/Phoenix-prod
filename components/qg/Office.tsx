@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { QGData, JournalEntry, AgentFile, Post } from '@/lib/vault'
 
 // ---------- Géométrie isométrique ----------
@@ -97,7 +97,12 @@ const DESKS: Record<string, { x: number; y: number; rug: string }> = {
 type Sel = string // id d'agent, 'reunion' ou 'crm'
 
 export default function Office({ data }: { data: QGData }) {
-  const [sel, setSel] = useState<Sel>('directeur')
+  const [sel, setSel] = useState<Sel | null>(null)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSel(null)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
   const statuses = Object.fromEntries(data.agents.map((a) => [a.id, statusOf(a.last, data.today)]))
   const activeCount = Object.values(statuses).filter((s) => s.key === 'on').length
   const progress = Math.min(100, Math.round((data.objectifs.clientsActifs / data.objectifs.clientsCible) * 100))
@@ -193,7 +198,7 @@ export default function Office({ data }: { data: QGData }) {
         @media (prefers-reduced-motion: reduce) { .qg-bob, .qg-glow { animation: none } }
       `}</style>
 
-      <div className="container-site">
+      <div className="mx-auto max-w-[1600px] px-4 sm:px-6">
         {/* En-tête */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -230,10 +235,17 @@ export default function Office({ data }: { data: QGData }) {
           ))}
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.55fr_1fr]">
+        <div className="mt-6">
           {/* Bureau isométrique */}
           <div className="overflow-hidden rounded-3xl border border-line bg-white">
-            <svg viewBox="40 30 750 500" className="h-auto w-full" role="group" aria-label="Plan du bureau : cliquez sur un poste pour voir le détail">
+            <div className="relative">
+            {!sel && (
+              <p className="pointer-events-none absolute left-4 top-4 z-10 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-ink-soft shadow-sm">
+                Touche un poste pour ouvrir son bureau<span className="lg:hidden"> · glisse pour explorer</span>
+              </p>
+            )}
+            <div className="overflow-x-auto lg:overflow-visible">
+            <svg viewBox="50 35 740 490" className="block h-auto w-full min-w-[760px] lg:h-[calc(100vh-230px)] lg:min-h-[560px] lg:min-w-0" role="group" aria-label="Plan du bureau : cliquez sur un poste pour voir le détail">
               {/* murs */}
               <polygon points={pts(P(0, 0), P(W, 0), P(W, 0, WALL), P(0, 0, WALL))} fill="#F4EDE4" />
               <polygon points={pts(P(0, 0), P(0, D), P(0, D, WALL), P(0, 0, WALL))} fill="#EADFD1" />
@@ -268,7 +280,7 @@ export default function Office({ data }: { data: QGData }) {
                 </g>
               </g>
               {/* sol */}
-              <polygon points={pts(P(0, 0), P(W, 0), P(W, D), P(0, D))} fill="#FAF7F3" stroke="#E3DCD3" />
+              <polygon points={pts(P(0, 0), P(W, 0), P(W, D), P(0, D))} fill="#FAF7F3" stroke="#E3DCD3" onClick={() => setSel(null)} />
               {Array.from({ length: W - 1 }, (_, i) => (
                 <line key={'gx' + i} x1={P(i + 1, 0)[0]} y1={P(i + 1, 0)[1]} x2={P(i + 1, D)[0]} y2={P(i + 1, D)[1]} stroke="#EFE8DF" />
               ))}
@@ -278,6 +290,31 @@ export default function Office({ data }: { data: QGData }) {
               {items.map((it) => it.node)}
               {tags}
             </svg>
+            </div>
+
+            {/* Fenêtre de détail, posée sur le bureau */}
+            {sel && (
+              <div className="fixed inset-x-0 bottom-0 z-50 max-h-[78vh] lg:absolute lg:inset-x-auto lg:bottom-4 lg:right-4 lg:top-4 lg:max-h-none lg:w-[430px] lg:p-0">
+                <aside
+                  role="dialog"
+                  aria-label="Détail du poste"
+                  className="relative flex h-full max-h-[78vh] flex-col overflow-hidden rounded-t-3xl border border-line bg-white shadow-[0_24px_60px_-20px_rgba(30,42,51,0.45)] lg:max-h-none lg:rounded-3xl"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setSel(null)}
+                    className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-sand text-ink hover:bg-line"
+                    aria-label="Fermer"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                  </button>
+                  <div className="overflow-y-auto p-6 pr-14">
+                    <Panel sel={sel} data={data} statuses={statuses} />
+                  </div>
+                </aside>
+              </div>
+            )}
+            </div>
 
             {/* Accès rapide (pratique sur téléphone) */}
             <div className="flex flex-wrap gap-2 border-t border-line px-5 py-3">
@@ -285,7 +322,7 @@ export default function Office({ data }: { data: QGData }) {
                 <button
                   key={b.id}
                   type="button"
-                  onClick={() => setSel(b.id)}
+                  onClick={() => setSel(sel === b.id ? null : b.id)}
                   aria-pressed={sel === b.id}
                   className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
                   style={sel === b.id ? { background: b.color, borderColor: b.color, color: '#fff' } : { borderColor: '#ECE6DF', color: '#1E2A33' }}
@@ -307,10 +344,6 @@ export default function Office({ data }: { data: QGData }) {
             </div>
           </div>
 
-          {/* Panneau de détail */}
-          <aside className="rounded-3xl border border-line bg-white p-6 lg:max-h-[760px] lg:overflow-y-auto" aria-live="polite">
-            <Panel sel={sel} data={data} statuses={statuses} />
-          </aside>
         </div>
 
         {/* Journal */}
