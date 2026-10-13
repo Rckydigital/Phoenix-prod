@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import type { QGData, JournalEntry, AgentFile, Post } from '@/lib/vault'
 import Scene from '@/components/qg/Scene'
+import Tresorerie from '@/components/qg/Tresorerie'
 
 // ---------- Statut ----------
 function daysBetween(a: string, b: string) {
@@ -16,7 +17,7 @@ function statusOf(last: JournalEntry | undefined, today: string): { key: 'on' | 
   return { key: 'off', text: `Dernier passage le ${last.date}` }
 }
 
-type Sel = string // id d'agent, 'reunion' ou 'crm'
+type Sel = string // id d'agent, 'reunion', 'crm' ou 'tresorerie'
 
 export default function Office({ data }: { data: QGData }) {
   const [sel, setSel] = useState<Sel | null>(null)
@@ -63,12 +64,13 @@ export default function Office({ data }: { data: QGData }) {
         )}
 
         {/* Indicateurs */}
-        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-5">
           {[
             { k: 'Agents actifs aujourd’hui', v: `${activeCount} / ${data.agents.length}` },
             { k: 'À valider par toi', v: String(data.aValider.length), on: () => setSel('reunion') },
             { k: 'Nouvelles demandes', v: String(data.crm.nouveaux), on: () => setSel('crm') },
             { k: 'Prospects en cours', v: String(data.crm.prospects + data.crm.enCours), on: () => setSel('crm') },
+            { k: 'Solde du mois', v: (() => { const m = data.today.slice(0, 7); const s = data.operations.filter((o) => o.date.startsWith(m)).reduce((t, o) => t + (o.sens === 'Entrée' ? o.montant : -o.montant), 0); return (s < 0 ? '−' : '') + Math.abs(s).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }) })(), on: () => setSel('tresorerie') },
           ].map((s) => (
             <button key={s.k} type="button" onClick={s.on} className="rounded-2xl border border-line bg-white px-4 py-3 text-left transition-shadow hover:shadow-md">
               <p className="text-xs text-ink-muted">{s.k}</p>
@@ -116,7 +118,7 @@ export default function Office({ data }: { data: QGData }) {
 
             {/* Accès rapide (pratique sur téléphone) */}
             <div className="flex flex-wrap gap-2 border-t border-line px-5 py-3">
-              {[...data.agents.map((a) => ({ id: a.id, label: a.name, color: a.color })), { id: 'reunion', label: 'Réunion', color: '#1E2A33' }, { id: 'crm', label: 'CRM', color: '#B4511A' }].map((b) => (
+              {[...data.agents.map((a) => ({ id: a.id, label: a.name, color: a.color })), { id: 'reunion', label: 'Réunion', color: '#1E2A33' }, { id: 'crm', label: 'CRM', color: '#B4511A' }, { id: 'tresorerie', label: 'Trésorerie', color: '#2F6B45' }].map((b) => (
                 <button
                   key={b.id}
                   type="button"
@@ -187,6 +189,8 @@ function Panel({ sel, data, statuses }: { sel: Sel; data: QGData; statuses: Reco
       </div>
     )
   }
+
+  if (sel === 'tresorerie') return <Tresorerie operations={data.operations} today={data.today} />
 
   if (sel === 'crm') {
     return (

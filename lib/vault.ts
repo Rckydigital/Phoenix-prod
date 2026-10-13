@@ -151,6 +151,22 @@ export const AGENTS: AgentDef[] = [
 export type AgentFile = { path: string; name: string; group: string; size: number; ext: string }
 export type Post = { path: string; name: string; statut: string; date_prevue: string; date_publication: string; canva: string; format: string }
 
+export type Operation = {
+  path: string
+  date: string
+  sens: 'Entrée' | 'Sortie'
+  montant: number
+  libelle: string
+  categorie: string
+  tiers: string
+  recurrence: string
+  prochain_renouvellement: string
+  montant_renouvellement: number
+  abby: string
+}
+
+export const OPS_FOLDER = '70 - Fichiers/Finance/Opérations'
+
 export type QGData = {
   today: string
   agents: (AgentDef & {
@@ -166,6 +182,7 @@ export type QGData = {
   crm: { total: number; nouveaux: number; prospects: number; enCours: number; actifs: number; recents: { nom: string; statut: string; source: string }[] }
   objectifs: { clientsActifs: number; clientsCible: number }
   journal: JournalEntry[]
+  operations: Operation[]
   error?: string
 }
 
@@ -183,6 +200,7 @@ export async function loadQG(): Promise<QGData> {
     crm: { total: 0, nouveaux: 0, prospects: 0, enCours: 0, actifs: 0, recents: [] },
     objectifs: { clientsActifs: 0, clientsCible: 4 },
     journal: [],
+    operations: [],
   }
 
   try {
@@ -286,8 +304,35 @@ export async function loadQG(): Promise<QGData> {
         .map((f) => ({ nom: f.fm.entreprise || f.name, statut: f.fm.statut || '', source: f.fm.source || '' })),
     }
 
+    const num = (v: string) => Number(String(v || '0').replace(',', '.').replace(/[^0-9.-]/g, '')) || 0
+    const opFiles = tree.filter((t) => t.path.startsWith(OPS_FOLDER + '/') && t.path.endsWith('.md'))
+    const operations: Operation[] = (
+      await Promise.all(
+        opFiles.map(async (f) => {
+          const o = frontmatter((await readFile(f.path)) || '')
+          if (!/^\d{4}-\d{2}-\d{2}/.test(o.date || '')) return null
+          return {
+            path: f.path,
+            date: o.date.slice(0, 10),
+            sens: (o.sens || '').toLowerCase().startsWith('e') ? 'Entrée' : 'Sortie',
+            montant: Math.abs(num(o.montant)),
+            libelle: o.libelle || f.path.split('/').pop()!.replace(/\.md$/, ''),
+            categorie: o.categorie || '',
+            tiers: o.tiers || '',
+            recurrence: o.recurrence || 'Ponctuel',
+            prochain_renouvellement: (o.prochain_renouvellement || '').slice(0, 10),
+            montant_renouvellement: num(o.montant_renouvellement),
+            abby: o.abby || '',
+          } as Operation
+        }),
+      )
+    )
+      .filter((o): o is Operation => o !== null)
+      .sort((a, b) => b.date.localeCompare(a.date))
+
     return {
       today,
+      operations,
       agents,
       aValider,
       priorites,
