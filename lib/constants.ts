@@ -11,7 +11,7 @@ export const SITE = {
   description:
     "RCKY DIGITAL, agence digitale en Guadeloupe : shooting photo et vidéo, gestion des réseaux sociaux et sites avec réservation pour le tourisme, la beauté et le bien-être.",
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
-  email: 'rckydigital@outlook.fr',
+  email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',
   address: 'Guadeloupe (971)',
   siret: '980 046 965 00011',

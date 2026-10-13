@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       ]
       const { error } = await resend.emails.send({
         from: process.env.CONTACT_FROM_EMAIL || 'RCKY DIGITAL <onboarding@resend.dev>',
-        to: process.env.CONTACT_EMAIL || SITE.email,
+        to: process.env.CONTACT_EMAIL || 'rckydigital@outlook.fr', // destinataire du formulaire inchangé (compte Resend)
         reply_to: data.email,
         subject: `Nouvelle demande site : ${data.name}${data.business ? ` (${data.business})` : ''}`,
         html: `<h2>Nouvelle demande depuis le site</h2>
