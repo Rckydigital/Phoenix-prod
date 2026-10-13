@@ -21,7 +21,6 @@ export const metadata: Metadata = {
     'RCKY DIGITAL',
   ],
   authors: [{ name: SITE.owner }],
-  icons: { icon: '/icon.svg' },
   other: { 'article:modified_time': LAST_UPDATE },
   openGraph: {
     type: 'website',
@@ -57,8 +56,8 @@ const schemaOrg = {
       founder: { '@type': 'Person', name: SITE.owner, jobTitle: 'Fondateur, marketing digital' },
       description: SITE.description,
       url: SITE.url,
-      logo: `${SITE.url}/icon.svg`,
-      image: `${SITE.url}/icon.svg`,
+      logo: `${SITE.url}/logo-rcky-digital.png`,
+      image: `${SITE.url}/logo-rcky-digital.png`,
       telephone: SITE.phone.replace(/\s/g, ''),
       email: SITE.email,
       priceRange: '60 € - 800 €',

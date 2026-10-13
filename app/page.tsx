@@ -56,7 +56,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center rounded-full bg-white shadow-[0_30px_80px_-30px_rgba(30,42,51,0.35)]">
-            <PhoenixIcon className="h-4/5 w-4/5" title="Phénix RCKY DIGITAL" />
+            <PhoenixIcon className="h-4/5 w-4/5" title="Phénix RCKY DIGITAL tenant un objectif photo" large />
           </div>
         </div>
       </section>
