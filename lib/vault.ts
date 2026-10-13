@@ -163,6 +163,7 @@ export type Operation = {
   prochain_renouvellement: string
   montant_renouvellement: number
   abby: string
+  paye_par: 'Pro' | 'Perso'
 }
 
 export const OPS_FOLDER = '70 - Fichiers/Finance/Opérations'
@@ -323,6 +324,7 @@ export async function loadQG(): Promise<QGData> {
             prochain_renouvellement: (o.prochain_renouvellement || '').slice(0, 10),
             montant_renouvellement: num(o.montant_renouvellement),
             abby: o.abby || '',
+            paye_par: (o.paye_par || '').toLowerCase().startsWith('perso') ? 'Perso' : 'Pro',
           } as Operation
         }),
       )

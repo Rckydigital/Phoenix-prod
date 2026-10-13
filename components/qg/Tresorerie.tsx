@@ -48,6 +48,9 @@ export default function Tresorerie({ operations, today }: { operations: Operatio
     .filter((o) => o.recurrence !== 'Ponctuel' && o.prochain_renouvellement)
     .sort((a, b) => a.prochain_renouvellement.localeCompare(b.prochain_renouvellement))
   const aSaisir = operations.filter((o) => o.abby.toLowerCase().startsWith('à saisir') || o.abby.toLowerCase().startsWith('a saisir'))
+  const avances = operations.filter((o) => o.sens === 'Sortie' && o.paye_par === 'Perso').reduce((t, o) => t + o.montant, 0)
+  const rembourse = operations.filter((o) => o.sens === 'Sortie' && o.categorie.toLowerCase().startsWith('remboursement')).reduce((t, o) => t + o.montant, 0)
+  const duARicky = Math.max(0, avances - rembourse)
   const daysTo = (d: string) => Math.round((Date.parse(d) - Date.parse(today)) / 86400000)
 
   const shown = view === 'mois' ? ofMonth : ofYear
@@ -100,6 +103,16 @@ export default function Tresorerie({ operations, today }: { operations: Operatio
         </div>
       </div>
 
+      {duARicky > 0 && (
+        <div className="mt-3 flex items-center justify-between rounded-2xl border border-dashed border-line px-4 py-3">
+          <div>
+            <p className="text-xs text-ink-muted">Avancé par toi (payé avec ton argent perso)</p>
+            <p className="text-[11px] text-ink-muted">À te rembourser quand le compte pro encaissera</p>
+          </div>
+          <p className="text-base font-extrabold text-ink">{eur(duARicky)}</p>
+        </div>
+      )}
+
       {/* Mini graphique annuel (clic = ouvrir le mois) */}
       <div className="mt-5">
         <p className="text-xs font-semibold text-ink-muted">{year} mois par mois · touche un mois pour l’ouvrir</p>
@@ -129,6 +142,7 @@ export default function Tresorerie({ operations, today }: { operations: Operatio
                 <p className="text-xs text-ink-muted">
                   {new Date(o.date + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: view === 'annee' ? undefined : undefined })}
                   {o.tiers && ` · ${o.tiers}`}{o.categorie && ` · ${o.categorie}`}
+                  {o.paye_par === 'Perso' && <span className="ml-1 rounded-full bg-sand px-1.5 py-0.5 font-semibold text-ink-soft">payé perso</span>}
                   {o.sens === 'Sortie' && o.abby.toLowerCase().includes('saisir') && <span className="ml-1 rounded-full bg-brand-soft px-1.5 py-0.5 font-semibold text-brand-deep">à saisir dans Abby</span>}
                 </p>
               </div>
