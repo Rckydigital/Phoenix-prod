@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { SITE, SERVICES, PACKS } from '@/lib/constants'
 import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
+import { track } from '@/lib/track'
 
 // Reçoit le formulaire de contact (envoi classique ou JSON),
 // envoie un email à l'agence via Resend si RESEND_API_KEY est configurée,
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)
   if (!data.name || !emailOk || !data.message || !data.rgpd) {
-    return back('/contact?error=1') ?? NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
+    return back(clean(raw.page, 60) === '/offre' ? '/offre?error=1#reserver' : '/contact?error=1') ?? NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
   }
 
   const serviceTitle =
@@ -105,5 +106,6 @@ export async function POST(request: NextRequest) {
     return back('/contact?error=1') ?? NextResponse.json({ error: 'Erreur envoi' }, { status: 500 })
   }
 
+  await track('formulaire', clean(raw.page, 60) || '/contact', serviceTitle || '', clean(raw.src, 40))
   return back('/contact/merci') ?? NextResponse.json({ message: 'Message reçu' })
 }

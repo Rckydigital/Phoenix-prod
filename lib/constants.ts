@@ -28,6 +28,9 @@ export const LAUNCH_OFFER = {
   active: true,
   title: 'Offre de lancement : -30 %',
   text: "Pour nos 3 premiers clients, en échange d'un avis et de l'autorisation de montrer le projet dans notre portfolio.",
+  placesTotal: 3,
+  placesRestantes: 3, // à mettre à jour à chaque client signé
+  remise: 0.3,
 }
 
 export type Service = {

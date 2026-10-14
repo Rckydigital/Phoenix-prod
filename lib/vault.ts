@@ -1,4 +1,5 @@
 // Lecture du cerveau (dépôt GitHub privé) pour le QG virtuel.
+import { readStats, trackingConfigured, type StatRow } from '@/lib/track'
 // Utilise CRM_GITHUB_TOKEN (permission Contents en lecture suffit).
 
 const REPO = () => process.env.CRM_GITHUB_REPO || 'Rckydigital/cerveau-ricky-galin'
@@ -184,6 +185,7 @@ export type QGData = {
   objectifs: { clientsActifs: number; clientsCible: number }
   journal: JournalEntry[]
   operations: Operation[]
+  site: { configured: boolean; rows: StatRow[] }
   error?: string
 }
 
@@ -202,6 +204,7 @@ export async function loadQG(): Promise<QGData> {
     objectifs: { clientsActifs: 0, clientsCible: 4 },
     journal: [],
     operations: [],
+    site: { configured: trackingConfigured(), rows: [] },
   }
 
   try {
@@ -332,9 +335,12 @@ export async function loadQG(): Promise<QGData> {
       .filter((o): o is Operation => o !== null)
       .sort((a, b) => b.date.localeCompare(a.date))
 
+    const siteRows = await readStats(60).catch(() => [] as StatRow[])
+
     return {
       today,
       operations,
+      site: { configured: trackingConfigured(), rows: siteRows },
       agents,
       aValider,
       priorites,

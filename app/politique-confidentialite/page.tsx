@@ -109,7 +109,7 @@ export default function PolitiqueConfidentialitePage() {
               5. Cookies
             </h2>
             <p className="text-sm">
-              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience, c'est pourquoi aucun bandeau de consentement n'est affiché. Les vidéos YouTube et Instagram ne sont chargées que si vous cliquez dessus : ces plateformes peuvent alors déposer leurs propres cookies, selon leurs politiques. Un cookie technique, strictement nécessaire, est utilisé uniquement pour l'espace privé de gestion réservé à l'éditeur. Si un outil de statistiques est ajouté plus tard, votre consentement sera demandé au préalable lorsque la loi l'exige.
+              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience, c'est pourquoi aucun bandeau de consentement n'est affiché. Il compte simplement, de façon anonyme, les pages vues et les clics sur les boutons de contact (sans cookie, sans adresse IP ni identifiant), pour améliorer ses contenus. Les vidéos YouTube et Instagram ne sont chargées que si vous cliquez dessus : ces plateformes peuvent alors déposer leurs propres cookies, selon leurs politiques. Un cookie technique, strictement nécessaire, est utilisé uniquement pour l'espace privé de gestion réservé à l'éditeur. Si un outil de statistiques est ajouté plus tard, votre consentement sera demandé au préalable lorsque la loi l'exige.
             </p>
           </section>
 

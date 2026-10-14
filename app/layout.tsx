@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import Tracker from '@/components/Tracker'
 import { SITE, SERVICES, LAST_UPDATE, priceNumber } from '@/lib/constants'
 
 export const metadata: Metadata = {
@@ -93,6 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="contenu">{children}</main>
         <Footer />
+        <Tracker />
       </body>
     </html>
   )

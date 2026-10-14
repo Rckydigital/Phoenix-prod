@@ -20,6 +20,18 @@ export default function Navbar() {
 
   useEffect(() => setIsOpen(false), [pathname])
 
+  // Landing page : barre réduite au logo + un seul bouton (aucune sortie vers le reste du site)
+  if (pathname?.startsWith('/offre')) {
+    return (
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white/95 py-3 backdrop-blur">
+        <nav className="container-site flex items-center justify-between" aria-label="Navigation">
+          <span aria-label="RCKY DIGITAL"><Logo /></span>
+          <a href="#reserver" data-track="Barre : réserver" className="btn-primary whitespace-nowrap px-4 py-2 text-sm"><span className="sm:hidden">Réserver</span><span className="hidden sm:inline">Réserver ma place</span></a>
+        </nav>
+      </header>
+    )
+  }
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import type { QGData, JournalEntry, AgentFile, Post } from '@/lib/vault'
 import Scene from '@/components/qg/Scene'
 import Tresorerie from '@/components/qg/Tresorerie'
+import Site from '@/components/qg/Site'
 
 // ---------- Statut ----------
 function daysBetween(a: string, b: string) {
@@ -118,7 +119,7 @@ export default function Office({ data }: { data: QGData }) {
 
             {/* Accès rapide (pratique sur téléphone) */}
             <div className="flex flex-wrap gap-2 border-t border-line px-5 py-3">
-              {[...data.agents.map((a) => ({ id: a.id, label: a.name, color: a.color })), { id: 'reunion', label: 'Réunion', color: '#1E2A33' }, { id: 'crm', label: 'CRM', color: '#B4511A' }, { id: 'tresorerie', label: 'Trésorerie', color: '#2F6B45' }].map((b) => (
+              {[...data.agents.map((a) => ({ id: a.id, label: a.name, color: a.color })), { id: 'reunion', label: 'Réunion', color: '#1E2A33' }, { id: 'crm', label: 'CRM', color: '#B4511A' }, { id: 'tresorerie', label: 'Trésorerie', color: '#2F6B45' }, { id: 'site', label: 'Site & conversion', color: '#2A93A8' }].map((b) => (
                 <button
                   key={b.id}
                   type="button"
@@ -191,6 +192,7 @@ function Panel({ sel, data, statuses }: { sel: Sel; data: QGData; statuses: Reco
   }
 
   if (sel === 'tresorerie') return <Tresorerie operations={data.operations} today={data.today} />
+  if (sel === 'site') return <Site site={data.site} today={data.today} />
 
   if (sel === 'crm') {
     return (

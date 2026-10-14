@@ -108,6 +108,7 @@ export default function ContactPage({
                   className={`${inputClass} resize-y`}
                 />
               </div>
+              <input type="hidden" name="page" value="/contact" />
               <div className="hidden" aria-hidden="true">
                 <label htmlFor="website">Ne pas remplir</label>
                 <input id="website" type="text" name="website" tabIndex={-1} autoComplete="off" />

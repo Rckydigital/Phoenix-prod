@@ -74,7 +74,7 @@ export default function MentionsLegalesPage() {
               5. Cookies
             </h2>
             <p className="text-sm">
-              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience. Seuls des éléments techniques strictement nécessaires à son fonctionnement peuvent être utilisés.
+              Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience. Il compte simplement, de façon anonyme, les pages vues et les clics sur les boutons de contact (sans cookie, sans adresse IP ni identifiant), pour améliorer ses contenus. Seuls des éléments techniques strictement nécessaires à son fonctionnement peuvent être utilisés.
             </p>
           </section>
 
