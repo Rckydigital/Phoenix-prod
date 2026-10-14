@@ -11,7 +11,14 @@ export default function ServiceCard({ service, detailed = false }: { service: Se
           {service.priceNote && <span className="font-medium">{service.priceNote}</span>}
         </p>
       </div>
-      <p className="mt-3 text-ink-soft leading-relaxed">{service.description}</p>
+      <p className="mt-3 font-semibold text-ink">{service.promise}</p>
+      <p className="mt-2 text-ink-soft leading-relaxed">{service.description}</p>
+      {service.delay && (
+        <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-teal-soft px-3 py-1 text-xs font-semibold text-teal-deep">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+          {service.delay}
+        </p>
+      )}
       <ul className="mt-5 space-y-2">
         {service.features.map((f) => (
           <li key={f} className="flex items-start gap-2 text-sm text-ink">
@@ -29,7 +36,7 @@ export default function ServiceCard({ service, detailed = false }: { service: Se
       )}
       <div className="mt-auto pt-6">
         <Link href={`/contact?service=${service.id}`} className="text-sm font-semibold text-brand-deep hover:underline">
-          Demander un devis →
+          Choisir cette offre →
         </Link>
       </div>
     </article>

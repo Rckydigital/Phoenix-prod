@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { SITE, SERVICES, PACKS } from '@/lib/constants'
+import { SITE, SERVICES, OPTIONS, AUDIT } from '@/lib/constants'
 import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
 import { track } from '@/lib/track'
 
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   }
 
   const serviceTitle =
-    [...SERVICES, ...PACKS].find((s) => s.id === data.service)?.title || data.service
+    [AUDIT, ...SERVICES, ...OPTIONS].find((s) => s.id === data.service)?.title || data.service
 
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey && !crmConfigured()) {

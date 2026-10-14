@@ -1,4 +1,4 @@
-import { SITE, SERVICES, PACKS, FAQ, LAST_UPDATE } from '@/lib/constants'
+import { SITE, SERVICES, OPTIONS, FAQ, LAST_UPDATE } from '@/lib/constants'
 
 export const dynamic = 'force-static'
 
@@ -19,7 +19,7 @@ export function GET() {
     '',
     '## Services et tarifs',
     ...SERVICES.map((s) => `- ${s.title} (${s.price}${s.priceNote ? ' ' + s.priceNote : ''}) : ${s.description}`),
-    ...PACKS.map((p) => `- ${p.title} (${p.price}) : ${p.description} ${p.features.join(', ')}.`),
+    ...OPTIONS.map((p) => `- Option : ${p.title} (${p.price}${p.priceNote ? ' ' + p.priceNote : ''}) : ${p.description}`),
     '',
     '## Questions fréquentes',
     ...FAQ.map((f) => `- ${f.q} ${f.a}`),

@@ -4,7 +4,7 @@ import { SITE, SERVICES, LAUNCH_OFFER, priceNumber } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'Offre de lancement -30 %',
   description:
-    'Photos, vidéos, réseaux sociaux et site avec réservation en Guadeloupe : -30 % pour les 3 premiers clients de RCKY DIGITAL. Devis gratuit, réponse sous 48 h.',
+    'Vitrine Pro ou Visibilité Mensuelle en Guadeloupe : -30 % pour les 3 premiers clients de RCKY DIGITAL. Devis gratuit, réponse sous 48 h.',
   alternates: { canonical: '/offre' },
 }
 
@@ -15,10 +15,10 @@ const WA_TEXT = encodeURIComponent("Bonjour Ricky, je souhaite profiter de l'off
 const waLink = `https://wa.me/${SITE.phone.replace(/[^0-9]/g, '')}?text=${WA_TEXT}`
 const eur = (n: number) => n.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' €'
 
-const CHOIX = ['shooting', 'reseaux', 'site', 'saison']
+
 
 export default function OffrePage({ searchParams }: { searchParams: { error?: string; src?: string } }) {
-  const services = CHOIX.map((id) => SERVICES.find((s) => s.id === id)).filter(Boolean) as typeof SERVICES
+  const services = SERVICES.filter((s) => s.launch)
   const restantes = LAUNCH_OFFER.placesRestantes
   const complet = !LAUNCH_OFFER.active || restantes <= 0
   const src = (searchParams.src || '').slice(0, 40)
@@ -36,7 +36,7 @@ export default function OffrePage({ searchParams }: { searchParams: { error?: st
             Des visuels qui donnent envie de réserver, <span className="text-brand-deep">-30 %</span> pour nos 3 premiers clients.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            Photos, vidéos, réseaux sociaux et site avec réservation pour les entreprises de Guadeloupe. Vous profitez de -30 % sur votre projet ; en échange, un avis honnête et l’accord de le montrer dans notre portfolio.
+            -30 % sur la Vitrine Pro (photos, Reels, grille de prix, fiche Google) ou sur vos 3 premiers mois de Visibilité Mensuelle. En échange, un avis honnête et l’accord de montrer le projet dans notre portfolio.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a href={waLink} target="_blank" rel="noopener noreferrer" data-track="Hero : WhatsApp" className="btn-primary px-7 py-4 text-base">
@@ -54,25 +54,25 @@ export default function OffrePage({ searchParams }: { searchParams: { error?: st
       <section className="py-14 md:py-20">
         <div className="container-site">
           <h2 className="section-title text-center">Ce que vous pouvez choisir</h2>
-          <p className="section-subtitle mx-auto text-center">La remise s’applique à tout votre projet. Prix nets, sans TVA à ajouter.</p>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <p className="section-subtitle mx-auto text-center">Prix nets, sans TVA à ajouter. Le site Réservation en ligne (790 €) reste au tarif normal.</p>
+          <div className="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-2">
             {services.map((s) => {
               const base = priceNumber(s.price)
               return (
                 <div key={s.id} className="card flex flex-col">
                   <h3 className="text-lg font-bold text-ink">{s.title}</h3>
-                  <p className="mt-2 text-sm text-ink-soft">{s.forWho}</p>
+                  <p className="mt-2 text-sm font-medium text-ink">{s.promise}</p>
                   {base ? (
                     <p className="mt-4">
-                      <span className="text-sm text-ink-muted line-through">dès {eur(base)}</span>{' '}
-                      <span className="text-2xl font-extrabold text-brand-deep">dès {eur(Math.round(base * (1 - LAUNCH_OFFER.remise)))}</span>
+                      <span className="text-sm text-ink-muted line-through">{eur(base)}</span>{' '}
+                      <span className="text-2xl font-extrabold text-brand-deep">{eur(Math.round(base * (1 - LAUNCH_OFFER.remise)))}</span>
                       {s.priceNote && <span className="text-sm text-ink-muted"> {s.priceNote}</span>}
                     </p>
                   ) : (
                     <p className="mt-4 font-bold text-ink">{s.price}</p>
                   )}
                   <ul className="mt-4 space-y-1.5 text-sm text-ink-soft">
-                    {s.features.slice(0, 3).map((f) => (
+                    {s.features.slice(0, 5).map((f) => (
                       <li key={f} className="flex gap-2"><span className="text-brand" aria-hidden="true">✓</span>{f}</li>
                     ))}
                   </ul>
@@ -89,9 +89,9 @@ export default function OffrePage({ searchParams }: { searchParams: { error?: st
           <h2 className="section-title text-center">Comment ça marche</h2>
           <ol className="mt-10 grid gap-5 md:grid-cols-3">
             {[
-              ['Vous réservez votre place', 'Sur WhatsApp ou via le formulaire. Dites-nous votre activité et votre besoin.'],
+              ['Vous réservez votre place', 'Sur WhatsApp ou via le formulaire. Dites-nous votre activité : on commence par un audit gratuit de votre page.'],
               ['On échange 15 minutes', 'On comprend votre projet et vous recevez un devis gratuit, remise de -30 % incluse.'],
-              ['On crée, vous validez', 'Shooting, publications ou site : vous validez chaque étape. En échange, un avis honnête une fois le projet livré.'],
+              ['On crée, vous validez', 'Séance sur place, photos, Reels et publications : vous validez chaque étape. En échange, un avis honnête une fois le projet livré.'],
             ].map(([t, d], i) => (
               <li key={t} className="card">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-lg font-extrabold text-white">{i + 1}</span>

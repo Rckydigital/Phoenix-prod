@@ -1,4 +1,4 @@
-import { SERVICES, PACKS, SITE, LAST_UPDATE, priceNumber } from '@/lib/constants'
+import { SERVICES, OPTIONS, SITE, LAST_UPDATE, priceNumber } from '@/lib/constants'
 export const dynamic = 'force-static'
 export function GET() {
   return Response.json({
@@ -9,7 +9,7 @@ export function GET() {
     updated: LAST_UPDATE,
     services: [
       ...SERVICES.map((s) => ({ name: s.title, from: priceNumber(s.price) ?? null, unit: s.priceNote?.includes('mois') ? 'per_month' : 'one_time', description: s.description, includes: s.features, for: s.forWho })),
-      ...PACKS.map((p) => ({ name: p.title, from: priceNumber(p.price) ?? null, unit: 'one_time', description: p.description, includes: p.features })),
+      ...OPTIONS.map((p) => ({ name: p.title, from: priceNumber(p.price) ?? null, unit: p.priceNote?.includes('mois') ? 'per_month' : 'one_time', description: p.description })),
     ],
     quote: `${SITE.url}/contact`,
   })

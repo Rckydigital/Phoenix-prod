@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 const STEPS = [
   {
     n: '1',
-    title: 'Un échange gratuit',
-    text: '30 minutes pour comprendre votre activité, vos clients et ce qui vous freine aujourd’hui.',
+    title: 'Un audit offert',
+    text: 'Je regarde votre fiche Google, votre Instagram et vos photos, puis on en parle 15 minutes : vous savez ce qui vous freine.',
   },
   {
     n: '2',
     title: 'On crée',
-    text: 'Shooting sur place, montage, visuels ou site : vous validez chaque étape avant la publication.',
+    text: 'Vitrine Pro, Réservation en ligne ou Visibilité Mensuelle : un contenu et un délai annoncés, vous validez chaque étape.',
   },
   {
     n: '3',
@@ -101,8 +101,8 @@ export default function HomePage() {
         <div className="container-site">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <h2 className="section-title">Services et tarifs</h2>
-              <p className="section-subtitle">Des prix clairs, affichés dès le départ. Devis gratuit et sans engagement.</p>
+              <h2 className="section-title">3 offres, des prix fixes</h2>
+              <p className="section-subtitle">Un contenu précis, un délai annoncé, un prix final. Et un audit de votre visibilité offert pour commencer.</p>
             </div>
             <Link href="/services" className="btn-outline shrink-0">
               Tous les détails

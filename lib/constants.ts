@@ -24,10 +24,11 @@ export const SITE = {
 }
 
 // Offre de lancement (à retirer quand les 3 premiers clients sont signés)
+// La remise s'applique UNIQUEMENT aux offres marquées launch: true (pas au site).
 export const LAUNCH_OFFER = {
   active: true,
   title: 'Offre de lancement : -30 %',
-  text: "Pour nos 3 premiers clients, en échange d'un avis et de l'autorisation de montrer le projet dans notre portfolio.",
+  text: "Sur la Vitrine Pro ou vos 3 premiers mois de Visibilité Mensuelle, pour nos 3 premiers clients, en échange d'un avis et de l'autorisation de montrer le projet dans notre portfolio.",
   placesTotal: 3,
   placesRestantes: 3, // à mettre à jour à chaque client signé
   remise: 0.3,
@@ -38,78 +39,90 @@ export type Service = {
   title: string
   price: string
   priceNote?: string
+  promise: string
   description: string
+  delay?: string
   features: string[]
   forWho: string
+  launch?: boolean
 }
 
+// Porte d'entrée gratuite
+export const AUDIT = {
+  id: 'audit',
+  title: 'Audit Visibilité offert',
+  text: "Une note sur 10 de votre présence en ligne (fiche Google, Instagram, photos, prix, réservation), les 3 points qui vous font perdre des clients et 3 actions concrètes. Reçu sous 48 h, sans engagement.",
+}
+
+// Les 3 offres (catalogue validé par Ricky le 2026-10-14)
 export const SERVICES: Service[] = [
   {
-    id: 'shooting',
-    title: 'Shooting photo & vidéo',
-    price: 'dès 150 €',
+    id: 'vitrine',
+    title: 'Vitrine Pro',
+    price: '390 €',
+    promise: 'Des images qui donnent envie de réserver chez vous.',
     description:
-      "Nous venons sur place photographier et filmer votre lieu, vos prestations et votre ambiance. Vous repartez avec des visuels prêts pour votre site, vos annonces et vos réseaux.",
-    features: ['Séance sur place', 'Photos retouchées', '2 à 3 vidéos courtes montées', 'Formats réseaux sociaux'],
-    forWho: 'Gîtes, villas, excursions, salons, instituts',
+      'Je viens chez vous photographier et filmer votre lieu, vos prestations et votre ambiance, puis je mets en valeur vos prix et votre fiche Google.',
+    delay: 'Livré en 7 jours',
+    features: [
+      'Séance photo et vidéo sur place (2 h)',
+      '25 photos retouchées (réseaux, Google, site, Airbnb/Booking)',
+      '3 Reels montés (sous-titres, musique libre de droits)',
+      'Grille de prix illustrée (post + flyer)',
+      'Fiche Google optimisée (photos, horaires, description)',
+    ],
+    forWho: 'Gîtes, villas, activités, instituts, salons dont les photos ne font pas honneur au lieu',
+    launch: true,
   },
   {
-    id: 'reseaux',
-    title: 'Gestion des réseaux sociaux',
-    price: 'dès 200 €',
+    id: 'reservation',
+    title: 'Réservation en ligne',
+    price: '790 €',
+    promise: 'Vos clients réservent seuls, 24 h/24.',
+    description:
+      'Un site simple et rapide, pensé pour le téléphone, avec réservation ou prise de rendez-vous en ligne. Vous gardez la main sur vos prix et vos horaires.',
+    delay: 'En ligne en 3 semaines',
+    features: [
+      'Site Wix jusqu’à 5 pages, adapté au mobile',
+      'Réservation / prise de rendez-vous en ligne',
+      'Référencement local de base + fiche Google reliée',
+      '1 h de formation pour tout modifier seul',
+      '1 mois de maintenance offert (ensuite 39 €/mois, facultatif)',
+      'Abonnement Wix (~30 €/mois) et nom de domaine au nom du client',
+    ],
+    forWho: 'Hébergements, activités, salons qui prennent encore leurs réservations par téléphone ou par messages',
+  },
+  {
+    id: 'visibilite',
+    title: 'Visibilité Mensuelle',
+    price: '349 €',
     priceNote: '/ mois',
+    promise: 'Votre Instagram et votre fiche Google vivent toute l’année.',
     description:
-      'Nous créons et publions vos contenus chaque mois, avec une ligne éditoriale claire, pour que votre compte travaille pour vous pendant que vous gérez votre activité.',
-    features: ['1 à 2 réseaux inclus (Instagram, Facebook…)', 'Réseau supplémentaire : +80 €/mois (TikTok, LinkedIn, X…)', '8 à 12 publications / mois, visuels et légendes', 'Réponses aux messages et commentaires', 'Rapport mensuel'],
-    forWho: 'Toute entreprise qui veut être visible régulièrement',
-  },
-  {
-    id: 'site',
-    title: 'Site internet avec réservation',
-    price: 'dès 450 €',
-    description:
-      "Un site vitrine moderne, adapté au mobile, avec réservation ou prise de rendez-vous en ligne. Vos clients réservent même quand vous êtes occupé.",
-    features: ['Design adapté au mobile', 'Réservation / prise de RDV', 'Référencement local de base', 'Maintenance dès 30 €/mois', 'Abonnement Wix (~30 €/mois) au nom du client'],
-    forWho: 'Hébergements, activités, salons, instituts',
-  },
-  {
-    id: 'montage',
-    title: 'Montage vidéo',
-    price: 'dès 80 €',
-    description:
-      'Vous avez filmé, nous faisons le reste : montage dynamique, sous-titres et formats adaptés à Instagram, TikTok ou à votre site.',
-    features: ['Montage à partir de vos vidéos', 'Sous-titres', 'Musique libre de droits', 'Formats verticaux et horizontaux'],
-    forWho: 'Ceux qui filment déjà mais manquent de temps',
-  },
-  {
-    id: 'grille',
-    title: 'Grille de prix & visuels illustrés',
-    price: 'dès 60 €',
-    description:
-      'Une présentation claire et élégante de vos prestations et de vos tarifs, en post pour les réseaux et en flyer à imprimer.',
-    features: ['Carte des services', 'Version réseaux sociaux', 'Version flyer imprimable', 'Aux couleurs de votre marque'],
-    forWho: 'Salons, instituts, barbiers, activités',
-  },
-  {
-    id: 'conseil',
-    title: 'Conseil & stratégie marketing',
-    price: 'Sur devis',
-    description:
-      "Un regard extérieur sur votre présence en ligne : ce qui fonctionne, ce qui freine vos réservations, et un plan d'action simple sur 3 mois.",
-    features: ['Audit de votre présence en ligne', 'Plan d’action priorisé', 'Newsletter & e-mailing', 'Accompagnement mensuel possible'],
-    forWho: 'Ceux qui veulent un plan clair avant de se lancer',
+      'Chaque mois, je tourne sur place et je publie pour vous, avec de vraies images de chez vous. Vous validez le calendrier en 10 minutes.',
+    delay: '3 mois minimum, puis sans engagement',
+    features: [
+      '1 séance de tournage sur place par mois (1 h 30)',
+      '8 publications dont 4 Reels + 8 stories',
+      'Instagram + Facebook',
+      '2 publications sur la fiche Google + réponse aux avis',
+      'Réponses aux messages et commentaires (jours ouvrés, sous 48 h)',
+      'Rapport mensuel d’une page',
+    ],
+    forWho: 'Ceux qui savent qu’il faut publier, mais n’ont pas le temps',
+    launch: true,
   },
 ]
 
-export const PACKS = [
-  {
-    id: 'saison',
-    title: 'Pack Saison Tourisme',
-    price: 'dès 350 €',
-    description: 'Tout pour être prêt avant la haute saison.',
-    features: ['Shooting photo & vidéo', 'Grille de prix illustrée', '10 publications prêtes à poster'],
-    highlight: true,
-  },
+// Options à la carte
+export const OPTIONS = [
+  { id: 'saison', title: 'Vitrine Pro édition Tourisme', price: '490 €', description: 'La Vitrine Pro + 10 publications prêtes à poster pour la haute saison.' },
+  { id: 'montage', title: 'Montage vidéo', price: '80 €', priceNote: '/ vidéo', description: 'À partir de vos vidéos (jusqu’à 60 s) : montage, sous-titres, musique libre de droits.' },
+  { id: 'grille', title: 'Grille de prix illustrée', price: '90 €', description: 'Vos prestations et tarifs, en post et en flyer à imprimer.' },
+  { id: 'google', title: 'Fiche Google optimisée', price: '99 €', description: 'Photos, horaires, description, catégories et lien de réservation.' },
+  { id: 'reseau', title: 'Réseau supplémentaire', price: '+50 €', priceNote: '/ mois', description: 'TikTok, LinkedIn… en plus de la Visibilité Mensuelle.' },
+  { id: 'maintenance', title: 'Maintenance du site', price: '39 €', priceNote: '/ mois', description: 'Mises à jour et petites modifications (1 h par mois).' },
+  { id: 'conseil', title: 'Conseil & stratégie', price: '120 €', description: '1 h 30 d’échange + un plan d’action écrit sur 3 mois.' },
 ]
 
 export const SECTORS = [
@@ -191,8 +204,8 @@ export const NAV_LINKS = [
 // FAQ (page Services, données structurées et /ai/faq.json). Doit rester cohérente avec les CGV.
 export const FAQ = [
   {
-    q: 'Pourquoi des prix « à partir de » ?',
-    a: 'Chaque projet est différent (taille du lieu, nombre de vidéos, pages du site…). Le prix affiché est le point de départ ; vous recevez un devis précis et gratuit avant tout engagement. Nos prix sont finaux : TVA non applicable (art. 293 B du CGI), rien ne s’ajoute.',
+    q: 'Les prix affichés sont-ils définitifs ?',
+    a: 'Oui : chaque offre a un contenu et un prix fixes. Nos prix sont finaux : TVA non applicable (art. 293 B du CGI), rien ne s’ajoute. Seuls les frais de déplacement hors Grande-Terre et les options choisies sont indiqués en plus sur le devis.',
   },
   {
     q: 'Est-ce que vous vous déplacez ?',
@@ -217,7 +230,7 @@ export const FAQ = [
 ]
 
 // Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
-export const LAST_UPDATE = '2026-10-12'
+export const LAST_UPDATE = '2026-10-14'
 
 export const priceNumber = (p: string) => {
   const m = p.match(/(\d[\d\s]*)/)

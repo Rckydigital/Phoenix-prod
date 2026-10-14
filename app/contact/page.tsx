@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { SITE, SERVICES, PACKS } from '@/lib/constants'
+import { SITE, SERVICES, OPTIONS, AUDIT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Contact et échange gratuit',
@@ -15,7 +15,7 @@ export default function ContactPage({
 }: {
   searchParams: { service?: string; error?: string }
 }) {
-  const options = [...SERVICES, ...PACKS].map((s) => ({ id: s.id, title: s.title }))
+  const options = [AUDIT, ...SERVICES, ...OPTIONS].map((s) => ({ id: s.id, title: s.title }))
   const preselected = options.some((o) => o.id === searchParams.service) ? searchParams.service : ''
   const error = searchParams.error
 
