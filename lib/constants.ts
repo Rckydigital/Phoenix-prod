@@ -201,7 +201,7 @@ export const FAQ = [
   },
   {
     q: 'Comment se passe le paiement ?',
-    a: 'Un acompte de 40 % à la commande, le solde à la livraison. Les forfaits mensuels (réseaux sociaux, maintenance) se règlent en début de mois, avec une durée minimale de 3 mois puis un préavis de 30 jours.',
+    a: 'Un acompte de 40 % à la commande, le solde à la livraison, par virement ou par carte bancaire grâce au lien de paiement sécurisé joint au devis et à la facture. Les forfaits mensuels (réseaux sociaux, maintenance) se règlent en début de mois, avec une durée minimale de 3 mois puis un préavis de 30 jours.',
   },
   {
     q: 'Quels types d’entreprises accompagnez-vous ?',
