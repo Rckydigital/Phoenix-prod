@@ -5,6 +5,7 @@ import type { QGData, JournalEntry, AgentFile, Post } from '@/lib/vault'
 import Scene from '@/components/qg/Scene'
 import Tresorerie from '@/components/qg/Tresorerie'
 import Site from '@/components/qg/Site'
+import Sheet from '@/components/qg/Sheet'
 
 // ---------- Statut ----------
 function daysBetween(a: string, b: string) {
@@ -22,8 +23,11 @@ type Sel = string // id d'agent, 'reunion', 'crm' ou 'tresorerie'
 
 export default function Office({ data }: { data: QGData }) {
   const [sel, setSel] = useState<Sel | null>(null)
+  // Fermeture animée (la fenêtre repart par le même chemin) : on envoie un signal à la feuille
+  const [closeSig, setCloseSig] = useState(0)
+  const requestClose = () => setCloseSig((n) => n + 1)
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSel(null)
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setCloseSig((n) => n + 1)
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
@@ -73,7 +77,7 @@ export default function Office({ data }: { data: QGData }) {
             { k: 'Prospects en cours', v: String(data.crm.prospects + data.crm.enCours), on: () => setSel('crm') },
             { k: 'Solde du mois', v: (() => { const m = data.today.slice(0, 7); const s = data.operations.filter((o) => o.date.startsWith(m)).reduce((t, o) => t + (o.sens === 'Entrée' ? o.montant : -o.montant), 0); return (s < 0 ? '−' : '') + Math.abs(s).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }) })(), on: () => setSel('tresorerie') },
           ].map((s) => (
-            <button key={s.k} type="button" onClick={s.on} className="rounded-2xl border border-line bg-white px-4 py-3 text-left transition-shadow hover:shadow-md">
+            <button key={s.k} type="button" onClick={s.on} className="press rounded-2xl border border-line bg-white px-4 py-3 text-left transition-shadow hover:shadow-md">
               <p className="text-xs text-ink-muted">{s.k}</p>
               <p className="mt-1 text-2xl font-extrabold text-ink">{s.v}</p>
             </button>
@@ -90,30 +94,14 @@ export default function Office({ data }: { data: QGData }) {
               </p>
             )}
             <div className="overflow-x-auto lg:overflow-visible">
-              <Scene data={data} sel={sel} setSel={setSel} statuses={statuses} />
+              <Scene data={data} sel={sel} setSel={(id) => (id === null ? (sel && requestClose()) : setSel(id))} statuses={statuses} />
             </div>
 
-            {/* Fenêtre de détail, posée sur le bureau */}
+            {/* Fenêtre de détail, posée sur le bureau (feuille glissable sur téléphone) */}
             {sel && (
-              <div className="fixed inset-x-0 bottom-0 z-50 max-h-[78vh] lg:absolute lg:inset-x-auto lg:bottom-4 lg:right-4 lg:top-4 lg:max-h-none lg:w-[430px] lg:p-0">
-                <aside
-                  role="dialog"
-                  aria-label="Détail du poste"
-                  className="relative flex h-full max-h-[78vh] flex-col overflow-hidden rounded-t-3xl border border-line bg-white shadow-[0_24px_60px_-20px_rgba(30,42,51,0.45)] lg:max-h-none lg:rounded-3xl"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setSel(null)}
-                    className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-sand text-ink hover:bg-line"
-                    aria-label="Fermer"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-                  </button>
-                  <div className="overflow-y-auto p-6 pr-14">
-                    <Panel sel={sel} data={data} statuses={statuses} />
-                  </div>
-                </aside>
-              </div>
+              <Sheet label="Détail du poste" onClose={() => setSel(null)} closeSignal={closeSig}>
+                <Panel sel={sel} data={data} statuses={statuses} />
+              </Sheet>
             )}
             </div>
 
@@ -123,9 +111,9 @@ export default function Office({ data }: { data: QGData }) {
                 <button
                   key={b.id}
                   type="button"
-                  onClick={() => setSel(sel === b.id ? null : b.id)}
+                  onClick={() => (sel === b.id ? requestClose() : setSel(b.id))}
                   aria-pressed={sel === b.id}
-                  className="rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
+                  className="press rounded-full border px-3 py-1.5 text-sm font-medium transition-colors"
                   style={sel === b.id ? { background: b.color, borderColor: b.color, color: '#fff' } : { borderColor: '#ECE6DF', color: '#1E2A33' }}
                 >
                   {b.label}

@@ -19,11 +19,16 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => setIsOpen(false), [pathname])
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   // Landing page : barre réduite au logo + un seul bouton (aucune sortie vers le reste du site)
   if (pathname?.startsWith('/offre')) {
     return (
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white/95 py-3 backdrop-blur">
+      <header className="material-bar fixed inset-x-0 top-0 z-50 py-3">
         <nav className="container-site flex items-center justify-between" aria-label="Navigation">
           <span aria-label="RCKY DIGITAL"><Logo /></span>
           <a href="#reserver" data-track="Barre : réserver" className="btn-primary whitespace-nowrap px-4 py-2 text-sm"><span className="sm:hidden">Réserver</span><span className="hidden sm:inline">Réserver ma place</span></a>
@@ -34,8 +39,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || isOpen ? 'border-b border-line bg-white/95 backdrop-blur py-3' : 'bg-transparent py-5'
+      className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color,box-shadow] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+        scrolled || isOpen ? 'material-bar py-3' : 'bg-transparent py-5'
       }`}
     >
       <nav className="container-site flex items-center justify-between" aria-label="Navigation principale">
@@ -62,7 +67,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="rounded-full p-2 text-ink md:hidden"
+          className="press rounded-full p-2 text-ink md:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={isOpen}
@@ -73,24 +78,30 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {isOpen && (
-        <div className="container-site space-y-1 pb-6 pt-4 md:hidden">
+      {/* Toujours monté pour pouvoir animer l'entrée ET la sortie (même chemin) */}
+      <div
+        data-open={isOpen}
+        aria-hidden={!isOpen}
+        className="menu-panel material-thick absolute inset-x-0 top-full rounded-b-3xl md:hidden"
+      >
+        <div className="container-site space-y-1 pb-6 pt-2">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`block rounded-xl px-3 py-3 font-medium ${
+              tabIndex={isOpen ? 0 : -1}
+              className={`press block rounded-xl px-3 py-3 font-medium ${
                 pathname === link.href ? 'bg-brand-soft text-brand-deep' : 'text-ink'
               }`}
             >
               {link.label}
             </Link>
           ))}
-          <Link href="/contact" className="btn-primary mt-4 w-full">
+          <Link href="/contact" tabIndex={isOpen ? 0 : -1} className="btn-primary mt-4 w-full">
             Réserver un échange gratuit
           </Link>
         </div>
-      )}
+      </div>
     </header>
   )
 }

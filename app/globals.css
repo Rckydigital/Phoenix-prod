@@ -13,6 +13,69 @@ body {
   color: #1E2A33;
   font-family: 'Outfit', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.6;                 /* texte courant : interligne confortable */
+  -webkit-tap-highlight-color: transparent; /* on gère nous-mêmes le retour au toucher */
+}
+
+/* ---------- Typographie « à la Apple » : l'espacement dépend de la taille ---------- */
+h1 { line-height: 1.05; letter-spacing: -0.025em; text-wrap: balance; }
+h2 { line-height: 1.12; letter-spacing: -0.02em; text-wrap: balance; }
+h3 { line-height: 1.25; letter-spacing: -0.01em; }
+small, .text-xs { letter-spacing: 0.01em; }   /* petits textes : un poil plus aérés */
+p { text-wrap: pretty; }
+
+/* ---------- Retour immédiat à l'appui (dès le toucher, pas au relâché) ---------- */
+.press, .btn-primary, .btn-outline, .card a, nav a, button {
+  transition-property: transform, background-color, color, border-color, box-shadow, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+.press:active, .btn-primary:active, .btn-outline:active, button:active:not(:disabled) {
+  transform: scale(0.97);
+  transition-duration: 80ms;
+}
+
+/* ---------- Matières translucides ---------- */
+.material-bar {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 8px 24px -16px rgba(30, 42, 51, 0.25); /* bord d'ombre doux au lieu d'un trait */
+}
+.material-thick {
+  /* grande surface = matière plus épaisse (le texte du dessous ne doit pas gêner la lecture) */
+  background: rgba(255, 255, 255, 0.98);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: 0 24px 48px -24px rgba(30, 42, 51, 0.35);
+}
+.qg-sheet {
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Menu mobile : il « naît » du bouton (en haut à droite) et y retourne */
+.menu-panel {
+  transform-origin: top right;
+  transition: opacity 220ms cubic-bezier(0.25, 1, 0.5, 1), transform 320ms cubic-bezier(0.25, 1, 0.5, 1), filter 220ms ease;
+}
+.menu-panel[data-open='false'] { opacity: 0; transform: scale(0.96) translateY(-6px); filter: blur(4px); pointer-events: none; }
+.menu-panel[data-open='true'] { opacity: 1; transform: none; filter: none; }
+
+/* ---------- Accessibilité : réglages de l'utilisateur ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .press:active, .btn-primary:active, .btn-outline:active, button:active { transform: none; }
+  .menu-panel { transition: opacity 200ms ease; }
+  .menu-panel[data-open] { transform: none; filter: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .material-bar, .material-thick, .qg-sheet { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .material-bar, .material-thick, .qg-sheet { background: #fff; border: 1px solid #1E2A33; }
 }
 
 ::selection { background: #E8742A; color: #fff; }

@@ -19,3 +19,4 @@ extracted/
 # misc
 .DS_Store
 *.tgz
+tsconfig.tsbuildinfo
