@@ -117,12 +117,12 @@ export const SERVICES: Service[] = [
 // Options à la carte
 export const OPTIONS = [
   { id: 'saison', title: 'Vitrine Pro édition Tourisme', price: '490 €', description: 'La Vitrine Pro + 10 publications prêtes à poster pour la haute saison.' },
-  { id: 'montage', title: 'Montage vidéo', price: '80 €', priceNote: '/ vidéo', description: 'À partir de vos vidéos (jusqu’à 60 s) : montage, sous-titres, musique libre de droits.' },
-  { id: 'grille', title: 'Grille de prix illustrée', price: '90 €', description: 'Vos prestations et tarifs, en post et en flyer à imprimer.' },
+  { id: 'montage', title: 'Montage vidéo courte', price: '80 €', priceNote: '/ vidéo', description: 'Vous filmez, je monte : une vidéo finale de 60 s maximum (Reel, TikTok, Short), avec sous-titres et musique libre de droits. Vidéo plus longue (YouTube, événement, présentation) : sur devis.' },
+  { id: 'grille', title: 'Grille de prix illustrée', price: '90 €', description: 'Vos prestations et tarifs aux couleurs de votre marque, en post pour les réseaux et en flyer à imprimer. 1 aller-retour de corrections inclus.' },
   { id: 'google', title: 'Fiche Google optimisée', price: '99 €', description: 'Photos, horaires, description, catégories et lien de réservation.' },
   { id: 'reseau', title: 'Réseau supplémentaire', price: '+50 €', priceNote: '/ mois', description: 'TikTok, LinkedIn… en plus de la Visibilité Mensuelle.' },
-  { id: 'maintenance', title: 'Maintenance du site', price: '39 €', priceNote: '/ mois', description: 'Mises à jour et petites modifications (1 h par mois).' },
-  { id: 'conseil', title: 'Conseil & stratégie', price: '120 €', description: '1 h 30 d’échange + un plan d’action écrit sur 3 mois.' },
+  { id: 'maintenance', title: 'Maintenance du site', price: '39 €', priceNote: '/ mois', description: 'Sauvegardes, vérifications et petites modifications (textes, prix, photos, horaires) jusqu’à 1 h par mois. Au-delà : 40 €/h. Nouvelle page ou refonte : sur devis.' },
+  { id: 'conseil', title: 'Séance stratégie', price: '150 €', description: '2 h d’échange (sur place ou en visio), un plan d’action écrit sur 3 mois et un point de suivi de 30 minutes un mois plus tard.' },
 ]
 
 export const SECTORS = [
