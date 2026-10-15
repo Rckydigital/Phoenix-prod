@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { SERVICES, OPTIONS, AUDIT, LAUNCH_OFFER, SITE, FAQ } from '@/lib/constants'
+import { SERVICES, OPTIONS, AUDIT, LAUNCH_OFFER, SITE, FAQ, INFO } from '@/lib/constants'
+import InfoButton from '@/components/InfoButton'
 import ServiceCard from '@/components/ServiceCard'
 
 export const metadata: Metadata = {
@@ -61,9 +62,9 @@ export default function ServicesPage() {
             <p className="section-subtitle">Pour un besoin précis, ou en complément d’une offre.</p>
             <ul className="mt-8 divide-y divide-line rounded-3xl border border-line bg-white">
               {OPTIONS.map((o) => (
-                <li key={o.id} id={o.id} className="flex items-start justify-between gap-4 px-5 py-4">
+                <li key={o.id} id={o.id} className="relative flex items-start justify-between gap-4 px-5 py-4">
                   <div>
-                    <p className="font-semibold text-ink">{o.title}</p>
+                    <p className="flex items-center gap-2 font-semibold text-ink">{o.title}<InfoButton title={o.title} blocks={INFO[o.id]} /></p>
                     <p className="mt-1 text-sm text-ink-soft">{o.description}</p>
                   </div>
                   <p className="shrink-0 font-bold text-brand-deep">

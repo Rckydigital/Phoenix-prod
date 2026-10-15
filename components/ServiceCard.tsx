@@ -1,11 +1,15 @@
 import Link from 'next/link'
-import type { Service } from '@/lib/constants'
+import { INFO, type Service } from '@/lib/constants'
+import InfoButton from '@/components/InfoButton'
 
 export default function ServiceCard({ service, detailed = false }: { service: Service; detailed?: boolean }) {
   return (
-    <article id={service.id} className="card flex scroll-mt-28 flex-col">
+    <article id={service.id} className="card relative flex scroll-mt-28 flex-col">
       <div className="flex items-start justify-between gap-4">
-        <h3 className="text-xl font-bold text-ink">{service.title}</h3>
+        <h3 className="flex items-center gap-2 text-xl font-bold text-ink">
+          {service.title}
+          <InfoButton title={service.title} blocks={INFO[service.id]} />
+        </h3>
         <p className="shrink-0 rounded-full bg-brand-soft px-3 py-1 text-sm font-bold text-brand-deep">
           {service.price}
           {service.priceNote && <span className="font-medium">{service.priceNote}</span>}

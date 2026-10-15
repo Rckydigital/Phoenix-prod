@@ -117,13 +117,60 @@ export const SERVICES: Service[] = [
 // Options à la carte
 export const OPTIONS = [
   { id: 'saison', title: 'Vitrine Pro édition Tourisme', price: '490 €', description: 'La Vitrine Pro + 10 publications prêtes à poster pour la haute saison.' },
-  { id: 'montage', title: 'Montage vidéo courte', price: '80 €', priceNote: '/ vidéo', description: 'Vous filmez, je monte : une vidéo finale de 60 s maximum (Reel, TikTok, Short), avec sous-titres et musique libre de droits. Vidéo plus longue (YouTube, événement, présentation) : sur devis.' },
-  { id: 'grille', title: 'Grille de prix illustrée', price: '90 €', description: 'Vos prestations et tarifs aux couleurs de votre marque, en post pour les réseaux et en flyer à imprimer. 1 aller-retour de corrections inclus.' },
+  { id: 'montage', title: 'Montage vidéo courte', price: '80 €', priceNote: '/ vidéo', description: 'Vous filmez, je monte : une vidéo courte prête à publier.' },
+  { id: 'grille', title: 'Grille de prix illustrée', price: '90 €', description: 'Vos prestations et tarifs, en post et en flyer à imprimer.' },
   { id: 'google', title: 'Fiche Google optimisée', price: '99 €', description: 'Photos, horaires, description, catégories et lien de réservation.' },
   { id: 'reseau', title: 'Réseau supplémentaire', price: '+50 €', priceNote: '/ mois', description: 'TikTok, LinkedIn… en plus de la Visibilité Mensuelle.' },
-  { id: 'maintenance', title: 'Maintenance du site', price: '39 €', priceNote: '/ mois', description: 'Sauvegardes, vérifications et petites modifications (textes, prix, photos, horaires) jusqu’à 1 h par mois. Au-delà : 40 €/h. Nouvelle page ou refonte : sur devis.' },
-  { id: 'conseil', title: 'Séance stratégie', price: '150 €', description: '2 h d’échange (sur place ou en visio), un plan d’action écrit sur 3 mois et un point de suivi de 30 minutes un mois plus tard.' },
+  { id: 'maintenance', title: 'Maintenance du site', price: '39 €', priceNote: '/ mois', description: 'Votre site à jour et en sécurité, sans y penser.' },
+  { id: 'conseil', title: 'Séance stratégie', price: '150 €', description: 'Un plan d’action clair sur 3 mois pour votre présence en ligne.' },
 ]
+
+
+// Détails affichés derrière le petit « i » (cartes d'offres et options)
+export type InfoBlock = { label: string; items: string[] }
+export const INFO: Record<string, InfoBlock[]> = {
+  vitrine: [
+    { label: 'Comment ça se passe', items: ['J-7 : appel de 20 min pour préparer la liste des plans et vos prix', 'Jour J : séance de 2 h sur place', 'J+5 : photos + grille de prix (1 aller-retour de corrections)', 'J+7 : les 3 Reels + fiche Google mise à jour, avec un petit guide pour publier'] },
+    { label: 'Ce que vous fournissez', items: ['Un lieu propre et rangé le jour de la séance', 'Vos prestations et vos prix', 'L’accès à votre fiche Google'] },
+    { label: 'Non inclus', items: ['La publication des posts (voir Visibilité Mensuelle)', 'Les prises de vue au drone', 'Les modèles ou figurants', 'Déplacement hors Grande-Terre : indiqué sur le devis'] },
+    { label: 'Garantie', items: ['Une photo ne vous plaît pas ? Elle est refaite à la séance suivante, sans frais.'] },
+  ],
+  reservation: [
+    { label: 'Comment ça se passe', items: ['J0 : appel de cadrage + cahier des charges', 'J+7 : maquette à valider', 'J+14 : site complet (1 aller-retour de corrections)', 'J+21 : mise en ligne + 1 h de formation'] },
+    { label: 'Ce que vous fournissez', items: ['Vos textes ou les infos pour les rédiger ensemble', 'Vos photos (ou celles de la Vitrine Pro)', 'Vos prestations, prix, horaires et règles de réservation'] },
+    { label: 'À votre charge', items: ['L’abonnement Wix à votre nom (~30 €/mois)', 'Le nom de domaine (~10-15 €/an)', 'Vous restez propriétaire du site et du domaine'] },
+    { label: 'Ensuite', items: ['1 mois de maintenance offert, puis 39 €/mois si vous le souhaitez (facultatif)'] },
+  ],
+  visibilite: [
+    { label: 'Chaque mois', items: ['1 séance de tournage sur place (1 h 30)', 'Vous validez le calendrier des publications en 10 min', '8 publications dont 4 Reels + 8 stories', '2 publications sur la fiche Google + réponse aux avis', 'Réponses aux messages et commentaires (jours ouvrés, sous 48 h)', 'Rapport d’une page : abonnés, vues, messages, plan du mois suivant'] },
+    { label: 'Engagement', items: ['3 mois minimum, le temps d’avoir des résultats', 'Ensuite sans engagement, préavis d’1 mois', 'Paiement en début de mois'] },
+    { label: 'Non inclus', items: ['La publicité payante (budget Meta)', 'Les réseaux en plus d’Instagram + Facebook (+50 €/mois)', 'Les cas délicats (litiges, réclamations) : ils vous sont transmis'] },
+  ],
+  saison: [
+    { label: 'Inclus', items: ['Tout le contenu de la Vitrine Pro', '+ 10 publications prêtes à poster (visuels + légendes) pour la haute saison'] },
+  ],
+  montage: [
+    { label: 'Inclus', items: ['Une vidéo finale de 60 s maximum (Reel, TikTok, Short)', 'Montage dynamique, sous-titres, musique libre de droits', 'Format vertical ou horizontal', '1 aller-retour de corrections'] },
+    { label: 'Bon à savoir', items: ['Vos rushes peuvent durer plus longtemps : c’est la vidéo finale qui fait 60 s maximum', 'Vidéo plus longue (YouTube, événement, présentation) : sur devis'] },
+  ],
+  grille: [
+    { label: 'Inclus', items: ['Vos prestations et tarifs aux couleurs de votre marque', 'Une version post (réseaux sociaux) et une version flyer à imprimer', '1 aller-retour de corrections'] },
+  ],
+  google: [
+    { label: 'Inclus', items: ['Photos ajoutées (les vôtres ou celles d’un shooting)', 'Horaires, description, catégories et services', 'Lien de réservation ou de contact', 'Conseils pour obtenir plus d’avis'] },
+  ],
+  reseau: [
+    { label: 'Bon à savoir', items: ['Instagram + Facebook comptent comme un seul réseau dans la Visibilité Mensuelle', 'TikTok, LinkedIn… : +50 €/mois par réseau, avec les mêmes contenus adaptés'] },
+  ],
+  maintenance: [
+    { label: 'Inclus chaque mois', items: ['Sauvegarde et vérification du site', 'Petites modifications : textes, prix, photos, horaires', 'Jusqu’à 1 h de travail par mois'] },
+    { label: 'Au-delà', items: ['Heure supplémentaire : 40 €/h', 'Nouvelle page ou refonte : sur devis', 'Les heures non utilisées ne se reportent pas'] },
+    { label: 'Engagement', items: ['Sans engagement, préavis d’1 mois'] },
+  ],
+  conseil: [
+    { label: 'Inclus', items: ['Un questionnaire à remplir avant la séance', '2 h d’échange, sur place ou en visio', 'Un plan d’action écrit sur 3 mois, envoyé sous 5 jours', 'Un point de suivi de 30 minutes un mois plus tard'] },
+  ],
+}
 
 export const SECTORS = [
   {
