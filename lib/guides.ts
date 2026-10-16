@@ -229,7 +229,7 @@ export const GUIDES: Guide[] = [
       },
       {
         q: 'Puis-je utiliser les photos partout ?',
-        a: 'Oui. Les photos livrées sont à vous : vous les utilisez où vous voulez, sans limite de durée (réseaux sociaux, fiche Google, site, Airbnb ou Booking, flyers, presse).',
+        a: 'Oui, pour faire la promotion de votre activité : réseaux sociaux, fiche Google, site, Airbnb ou Booking, newsletters et supports imprimés, dans le monde entier et pendant 10 ans après le paiement. Une publicité télévisée, un grand panneau ou une revente se discutent à part.',
       },
       {
         q: 'Faut-il refaire des photos souvent ?',
