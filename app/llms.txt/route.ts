@@ -1,4 +1,5 @@
 import { SITE, SERVICES, OPTIONS, FAQ, LAST_UPDATE } from '@/lib/constants'
+import { GUIDES } from '@/lib/guides'
 
 export const dynamic = 'force-static'
 
@@ -12,10 +13,13 @@ export function GET() {
     '',
     '## Pages',
     `- [Accueil](${SITE.url}/): présentation de l'agence et de ses services`,
-    `- [Services et tarifs](${SITE.url}/services): détail des offres et prix de départ`,
+    `- [Services et tarifs](${SITE.url}/services): détail des offres et prix fixes`,
     `- [Réalisations](${SITE.url}/realisations): projets réels et vidéos`,
     `- [À propos](${SITE.url}/a-propos): qui est derrière RCKY DIGITAL`,
     `- [Contact](${SITE.url}/contact): demande de devis gratuit`,
+    '',
+    '## Guides',
+    ...GUIDES.map((g) => `- [${g.title}](${SITE.url}/guides/${g.slug}): ${g.answer}`),
     '',
     '## Services et tarifs',
     ...SERVICES.map((s) => `- ${s.title} (${s.price}${s.priceNote ? ' ' + s.priceNote : ''}) : ${s.description}`),

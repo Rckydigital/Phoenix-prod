@@ -138,7 +138,7 @@ export const INFO: Record<string, InfoBlock[]> = {
   reservation: [
     { label: 'Comment ça se passe', items: ['J0 : appel de cadrage + cahier des charges', 'J+7 : maquette à valider', 'J+14 : site complet (1 aller-retour de corrections)', 'J+21 : mise en ligne + 1 h de formation'] },
     { label: 'Ce que vous fournissez', items: ['Vos textes ou les infos pour les rédiger ensemble', 'Vos photos (ou celles de la Vitrine Pro)', 'Vos prestations, prix, horaires et règles de réservation'] },
-    { label: 'À votre charge', items: ['L’abonnement Wix à votre nom (~30 €/mois)', 'Le nom de domaine (~10-15 €/an)', 'Vous restez propriétaire du site et du domaine'] },
+    { label: 'À votre charge', items: ['L’abonnement Wix à votre nom (~30 €/mois)', 'Le nom de domaine (offert la 1re année, puis ~15-25 €/an)', 'Vous restez propriétaire du site et du domaine'] },
     { label: 'Ensuite', items: ['1 mois de maintenance offert, puis 39 €/mois si vous le souhaitez (facultatif)'] },
   ],
   visibilite: [
