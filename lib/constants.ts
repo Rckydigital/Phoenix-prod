@@ -245,6 +245,7 @@ export const NAV_LINKS = [
   { href: '/services', label: 'Services & tarifs' },
   { href: '/realisations', label: 'Réalisations' },
   { href: '/a-propos', label: 'À propos' },
+  { href: '/guides', label: 'Guides' },
   { href: '/contact', label: 'Contact' },
 ]
 

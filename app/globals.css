@@ -71,6 +71,29 @@ p { text-wrap: pretty; }
 .info-pop[data-open='false'] { opacity: 0; transform: scale(0.94); pointer-events: none; visibility: hidden; transition: opacity 150ms ease, transform 200ms ease, visibility 0s 200ms; }
 .info-pop[data-open='true'] { opacity: 1; transform: none; visibility: visible; }
 
+
+/* ---------- Animations du site (apparition au défilement, héros, bandeau) ---------- */
+.js .reveal { opacity: 0; transform: translate3d(0, 28px, 0) scale(0.985); transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms), transform 900ms cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms); will-change: opacity, transform; }
+.js .reveal[data-shown='true'] { opacity: 1; transform: none; }
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: none; } }
+.hero-in { opacity: 0; animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0ms); }
+@keyframes float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(0, -14px, 0) rotate(-1.5deg); } }
+.float { animation: float 7s ease-in-out infinite; }
+@keyframes drift { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(18px, -22px, 0) scale(1.06); } }
+.drift { animation: drift 14s ease-in-out infinite; }
+.drift-slow { animation: drift 19s ease-in-out infinite reverse; }
+@keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+.marquee { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+.lift { transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 450ms ease; }
+@media (hover: hover) { .lift:hover { transform: translate3d(0, -6px, 0); box-shadow: 0 22px 50px -22px rgba(30, 42, 51, 0.35); } }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { transform: none; transition: opacity 300ms ease; }
+  .hero-in { opacity: 1; animation: none; }
+  .float, .drift, .drift-slow, .marquee { animation: none; }
+  .lift:hover { transform: none; }
+}
+
 /* ---------- Accessibilité : réglages de l'utilisateur ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

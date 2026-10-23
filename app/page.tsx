@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { SITE, SERVICES, SECTORS, LAUNCH_OFFER } from '@/lib/constants'
 import { PhoenixIcon } from '@/components/Logo'
 import ServiceCard from '@/components/ServiceCard'
+import Reveal from '@/components/Reveal'
+import { GUIDES } from '@/lib/guides'
 
 export const metadata: Metadata = {
   title: 'Agence digitale en Guadeloupe : photo, vidéo, réseaux et sites | RCKY DIGITAL',
@@ -34,19 +36,19 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-sand pb-20 pt-32 md:pb-28 md:pt-40">
-        <div aria-hidden="true" className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand/15" />
-        <div aria-hidden="true" className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-teal/10" />
+        <div aria-hidden="true" className="drift absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand/15" />
+        <div aria-hidden="true" className="drift-slow absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-teal/10" />
         <div className="container-site relative grid items-center gap-12 md:grid-cols-[1.2fr_1fr]">
           <div>
-            <span className="eyebrow">Agence digitale en Guadeloupe</span>
-            <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl md:text-6xl">
+            <span className="eyebrow hero-in" style={{ '--d': '0ms' } as React.CSSProperties}>Agence digitale en Guadeloupe</span>
+            <h1 style={{ '--d': '120ms' } as React.CSSProperties} className="hero-in mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl md:text-6xl">
               Des visuels qui donnent <span className="text-brand-deep">envie de réserver.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+            <p style={{ '--d': '240ms' } as React.CSSProperties} className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
               Photos, vidéos, réseaux sociaux et sites avec réservation pour les gîtes, les activités, les salons et les
               instituts de Guadeloupe.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div style={{ '--d': '360ms' } as React.CSSProperties} className="hero-in mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/contact" className="btn-primary px-7 py-4 text-base">
                 Réserver un échange gratuit
               </Link>
@@ -55,11 +57,30 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center rounded-full bg-white shadow-[0_30px_80px_-30px_rgba(30,42,51,0.35)]">
-            <PhoenixIcon className="h-4/5 w-4/5" title="Phénix RCKY DIGITAL tenant un objectif photo" large />
+          <div style={{ '--d': '300ms' } as React.CSSProperties} className="hero-in relative mx-auto w-full max-w-sm">
+            <div className="float flex aspect-square w-full items-center justify-center rounded-full bg-white shadow-[0_30px_80px_-30px_rgba(30,42,51,0.35)]">
+              <PhoenixIcon className="h-4/5 w-4/5" title="Phénix RCKY DIGITAL tenant un objectif photo" large />
+            </div>
           </div>
         </div>
       </section>
+
+
+      {/* BANDEAU DÉFILANT */}
+      <div className="overflow-hidden border-y border-line bg-white py-4" aria-hidden="true">
+        <div className="marquee">
+          {[0, 1].map((k) => (
+            <div key={k} className="flex shrink-0 items-center gap-10 pr-10 text-lg font-semibold text-ink-soft">
+              {['Gîtes & villas', 'Excursions', 'Salons de coiffure', 'Instituts de beauté', 'Barbiers', 'Restaurants', 'Commerces', 'Artisans'].map((t) => (
+                <span key={t} className="flex items-center gap-10">
+                  {t}
+                  <span className="text-brand">✦</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* OFFRE DE LANCEMENT */}
       {LAUNCH_OFFER.active && (
@@ -79,18 +100,20 @@ export default function HomePage() {
       {/* POUR QUI */}
       <section className="py-20 md:py-24">
         <div className="container-site">
-          <h2 className="section-title">Pour qui ?</h2>
-          <p className="section-subtitle">
-            Des petites entreprises qui ont un vrai savoir-faire, mais pas le temps de soigner leur image en ligne.
-          </p>
+          <Reveal>
+            <h2 className="section-title">Pour qui ?</h2>
+            <p className="section-subtitle">
+              Des petites entreprises qui ont un vrai savoir-faire, mais pas le temps de soigner leur image en ligne.
+            </p>
+          </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {SECTORS.map((s, i) => (
-              <div key={s.id} className="card">
+              <Reveal key={s.id} delay={i * 90} className="card lift">
                 <span className={`inline-block rounded-full px-3 py-1 text-sm font-semibold ${sectorColors[i % 3]}`}>
                   {s.title}
                 </span>
                 <p className="mt-4 leading-relaxed text-ink-soft">{s.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -109,8 +132,10 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.id} service={service} />
+            {SERVICES.map((service, i) => (
+              <Reveal key={service.id} delay={i * 110} className="lift rounded-3xl">
+                <ServiceCard service={service} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -119,16 +144,18 @@ export default function HomePage() {
       {/* MÉTHODE */}
       <section className="py-20 md:py-24">
         <div className="container-site">
-          <h2 className="section-title">Comment ça marche</h2>
+          <Reveal>
+            <h2 className="section-title">Comment ça marche</h2>
+          </Reveal>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {STEPS.map((step) => (
-              <div key={step.n}>
+            {STEPS.map((step, i) => (
+              <Reveal key={step.n} delay={i * 140}>
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-xl font-bold text-ink">
                   {step.n}
                 </span>
                 <h3 className="mt-5 text-xl font-bold text-ink">{step.title}</h3>
                 <p className="mt-2 leading-relaxed text-ink-soft">{step.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -155,21 +182,48 @@ export default function HomePage() {
               ['Transparent', 'Tarifs affichés, devis gratuit.'],
               ['Diplômé', 'Double certification marketing & e-business.'],
               ['Réactif', 'Réponse sous 48 h à toute demande.'],
-            ].map(([t, d]) => (
-              <li key={t} className="card">
+            ].map(([t, d], i) => (
+              <Reveal as="li" key={t} delay={i * 90} className="card lift">
                 <p className="font-bold text-ink">{t}</p>
                 <p className="mt-1 text-sm text-ink-soft">{d}</p>
-              </li>
+              </Reveal>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* GUIDES */}
+      <section className="py-20 md:py-24">
+        <div className="container-site">
+          <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <span className="eyebrow">Guides gratuits</span>
+              <h2 className="section-title mt-5">Les réponses à vos questions</h2>
+              <p className="section-subtitle">Prix d’un site, visibilité sur Google, photos pour Instagram : l’essentiel, sans jargon.</p>
+            </div>
+            <Link href="/guides" className="btn-outline shrink-0">
+              Tous les guides
+            </Link>
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {GUIDES.map((g, i) => (
+              <Reveal key={g.slug} delay={i * 110} className="h-full">
+                <Link href={`/guides/${g.slug}`} className="card lift group flex h-full flex-col">
+                  <h3 className="text-lg font-bold leading-snug text-ink group-hover:text-brand-deep">{g.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">{g.description}</p>
+                  <span className="mt-5 text-sm font-semibold text-brand-deep">Lire ({g.readingMinutes} min) →</span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-20 md:py-24">
         <div className="container-site">
-          <div className="relative overflow-hidden rounded-[2rem] bg-brand px-6 py-14 text-center md:px-16">
-            <div aria-hidden="true" className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/15" />
+          <Reveal className="relative overflow-hidden rounded-[2rem] bg-brand px-6 py-14 text-center md:px-16">
+            <div aria-hidden="true" className="drift absolute -right-16 -top-16 h-56 w-56 rounded-full bg-white/15" />
             <h2 className="relative text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
               Parlons de votre projet.
             </h2>
@@ -187,7 +241,7 @@ export default function HomePage() {
                 Appeler le {SITE.phone}
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>
