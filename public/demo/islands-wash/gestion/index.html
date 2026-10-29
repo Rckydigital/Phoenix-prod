@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IW Gestion</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B2B3B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IW Gestion">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/icon-180.png">
+<link rel="icon" href="../assets/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4FAFA;--surface:#FFFFFF;--ink:#0B2B3B;--muted:#4A6572;--lagoon:#0A7C7C;--lagoon-d:#075E5E;--on-accent:#fff;--sun:#FFC83D;--line:#CFE3E3;--deep:#0B2B3B;--on-deep:#EAF7F7;--soft:#E3F2F2;
+  --ok:#16a34a;--okbg:#dcfce7;--warn:#b45309;--warnbg:#fef3c7;--bad:#b91c1c;--badbg:#fee2e2;--info:#1d4ed8;--infobg:#dbeafe;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#08202B;--surface:#0E303F;--ink:#EAF7F7;--muted:#9DBAC2;--lagoon:#3CC8C4;--lagoon-d:#6FE0DC;--on-accent:#08202B;--line:#1D4757;--deep:#051820;--soft:#0B2836;
+  --okbg:#14532d;--ok:#86efac;--warnbg:#78350f;--warn:#fde68a;--badbg:#7f1d1d;--bad:#fecaca;--infobg:#1e3a8a;--info:#bfdbfe;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,sans-serif;margin:0;line-height:1.1}
+button{font:inherit;color:inherit}
+.app-h{position:sticky;top:0;z-index:20;background:var(--deep);color:var(--on-deep);padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 16px}
+.app-h .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.app-h h1{font-size:1.35rem}
+.app-h small{opacity:.7;font-size:.82rem}
+.iconbtn{position:relative;width:42px;height:42px;border-radius:12px;border:0;background:rgba(234,247,247,.12);color:var(--on-deep);display:grid;place-items:center;cursor:pointer}
+.iconbtn svg{width:22px;height:22px}
+.iconbtn .n{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:10px;background:var(--sun);color:#0B2B3B;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+@media (max-width:420px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:rgba(234,247,247,.08);border-radius:14px;padding:10px 12px}
+.stat b{display:block;font:800 1.3rem "Bricolage Grotesque",sans-serif}
+.stat span{font-size:.75rem;opacity:.75}
+.stat.y b{color:var(--sun)}
+main{max-width:720px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:0 0 14px;padding-bottom:2px;scrollbar-width:none}
+.tabs button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:.5rem .95rem;font-weight:700;font-size:.92rem;cursor:pointer}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.day{margin:18px 0 8px;font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.bk{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:64px 1fr;gap:12px;cursor:pointer;margin-bottom:10px;width:100%;text-align:left;position:relative}
+.bk:active{transform:scale(.99)}
+.bk .t{font:800 1.15rem "Bricolage Grotesque",sans-serif;line-height:1.1}
+.bk .t small{display:block;font:600 .78rem Figtree,sans-serif;color:var(--muted)}
+.bk h3{font-size:1.05rem;margin-bottom:2px}
+.bk .l{color:var(--muted);font-size:.9rem}
+.bk .pay{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.bk.new::before{content:"";position:absolute;left:-1px;top:14px;bottom:14px;width:4px;border-radius:4px;background:var(--sun)}
+.chip{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:.18rem .6rem;font-size:.76rem;font-weight:800}
+.c-ok{background:var(--okbg);color:var(--ok)}.c-warn{background:var(--warnbg);color:var(--warn)}.c-bad{background:var(--badbg);color:var(--bad)}.c-info{background:var(--infobg);color:var(--info)}.c-mute{background:var(--soft);color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+.nav button{border:0;background:none;display:grid;justify-items:center;gap:2px;font-size:.72rem;font-weight:700;color:var(--muted);padding:6px 0;cursor:pointer}
+.nav button svg{width:24px;height:24px}
+.nav button.on{color:var(--lagoon)}
+/* fiche */
+.sheet-wrap{position:fixed;inset:0;z-index:60;background:rgba(5,24,32,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet-wrap[hidden]{display:none}
+.sheet{background:var(--bg);width:min(100%,720px);max-height:92vh;overflow:auto;border-radius:24px 24px 0 0;padding:8px 18px calc(24px + env(safe-area-inset-bottom,0px));animation:up .22s ease}
+@keyframes up{from{transform:translateY(40px);opacity:.5}}
+.grab{width:42px;height:5px;border-radius:5px;background:var(--line);margin:6px auto 12px}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.sh h2{font-size:1.4rem}
+.x{border:0;background:var(--soft);width:36px;height:36px;border-radius:50%;font-size:1.3rem;cursor:pointer;flex:none}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.box h4{margin:0 0 8px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.95rem}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-weight:600;text-align:right}
+.acts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.act{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 4px;display:grid;justify-items:center;gap:4px;font-size:.76rem;font-weight:700;cursor:pointer;text-decoration:none;color:var(--ink)}
+.act svg{width:22px;height:22px;color:var(--lagoon)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:2px solid var(--lagoon);background:var(--lagoon);color:var(--on-accent);border-radius:14px;padding:.75rem 1rem;font-weight:700;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.danger{background:transparent;color:var(--bad);border-color:var(--badbg)}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:#0B2B3B}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.paybig{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.paybig:last-child{border-bottom:0}
+.paybig > b{font:800 1.2rem "Bricolage Grotesque",sans-serif}
+.hist{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.88rem}
+.hist li{display:grid;gap:1px}.hist small{color:var(--muted)}
+label{display:grid;gap:4px;font-weight:700;font-size:.9rem}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:.7rem .8rem;width:100%}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px;margin-top:8px}
+.slots button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:.55rem 0;font-weight:700;cursor:pointer}
+.slots button.on{background:var(--lagoon);border-color:var(--lagoon);color:var(--on-accent)}
+.toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translateX(-50%);z-index:90;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:14px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.3);max-width:92vw;display:flex;gap:10px;align-items:center;animation:drop .3s ease}
+@keyframes drop{from{transform:translate(-50%,-20px);opacity:0}}
+/* verrou */
+.lock{position:fixed;inset:0;z-index:100;background:var(--deep);color:var(--on-deep);display:grid;place-items:center;padding:24px}
+.lock[hidden]{display:none}
+.lock .in{display:grid;gap:18px;justify-items:center;text-align:center;width:min(100%,320px)}
+.dots{display:flex;gap:14px}.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--on-deep)}.dots i.f{background:var(--sun);border-color:var(--sun)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}
+.pad button{height:64px;border-radius:50%;border:0;background:rgba(234,247,247,.1);font:700 1.5rem "Bricolage Grotesque",sans-serif;color:var(--on-deep);cursor:pointer}
+.pad button:active{background:rgba(234,247,247,.25)}
+.hint{font-size:.86rem;color:var(--muted);margin:0}
+.lock .hint{color:var(--on-deep);opacity:.7}
+.install{background:var(--warnbg);color:var(--warn);border-radius:14px;padding:12px 14px;font-size:.9rem;margin-bottom:12px}
+.hours{display:grid;gap:8px}
+.hours .r{display:grid;grid-template-columns:96px 1fr 1fr 44px;gap:6px;align-items:center}
+.hours input[type=checkbox]{width:24px;height:24px}
+</style>
+</head>
+<body>
+
+<div class="lock" id="lock">
+  <div class="in">
+    <svg viewBox="0 0 120 120" width="72" height="72" aria-hidden="true"><rect width="120" height="120" rx="26" fill="#0E303F"/><text x="60" y="72" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="52" fill="#EAF7F7">IW</text><path d="M96 14 Q103 25 103 31 A7 7 0 0 1 89 31 Q89 25 96 14Z" fill="#FFC83D"/></svg>
+    <h2 style="font-size:1.4rem">Espace gestion</h2>
+    <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+    <div class="pad" id="pad"></div>
+    <p class="hint" id="lockHint">Code de démonstration : 1234</p>
+  </div>
+</div>
+
+<header class="app-h">
+  <div class="row">
+    <div><small id="today"></small><h1>ISLANDS WASH · Gestion</h1></div>
+    <button class="iconbtn" id="bell" aria-label="Nouvelles réservations"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="n" id="newN" hidden>0</span></button>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stToday">0</b><span>RDV aujourd’hui</span></div>
+    <div class="stat"><b id="stWeek">0</b><span>RDV 7 prochains jours</span></div>
+    <div class="stat y"><b id="stDep">0 €</b><span>Acomptes reçus (mois)</span></div>
+    <div class="stat"><b id="stRest">0 €</b><span>Reste à encaisser</span></div>
+  </div>
+</header>
+
+<main>
+  <div class="install" id="installTip" hidden>📲 Pour recevoir les notifications sur iPhone : touchez <b>Partager</b> puis <b>Sur l’écran d’accueil</b>, et ouvrez l’app depuis l’icône.</div>
+  <div class="tabs" id="tabs"></div>
+  <div id="list"></div>
+</main>
+
+<nav class="nav" id="nav">
+  <button data-v="rdv" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Rendez-vous</button>
+  <button data-v="caisse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></svg>Paiements</button>
+  <button data-v="pros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M10 21v-4h4v4"/></svg>Pros</button>
+  <button data-v="reglages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Réglages</button>
+</nav>
+
+<div class="sheet-wrap" id="sheet" hidden><div class="sheet" id="sheetIn"></div></div>
+
+<script src="../assets/data.js"></script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var view='rdv',tab='avenir',openId=null;
+  var todayISO=function(){return IW.iso(new Date())};
+  $('today').textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+
+  /* ===== verrou par code ===== */
+  var PINK='iw_pin',code='';
+  function pin(){try{return localStorage.getItem(PINK)||'1234'}catch(e){return '1234'}}
+  var unlocked=false;try{unlocked=sessionStorage.getItem('iw_ok')==='1'}catch(e){}
+  $('lock').hidden=unlocked;
+  if(pin()!=='1234')$('lockHint').textContent='Entrez votre code';
+  $('pad').innerHTML=[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(function(k){return k===''?'<span></span>':'<button type="button" data-k="'+k+'">'+k+'</button>'}).join('');
+  $('pad').addEventListener('click',function(e){var k=e.target.dataset&&e.target.dataset.k;if(k==null)return;
+    code=k==='⌫'?code.slice(0,-1):(code+k).slice(0,4);
+    document.querySelectorAll('#dots i').forEach(function(d,i){d.classList.toggle('f',i<code.length)});
+    if(code.length===4){if(code===pin()){try{sessionStorage.setItem('iw_ok','1')}catch(e){}$('lock').hidden=true;askNotif()}
+      else{$('lockHint').textContent='Code incorrect';setTimeout(function(){code='';document.querySelectorAll('#dots i').forEach(function(d){d.classList.remove('f')})},300)}}});
+
+  /* ===== notifications ===== */
+  var standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+  if(/iPhone|iPad/.test(navigator.userAgent)&&!standalone)$('installTip').hidden=false;
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+  function askNotif(){if('Notification' in window&&Notification.permission==='default'&&standalone)Notification.requestPermission()}
+  function notify(title,body){
+    toast('🔔 '+title+' · '+body);
+    if('Notification' in window&&Notification.permission==='granted'&&navigator.serviceWorker){
+      navigator.serviceWorker.ready.then(function(r){r.showNotification(title,{body:body,icon:'../assets/icon-192.png',badge:'../assets/icon-192.png',tag:'iw'})}).catch(function(){});
+    }
+  }
+  function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},4200)}
+  var known={};IW.bookings().forEach(function(b){known[b.id]=1});
+  function checkNew(){IW.bookings().forEach(function(b){if(!known[b.id]){known[b.id]=1;
+    notify('Nouvelle réservation',b.service+' · '+IW.dayLabel(b.date,{weekday:'short',day:'numeric',month:'short'})+' '+IW.hm(b.start)+' · acompte '+b.deposit+' € ('+IW.PAY_METHODS[b.depositMethod]+')')}});render()}
+  try{new BroadcastChannel('iw').onmessage=checkNew}catch(e){}
+  addEventListener('storage',checkNew);
+  setInterval(checkNew,15000);
+
+  /* ===== helpers ===== */
+  function statusChip(b){var m={nouvelle:'c-warn',confirmee:'c-info',terminee:'c-ok',annulee:'c-bad'};return '<span class="chip '+m[b.status]+'">'+IW.STATUS[b.status]+'</span>'}
+  function payChips(b){var s='';
+    s+=b.depositPaid?'<span class="chip c-ok">✓ Acompte '+b.deposit+' € · '+IW.PAY_METHODS[b.depositMethod]+'</span>':'<span class="chip c-bad">Acompte non payé</span>';
+    if(b.status!=='annulee')s+=b.restPaid?'<span class="chip c-ok">✓ Reste '+b.rest+' € · '+IW.PAY_METHODS[b.restMethod]+'</span>':'<span class="chip c-warn">Reste '+b.rest+' € à encaisser</span>';
+    return s}
+  function telLink(t){return 'tel:'+String(t).replace(/[^\d+]/g,'')}
+  function waNum(t){var d=String(t).replace(/\D/g,'');if(d.indexOf('0')===0)d='590'+d.slice(1);return d}
+  function mapLink(b){var q=b.gps||((b.address||'')+', '+b.commune+', Guadeloupe');return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
+  function wazeLink(b){return b.gps?'https://waze.com/ul?ll='+b.gps+'&navigate=yes':'https://waze.com/ul?q='+encodeURIComponent((b.address||'')+' '+b.commune)}
+
+  /* ===== statistiques ===== */
+  function stats(){var all=IW.bookings(),t=todayISO(),wk=IW.iso(new Date(Date.now()+7*864e5)),m=t.slice(0,7),dep=0,rest=0,nt=0,nw=0,nn=0;
+    all.forEach(function(b){if(b.status==='annulee')return;if(b.date===t)nt++;if(b.date>=t&&b.date<=wk)nw++;
+      if(b.depositPaid&&(b.createdAt||'').slice(0,7)===m)dep+=b.deposit;if(!b.restPaid)rest+=b.rest;if(b.status==='nouvelle')nn++});
+    $('stToday').textContent=nt;$('stWeek').textContent=nw;$('stDep').textContent=IW.euro(dep);$('stRest').textContent=IW.euro(rest);
+    $('newN').textContent=nn;$('newN').hidden=!nn}
+
+  /* ===== vues ===== */
+  var TABS={rdv:[['avenir','À venir'],['nouvelles','Nouvelles'],['aujourdhui','Aujourd’hui'],['passees','Passées'],['annulees','Annulées']],
+    caisse:[['aencaisser','À encaisser'],['encaisse','Encaissé']],pros:[['devis','Demandes de devis']],reglages:[['reg','Réglages']]};
+  function renderTabs(){$('tabs').innerHTML=TABS[view].map(function(t){return '<button class="'+(t[0]===tab?'on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>'}).join('');
+    $('tabs').hidden=TABS[view].length<2}
+  $('tabs').addEventListener('click',function(e){if(e.target.dataset.t){tab=e.target.dataset.t;render()}});
+  $('nav').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;view=b.dataset.v;tab=TABS[view][0][0];
+    document.querySelectorAll('.nav button').forEach(function(x){x.classList.toggle('on',x===b)});render();scrollTo(0,0)});
+  $('bell').addEventListener('click',function(){view='rdv';tab='nouvelles';document.querySelectorAll('.nav button').forEach(function(x){x.classList.toggle('on',x.dataset.v==='rdv')});render()});
+
+  function card(b){return '<button class="bk'+(b.status==='nouvelle'?' new':'')+'" data-id="'+b.id+'"><div class="t">'+IW.hm(b.start)+'<small>'+IW.hm(b.end)+'</small></div><div>'+
+    '<div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><h3>'+esc(b.service)+'</h3>'+statusChip(b)+'</div>'+
+    '<div class="l">'+esc(b.name)+' · '+esc(b.commune)+'</div><div class="l">'+esc(b.vehicleType)+(b.vehicle?' · '+esc(b.vehicle):'')+'</div><div class="pay">'+payChips(b)+'</div></div></button>'}
+  function grouped(list){if(!list.length)return '<p class="empty">Rien pour l’instant.</p>';var out='',cur='';
+    list.forEach(function(b){if(b.date!==cur){cur=b.date;out+='<div class="day">'+(b.date===todayISO()?'Aujourd’hui · ':'')+IW.dayLabel(b.date)+'</div>'}out+=card(b)});return out}
+  function sortAsc(a,b){return a.date===b.date?a.start-b.start:(a.date<b.date?-1:1)}
+
+  function render(){renderTabs();stats();var all=IW.bookings(),t=todayISO(),h='';
+    if(view==='rdv'){var f={avenir:function(b){return b.date>=t&&b.status!=='annulee'},nouvelles:function(b){return b.status==='nouvelle'},aujourdhui:function(b){return b.date===t},
+        passees:function(b){return b.date<t&&b.status!=='annulee'},annulees:function(b){return b.status==='annulee'}}[tab];
+      var l=all.filter(f).sort(sortAsc);if(tab==='passees')l.reverse();h=grouped(l)}
+    if(view==='caisse'){var l2=all.filter(function(b){return b.status!=='annulee'&&(tab==='aencaisser'?!b.restPaid:b.restPaid)}).sort(sortAsc);
+      var sum=l2.reduce(function(s,b){return s+(tab==='aencaisser'?b.rest:b.total)},0);
+      var by={};all.forEach(function(b){if(b.depositPaid){by[b.depositMethod]=(by[b.depositMethod]||0)+b.deposit}if(b.restPaid){by[b.restMethod]=(by[b.restMethod]||0)+b.rest}});
+      h='<div class="box"><h4>'+(tab==='aencaisser'?'Total à encaisser sur place':'Total encaissé (acompte + reste)')+'</h4><b style="font:800 1.8rem Bricolage Grotesque,sans-serif">'+IW.euro(sum)+'</b></div>'+
+        '<div class="box"><h4>Encaissé par moyen de paiement</h4><dl class="kv">'+Object.keys(by).map(function(k){return '<dt>'+IW.PAY_METHODS[k]+'</dt><dd>'+IW.euro(by[k])+'</dd>'}).join('')+'</dl></div>'+grouped(l2)}
+    if(view==='pros'){var pr=IW.proRequests().slice().reverse();h=pr.length?pr.map(function(r){return '<div class="box"><div style="display:flex;justify-content:space-between;gap:8px"><b>'+esc(r.entreprise)+'</b><span class="chip c-warn">Devis à faire</span></div>'+
+        '<div class="hint" style="margin:4px 0 10px">'+esc(r.nom)+' · '+esc(r.commune)+' · '+esc(r.nb)+' véhicule(s) · '+esc(r.freq)+'</div>'+(r.msg?'<p style="margin:0 0 10px">'+esc(r.msg)+'</p>':'')+
+        '<div class="btns"><a class="btn ghost" href="'+telLink(r.tel)+'">Appeler</a><a class="btn" target="_blank" href="https://wa.me/'+waNum(r.tel)+'?text='+encodeURIComponent('Bonjour '+r.nom+', ISLANDS WASH. Merci pour votre demande de devis pour '+r.entreprise+'.')+'">WhatsApp</a></div></div>'}).join(''):'<p class="empty">Aucune demande de devis professionnelle pour l’instant.<br>Elles arrivent ici depuis la partie « Professionnels » du site.</p>'}
+    if(view==='reglages')h=settingsHtml();
+    $('list').innerHTML=h;if(view==='reglages')bindSettings();if(openId)openSheet(openId,true)}
+  $('list').addEventListener('click',function(e){var b=e.target.closest('.bk');if(b)openSheet(b.dataset.id)});
+
+  /* ===== fiche réservation ===== */
+  function get(id){return IW.bookings().filter(function(b){return b.id===id})[0]}
+  function close(){openId=null;$('sheet').hidden=true}
+  $('sheet').addEventListener('click',function(e){if(e.target.id==='sheet')close()});
+  function openSheet(id,refresh){var b=get(id);if(!b)return close();openId=id;
+    var notify=encodeURIComponent('Bonjour '+b.name.split(' ')[0]+', c’est ISLANDS WASH. Votre rendez-vous ('+b.service+') est confirmé le '+IW.dayLabel(b.date)+' à '+IW.hm(b.start)+'. À bientôt !');
+    $('sheetIn').innerHTML='<div class="grab"></div><div class="sh"><div><div class="hint">'+b.id+'</div><h2>'+esc(b.service)+'</h2><div style="margin-top:6px">'+statusChip(b)+'</div></div><button class="x" data-a="close" aria-label="Fermer">×</button></div>'+
+      '<div class="box"><dl class="kv"><dt>Date</dt><dd>'+IW.dayLabel(b.date)+'</dd><dt>Heure</dt><dd>'+IW.hm(b.start)+' – '+IW.hm(b.end)+'</dd><dt>Client</dt><dd>'+esc(b.name)+'</dd><dt>Téléphone</dt><dd>'+esc(b.tel)+'</dd>'+
+      '<dt>Véhicule</dt><dd>'+esc(b.vehicleType)+(b.vehicle?' · '+esc(b.vehicle):'')+'</dd><dt>Adresse</dt><dd>'+esc(b.address||'Position GPS')+'<br>'+esc(b.commune)+' (zone '+b.zone+')</dd>'+(b.notes?'<dt>Précisions</dt><dd>'+esc(b.notes)+'</dd>':'')+'</dl></div>'+
+      '<div class="acts"><a class="act" href="'+telLink(b.tel)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Appeler</a>'+
+      '<a class="act" target="_blank" href="https://wa.me/'+waNum(b.tel)+'?text='+notify+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg>WhatsApp</a>'+
+      '<a class="act" target="_blank" href="'+wazeLink(b)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8z"/></svg>Y aller</a>'+
+      '<button class="act" data-a="ics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>Agenda</button></div>'+
+      '<div class="box"><h4>Paiement · total '+b.total+' € TTC</h4>'+
+      '<div class="paybig"><div>Acompte en ligne (40 %)<div class="hint">'+(b.depositPaid?'Payé par <b>'+IW.PAY_METHODS[b.depositMethod]+'</b>':'Non payé')+'</div></div><b style="color:var(--ok)">'+(b.depositPaid?'✓ ':'')+b.deposit+' €</b></div>'+
+      '<div class="paybig"><div>Reste sur place<div class="hint">'+(b.restPaid?'Encaissé en <b>'+IW.PAY_METHODS[b.restMethod]+'</b>':'À encaisser après l’intervention')+'</div></div><b>'+(b.restPaid?'✓ ':'')+b.rest+' €</b></div>'+
+      (b.restPaid||b.status==='annulee'?(b.restPaid?'<button class="btn ghost" style="width:100%;margin-top:8px" data-a="unpay">Annuler l’encaissement</button>':''):'<div class="btns" style="margin-top:10px"><button class="btn sun" data-a="cash">Encaissé en espèces</button><button class="btn sun" data-a="cb">Encaissé par CB</button></div>')+'</div>'+
+      '<div class="box"><h4>Statut</h4><div class="btns">'+
+        (b.status==='nouvelle'?'<button class="btn" data-a="confirm">Confirmer</button>':'')+
+        (b.status!=='terminee'&&b.status!=='annulee'?'<button class="btn ghost" data-a="done">Marquer terminée</button>':'')+
+        '<button class="btn ghost" data-a="move">Modifier date / heure</button>'+
+        (b.status!=='annulee'?'<button class="btn danger" data-a="cancel">Annuler le RDV</button>':'<button class="btn ghost" data-a="restore">Rétablir</button>')+'</div>'+
+        '<div id="moveBox" hidden style="margin-top:12px"></div></div>'+
+      '<div class="box"><h4>Historique</h4><ul class="hist">'+(b.history||[]).slice().reverse().map(function(x){return '<li>'+esc(x.note)+'<small>'+new Date(x.at).toLocaleString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</small></li>'}).join('')+'</ul></div>';
+    $('sheet').hidden=false}
+
+  $('sheetIn').addEventListener('click',function(e){var a=e.target.closest('[data-a]');if(!a)return;var b=get(openId),k=a.dataset.a;
+    if(k==='close')return close();
+    if(k==='ics')return IW.ics(b,true);
+    if(k==='cash'||k==='cb'){IW.updateBooking(b.id,{restPaid:true,restMethod:k==='cash'?'especes':'cb',status:'terminee'},'Reste de '+b.rest+' € encaissé ('+(k==='cash'?'espèces':'CB sur place')+')');toast('✓ '+b.rest+' € encaissés');return render()}
+    if(k==='unpay'){IW.updateBooking(b.id,{restPaid:false,restMethod:null},'Encaissement annulé');return render()}
+    if(k==='confirm'){IW.updateBooking(b.id,{status:'confirmee'},'Rendez-vous confirmé');toast('Confirmé · pensez à prévenir le client sur WhatsApp');return render()}
+    if(k==='done'){IW.updateBooking(b.id,{status:'terminee'},'Intervention terminée');return render()}
+    if(k==='cancel'){if(confirm('Annuler ce rendez-vous ? Le créneau redevient libre sur le site.')){IW.updateBooking(b.id,{status:'annulee'},'Rendez-vous annulé');toast('Annulé · l’acompte se rembourse depuis Stripe si besoin')}return render()}
+    if(k==='restore'){IW.updateBooking(b.id,{status:'confirmee'},'Rendez-vous rétabli');return render()}
+    if(k==='move')return moveUi(b);
+    if(k==='slot'){document.querySelectorAll('#moveBox .slots button').forEach(function(x){x.classList.toggle('on',x===a)});$('moveBox').dataset.start=a.dataset.s;return}
+    if(k==='save'){var d=$('mvDate').value,s=$('moveBox').dataset.start;if(!d||s==null||s===''){toast('Choisissez une date et une heure');return}
+      s=+s;var o=IW.offer(b.offerId);IW.updateBooking(b.id,{date:d,start:s,end:s+(o?o.dur:b.end-b.start),status:b.status==='nouvelle'?'confirmee':b.status},'Déplacé au '+IW.dayLabel(d)+' à '+IW.hm(s));
+      var nb=get(b.id);render();
+      var msg='Bonjour '+nb.name.split(' ')[0]+', c’est ISLANDS WASH. Votre rendez-vous ('+nb.service+') est déplacé au '+IW.dayLabel(nb.date)+' à '+IW.hm(nb.start)+'. Si ce créneau ne vous convient pas, répondez à ce message. Merci !';
+      toast('Rendez-vous déplacé');setTimeout(function(){if(confirm('Prévenir le client sur WhatsApp ?'))window.open('https://wa.me/'+waNum(nb.tel)+'?text='+encodeURIComponent(msg),'_blank')},300)}
+  });
+  function moveUi(b){var box=$('moveBox');box.hidden=false;var o=IW.offer(b.offerId),d=o?o.dur:b.end-b.start;
+    box.innerHTML='<label>Nouvelle date<input type="date" id="mvDate" value="'+b.date+'" min="'+todayISO()+'"></label><div id="mvSlots"></div><button class="btn" style="width:100%;margin-top:10px" data-a="save">Enregistrer et prévenir le client</button>';
+    function fill(){var v=$('mvDate').value,s=v?IW.slots(IW.fromIso(v),d,b.id):[];box.dataset.start='';
+      $('mvSlots').innerHTML=s.length?'<div class="slots">'+s.map(function(t){return '<button type="button" data-a="slot" data-s="'+t+'">'+IW.hm(t)+'</button>'}).join('')+'</div>':'<p class="hint" style="margin-top:8px">Aucun créneau libre ce jour-là (jour fermé ou complet).</p>'}
+    $('mvDate').addEventListener('change',fill);fill()}
+
+  /* ===== réglages ===== */
+  var DN=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  function hhmm(m){return IW.pad(Math.floor(m/60))+':'+IW.pad(m%60)}
+  function settingsHtml(){var s=IW.settings();
+    return '<div class="box"><h4>Notifications</h4><p class="hint" style="margin-bottom:10px">Une alerte à chaque nouvelle réservation et chaque demande de devis pro.</p>'+
+      '<div class="btns"><button class="btn" id="nBtn">Activer les notifications</button><button class="btn ghost" id="nTest">Tester une alerte</button></div><p class="hint" id="nState" style="margin-top:8px"></p></div>'+
+      '<div class="box"><h4>Horaires d’ouverture (réservation en ligne)</h4><div class="hours">'+[1,2,3,4,5,6,0].map(function(d){var w=s.hours[d];
+        return '<div class="r"><b>'+DN[d]+'</b><input type="time" data-d="'+d+'" data-k="0" value="'+(w?hhmm(w[0]):'08:00')+'"'+(w?'':' disabled')+'><input type="time" data-d="'+d+'" data-k="1" value="'+(w?hhmm(w[1]):'12:00')+'"'+(w?'':' disabled')+'><input type="checkbox" data-d="'+d+'" aria-label="Ouvert le '+DN[d]+'"'+(w?' checked':'')+'></div>'}).join('')+
+      '</div><button class="btn" id="hSave" style="width:100%;margin-top:10px">Enregistrer les horaires</button></div>'+
+      '<div class="box"><h4>Bloquer un créneau (congés, rendez-vous perso)</h4><label>Date<input type="date" id="blD" min="'+todayISO()+'"></label><div class="btns" style="margin-top:8px"><label>De<input type="time" id="blA" value="07:00"></label><label>À<input type="time" id="blB" value="18:00"></label></div>'+
+      '<button class="btn ghost" id="blAdd" style="width:100%;margin-top:10px">Bloquer</button><ul class="hist" style="margin-top:10px">'+s.blocked.filter(function(x){return x.date>=todayISO()}).map(function(x,i){return '<li>'+IW.dayLabel(x.date)+', '+IW.hm(x.start)+' – '+IW.hm(x.end)+' <button class="btn danger" style="padding:.2rem .6rem;margin-top:4px" data-bl="'+i+'">Débloquer</button></li>'}).join('')+'</ul></div>'+
+      '<div class="box"><h4>Code d’accès</h4><div class="btns"><input id="newPin" inputmode="numeric" maxlength="4" placeholder="Nouveau code (4 chiffres)"><button class="btn ghost" id="pinSave">Changer</button></div></div>'+
+      '<div class="box"><h4>Démo</h4><div class="btns"><button class="btn ghost" id="simBtn">Simuler une réservation</button><button class="btn danger" id="resetBtn">Remettre la démo à zéro</button></div>'+
+      '<p class="hint" style="margin-top:8px">Version de démonstration : les données restent sur ce téléphone. La version finale les synchronise entre le site et l’app.</p></div>'}
+  function bindSettings(){
+    function nst(){$('nState').textContent=!('Notification' in window)?'Pour les activer sur iPhone, ajoutez d’abord l’app à l’écran d’accueil.':'État : '+({granted:'activées ✓',denied:'refusées (à réactiver dans Réglages > Notifications)',default:'pas encore activées'}[Notification.permission])}nst();
+    $('nBtn').onclick=function(){if('Notification' in window)Notification.requestPermission().then(nst);else nst()};
+    $('nTest').onclick=function(){notify('Nouvelle réservation','Nettoyage complet · sam. 10h00 · acompte 44 € (Apple Pay)')};
+    document.querySelectorAll('.hours input[type=checkbox]').forEach(function(c){c.onchange=function(){document.querySelectorAll('.hours input[type=time][data-d="'+c.dataset.d+'"]').forEach(function(t){t.disabled=!c.checked})}});
+    $('hSave').onclick=function(){var s=IW.settings(),h={};document.querySelectorAll('.hours input[type=checkbox]').forEach(function(c){if(!c.checked)return;var d=c.dataset.d,t=document.querySelectorAll('.hours input[type=time][data-d="'+d+'"]');
+      var m=function(v){var p=v.split(':');return +p[0]*60+ +p[1]};h[d]=[m(t[0].value),m(t[1].value)]});s.hours=h;IW.saveSettings(s);toast('Horaires enregistrés')};
+    $('blAdd').onclick=function(){var d=$('blD').value;if(!d)return toast('Choisissez une date');var m=function(v){var p=v.split(':');return +p[0]*60+ +p[1]};var s=IW.settings();s.blocked.push({date:d,start:m($('blA').value),end:m($('blB').value)});IW.saveSettings(s);toast('Créneau bloqué');render()};
+    document.querySelectorAll('[data-bl]').forEach(function(b){b.onclick=function(){var s=IW.settings(),fut=s.blocked.filter(function(x){return x.date>=todayISO()}),x=fut[+b.dataset.bl];s.blocked=s.blocked.filter(function(y){return y!==x&&!(y.date===x.date&&y.start===x.start&&y.end===x.end)});IW.saveSettings(s);render()}});
+    $('pinSave').onclick=function(){var v=$('newPin').value;if(!/^\d{4}$/.test(v))return toast('4 chiffres');try{localStorage.setItem(PINK,v)}catch(e){}toast('Code changé')};
+    $('simBtn').onclick=function(){var n=IW.nextFree(150);if(!n)return toast('Aucun créneau libre');var q=IW.quote('complet','Le Gosier'),now=new Date().toISOString(),pm=['apple_pay','card','google_pay','paypal'][Math.floor(Math.random()*4)];
+      IW.addBooking({id:IW.newId(),createdAt:now,offerId:'complet',service:'Nettoyage complet',price:100,sub:false,vehicleType:'Citadine',vehicle:'Véhicule démo',commune:'Le Gosier',zone:1,trav:q.trav,total:q.total,deposit:q.deposit,rest:q.rest,
+        date:IW.iso(n.date),start:n.start,end:n.start+150,name:'Nouveau client démo',tel:'0690 00 00 09',address:'Adresse démo',notes:'',client:'particulier',status:'nouvelle',depositPaid:true,depositMethod:pm,restPaid:false,restMethod:null,demo:true,
+        history:[{at:now,note:'Réservation en ligne, acompte de '+q.deposit+' € payé ('+IW.PAY_METHODS[pm]+')'}]});checkNew()};
+    $('resetBtn').onclick=function(){if(confirm('Remettre les données de démonstration ?')){IW.resetDemo();known={};IW.bookings().forEach(function(b){known[b.id]=1});render()}};
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
