@@ -93,33 +93,40 @@ section{padding:96px 0 0}
 .sh h2{font-size:clamp(2.3rem,5.4vw,3.9rem);font-stretch:78%}
 .sh p{color:var(--muted);max-width:32rem}
 
-/* carte des prestations */
-.menu-list{border-top:1px solid var(--ink)}
-.svc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr) 110px 120px auto;gap:20px 32px;align-items:center;padding:26px 0;border-bottom:1px solid var(--rule)}
+/* carte des prestations : une offre = un cadre */
+.menu-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.menu-list{grid-template-columns:1fr;gap:14px}}
+.svc{position:relative;display:flex;flex-direction:column;gap:.7rem;padding:26px 26px 22px;background:var(--surface);border:1px solid var(--rule);border-radius:18px;box-shadow:0 1px 2px rgba(11,43,59,.04),0 8px 24px -16px rgba(11,43,59,.18)}
 .svc h3{font-size:1.65rem;font-stretch:82%}
-.svc .d{color:var(--muted);font-size:.98rem}
+.svc .d{color:var(--muted);font-size:.98rem;flex:1}
+.svc .foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:14px;margin-top:.3rem;border-top:1px solid var(--rule-soft)}
 .svc .t{color:var(--muted);font-size:.93rem;white-space:nowrap}
-.svc .p{font:800 2rem/1 var(--display);font-stretch:80%;text-align:right;white-space:nowrap}
+.svc .p{font:800 2rem/1 var(--display);font-stretch:80%;white-space:nowrap;margin-left:auto}
 .svc .p small{font:500 .78rem var(--text);color:var(--faint);margin-left:2px}
-.svc.feat{background:linear-gradient(90deg,rgba(10,124,124,.07),transparent 70%);box-shadow:inset 3px 0 0 var(--lagoon);padding-left:20px;margin-left:-20px}
-.svc.feat .tag{display:inline-block;margin-top:.45rem;font-size:.82rem;font-weight:600;color:var(--lagoon)}
-@media (max-width:900px){.svc{grid-template-columns:1fr auto;gap:6px 16px}.svc .d{grid-column:1/-1;order:3}.svc .t{order:4}.svc .p{order:2}.svc .btn{order:5;justify-self:end}}
+.svc.feat{border:2px solid var(--lagoon);padding:25px 25px 21px}
+.svc .tag{position:absolute;top:-12px;left:22px;font-size:.78rem;font-weight:700;color:#fff;background:var(--lagoon);padding:.2rem .7rem;border-radius:999px}
+@media (max-width:420px){.svc{padding:22px 18px 18px}.svc.feat{padding:21px 17px 17px}.svc .btn{width:100%}.svc .p{margin-left:auto}}
 
-/* abonnements */
-.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--rule);border-radius:20px;background:var(--surface);overflow:hidden}
-@media (max-width:860px){.plans{grid-template-columns:1fr}}
-.plan{padding:30px 28px;display:grid;gap:.55rem;align-content:start;border-right:1px solid var(--rule)}
-.plan:last-child{border-right:0}
-@media (max-width:860px){.plan{border-right:0;border-bottom:1px solid var(--rule)}.plan:last-child{border-bottom:0}}
-.plan .n{font:800 3.6rem/1 var(--display);font-stretch:75%;color:var(--lagoon)}
-.plan h3{font-size:1.35rem;font-stretch:85%}
-.plan .q{color:var(--muted);font-size:.95rem}
-.plan .p{font:800 1.9rem var(--display);font-stretch:80%;margin-top:.4rem}
-.plan .p small{font:500 .85rem var(--text);color:var(--muted)}
-.plan .per{font-size:.92rem;color:var(--muted)}
-.plan.best{background:linear-gradient(180deg,rgba(10,124,124,.06),transparent 60%)}
-.plan.best .per{color:var(--lagoon);font-weight:600}
+/* abonnements : bande de couleur, une formule = un cadre */
+#abonnements{background:var(--lacquer);color:var(--on-dark);margin-top:96px;padding:88px 0 80px}
+@media (max-width:640px){#abonnements{margin-top:72px;padding:64px 0 56px}}
+#abonnements .sh h2{color:#fff}
+#abonnements .sh p,#abonnements .small{color:var(--on-dark-2)}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:860px){.plans{grid-template-columns:1fr;gap:16px}}
+.plan{position:relative;padding:30px 28px;display:grid;gap:.55rem;align-content:start;background:rgba(255,255,255,.06);border:1px solid rgba(234,244,244,.2);border-radius:18px}
+.plan .n{font:800 3.6rem/1 var(--display);font-stretch:75%;color:var(--sun)}
+.plan h3{font-size:1.35rem;font-stretch:85%;color:#fff}
+.plan .q{color:var(--on-dark-2);font-size:.95rem}
+.plan .p{font:800 1.9rem var(--display);font-stretch:80%;margin-top:.4rem;color:#fff}
+.plan .p small{font:500 .85rem var(--text);color:var(--on-dark-2)}
+.plan .per{font-size:.92rem;color:var(--on-dark-2)}
+.plan.best{background:rgba(255,200,61,.1);border:2px solid var(--sun);padding:29px 27px}
+.plan.best .per{color:var(--sun);font-weight:600}
+.plan .badge{position:absolute;top:-12px;left:24px;font-size:.78rem;font-weight:700;color:var(--lacquer);background:var(--sun);padding:.2rem .7rem;border-radius:999px}
 .plan .btn{margin-top:.8rem;justify-self:start}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:var(--lacquer)}
+.btn.sun:hover{background:#ffd66b;border-color:#ffd66b}
 .small{color:var(--muted);font-size:.93rem;margin-top:14px}
 
 /* déroulé */
@@ -493,16 +500,16 @@ footer a{color:var(--on-dark)}
 
   /* carte des prestations */
   $('cards').innerHTML=IW.SERVICES.map(function(s){
-    return '<div class="svc'+(s.star?' feat':'')+'"><div><h3>'+s.name+'</h3>'+(s.star?'<span class="tag">Intérieur et extérieur</span>':'')+'</div>'+
-      '<p class="d">'+s.desc+'</p><span class="t">Environ '+IW.dur(s.dur)+'</span><span class="p">'+s.price+' €<small>TTC</small></span>'+
-      '<button class="btn '+(s.star?'':'line')+' sm" type="button" data-book="'+s.id+'">Réserver</button></div>';
+    return '<div class="svc'+(s.star?' feat':'')+'">'+(s.star?'<span class="tag">Intérieur et extérieur</span>':'')+'<h3>'+s.name+'</h3>'+
+      '<p class="d">'+s.desc+'</p><div class="foot"><span class="t">Environ '+IW.dur(s.dur)+'</span><span class="p">'+s.price+' €<small>TTC</small></span>'+
+      '<button class="btn '+(s.star?'':'line')+' sm" type="button" data-book="'+s.id+'">Réserver</button></div></div>';
   }).join('');
   var minPer=Math.min.apply(null,IW.PLANS.map(function(p){return p.price/p.n}));
   $('plans').innerHTML=IW.PLANS.map(function(p){
     var per=p.price/p.n,best=per===minPer;
-    return '<div class="plan'+(best?' best':'')+'"><div class="n">'+p.n+'</div><h3>'+p.name.replace('Abonnement ','')+'</h3><p class="q">'+p.n+' passage'+(p.n>1?'s':'')+' par mois</p>'+
+    return '<div class="plan'+(best?' best':'')+'">'+(best?'<span class="badge">Meilleur prix</span>':'')+'<div class="n">'+p.n+'</div><h3>'+p.name.replace('Abonnement ','')+'</h3><p class="q">'+p.n+' passage'+(p.n>1?'s':'')+' par mois</p>'+
       '<div class="p">'+p.price+' € <small>par mois</small></div><p class="per">Soit '+IW.euro(Math.round(per*100)/100)+' le passage'+(best?', le meilleur prix':'')+'</p>'+
-      '<button class="btn '+(best?'':'line')+' sm" type="button" data-book="'+p.id+'">Choisir</button></div>';
+      '<button class="btn '+(best?'sun':'ghost-dark')+' sm" type="button" data-book="'+p.id+'">Choisir</button></div>';
   }).join('');
 
   $('zonesBox').innerHTML=[1,2].map(function(z){return '<div class="zone"><div class="zh"><b>Zone '+z+'</b><span>+'+IW.FEES[z]+' €</span></div><p>'+IW.ZONES[z].join(', ')+'</p></div>'}).join('');
