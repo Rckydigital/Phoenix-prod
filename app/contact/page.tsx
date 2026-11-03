@@ -54,6 +54,10 @@ export default function ContactPage({
               <p className="text-sm text-ink-muted">Instagram</p>
               <p className="mt-1 text-lg font-bold text-ink">@_rcky_digital</p>
             </a>
+            <a href={SITE.social.linkedinFondateur} target="_blank" rel="noopener noreferrer" className="card block hover:border-brand">
+              <p className="text-sm text-ink-muted">LinkedIn</p>
+              <p className="mt-1 text-lg font-bold text-ink">Ricky Galin · RCKY DIGITAL</p>
+            </a>
             <div className="card">
               <p className="text-sm text-ink-muted">Zone d’intervention</p>
               <p className="mt-1 text-lg font-bold text-ink">Toute la Guadeloupe, et à distance</p>

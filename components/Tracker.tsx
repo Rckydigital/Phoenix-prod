@@ -37,6 +37,7 @@ export default function Tracker() {
       else if (href.startsWith('tel:')) send('telephone', label)
       else if (href.startsWith('mailto:')) send('email', label)
       else if (href.includes('instagram.com')) send('instagram', label)
+      else if (href.includes('linkedin.com')) send('linkedin', label)
       else if (a.hasAttribute('data-track')) send('cta', label)
     }
     document.addEventListener('click', onClick, { capture: true })

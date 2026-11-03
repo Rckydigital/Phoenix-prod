@@ -5,7 +5,7 @@ const url = () => process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_
 const token = () => process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || ''
 export const trackingConfigured = () => Boolean(url() && token())
 
-export const EVENTS = ['vue', 'formulaire', 'whatsapp', 'telephone', 'email', 'instagram', 'cta'] as const
+export const EVENTS = ['vue', 'formulaire', 'whatsapp', 'telephone', 'email', 'instagram', 'linkedin', 'cta'] as const
 export type TrackEvent = (typeof EVENTS)[number]
 export const CONVERSIONS: TrackEvent[] = ['formulaire', 'whatsapp', 'telephone', 'email']
 

@@ -39,6 +39,18 @@ export default function Footer() {
               </svg>
               Avis Google
             </a>
+            <a
+              href={SITE.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-6 mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-[#F2A65A]"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3" />
+                <path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7" />
+              </svg>
+              LinkedIn
+            </a>
           </div>
 
           <div>

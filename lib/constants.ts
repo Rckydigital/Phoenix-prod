@@ -20,6 +20,8 @@ export const SITE = {
   social: {
     instagram: 'https://www.instagram.com/_rcky_digital/',
     google: 'https://share.google/eoM0Q4PmMPo3JHaZK',
+    linkedin: 'https://www.linkedin.com/company/146923406/',
+    linkedinFondateur: 'https://www.linkedin.com/in/ricky-galin-72172b254/',
   },
 }
 

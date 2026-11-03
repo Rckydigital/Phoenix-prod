@@ -66,7 +66,7 @@ const schemaOrg = {
       areaServed: [{ '@type': 'AdministrativeArea', name: 'Guadeloupe' }],
       address: { '@type': 'PostalAddress', addressRegion: 'Guadeloupe', addressCountry: 'FR' },
       knowsAbout: ['Marketing digital', 'Gestion des réseaux sociaux', 'Photographie', 'Vidéo', 'Création de sites internet', 'Référencement local'],
-      sameAs: [SITE.social.instagram, SITE.social.google],
+      sameAs: [SITE.social.instagram, SITE.social.google, SITE.social.linkedin],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services RCKY DIGITAL',
