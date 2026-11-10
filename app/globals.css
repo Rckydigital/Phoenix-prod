@@ -137,6 +137,37 @@ p { text-wrap: pretty; }
     @apply mt-4 max-w-2xl text-lg text-ink-soft;
   }
   .card {
-    @apply rounded-3xl border border-line bg-white p-6 transition-shadow hover:shadow-[0_12px_40px_-12px_rgba(30,42,51,0.18)];
+    @apply rounded-2xl border border-line bg-white p-6 shadow-[0_1px_2px_rgba(30,42,51,0.04),0_8px_24px_-16px_rgba(30,42,51,0.12)] transition-shadow hover:shadow-[0_16px_40px_-16px_rgba(30,42,51,0.22)];
+  }
+  .kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-deep;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-6 py-3 font-semibold text-ink shadow-sm transition-colors hover:border-ink/30;
+  }
+  .field {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-ink placeholder:text-ink-muted focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30;
+  }
+  .label {
+    @apply mb-2 block text-sm font-medium text-ink;
+  }
+  .page-top {
+    @apply pt-28 md:pt-36;
   }
 }
+
+/* Fond des héros : lumière douce orange + bleu-vert, grille fine */
+.bg-hero {
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(232, 116, 42, 0.14), transparent 60%),
+    radial-gradient(50rem 30rem at -10% 10%, rgba(42, 147, 168, 0.12), transparent 60%),
+    #FAF7F3;
+}
+.bg-grid {
+  background-image: linear-gradient(rgba(30,42,51,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(30,42,51,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }

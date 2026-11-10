@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { SITE, SERVICES, OPTIONS, AUDIT } from '@/lib/constants'
+import { SITE, SERVICES, OPTIONS, AUDIT, LAB_SERVICES } from '@/lib/constants'
 import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
 import { track } from '@/lib/track'
 
@@ -33,9 +33,21 @@ export async function POST(request: NextRequest) {
     return back('/contact?error=1') ?? NextResponse.json({ error: 'Requête invalide' }, { status: 400 })
   }
 
+  // Langue et pages de retour (formulaires contact, devis, offre ; FR ou EN)
+  const isEn = clean(raw.lang, 4) === 'en'
+  const page = clean(raw.page, 60)
+  const thanks = isEn ? '/en/thanks' : '/contact/merci'
+  const ERROR_PAGES: Record<string, string> = {
+    '/offre': '/offre?error=1#reserver',
+    '/devis': '/devis?error=1#formulaire',
+    '/en/quote': '/en/quote?error=1#form',
+    '/en/contact': '/en/contact?error=1',
+  }
+  const errorPage = (code = '1') => (ERROR_PAGES[page] ? ERROR_PAGES[page].replace('error=1', `error=${code}`) : `/contact?error=${code}`)
+
   // Champ piège anti-robots : rempli = robot, on ignore silencieusement.
   if (clean(raw.website)) {
-    return back('/contact/merci') ?? NextResponse.json({ message: 'ok' })
+    return back(thanks) ?? NextResponse.json({ message: 'ok' })
   }
 
   const data = {
@@ -48,18 +60,28 @@ export async function POST(request: NextRequest) {
     rgpd: clean(raw.rgpd, 10),
   }
 
+  // Champs du formulaire de devis (facultatifs), ajoutés au message
+  const extras = [
+    ['Site web', clean(raw.site, 200)],
+    ['Outils utilisés', clean(raw.tools, 300)],
+    ['Demandes par mois', clean(raw.volume, 60)],
+    ['Budget', clean(raw.budget, 60)],
+    ['Langue', isEn ? 'anglais' : ''],
+  ].filter(([, v]) => v)
+  if (extras.length) data.message += '\n\n' + extras.map(([k, v]) => `${k} : ${v}`).join('\n')
+
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)
   if (!data.name || !emailOk || !data.message || !data.rgpd) {
-    return back(clean(raw.page, 60) === '/offre' ? '/offre?error=1#reserver' : '/contact?error=1') ?? NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
+    return back(errorPage()) ?? NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
   }
 
   const serviceTitle =
-    [AUDIT, ...SERVICES, ...OPTIONS].find((s) => s.id === data.service)?.title || data.service
+    [AUDIT, ...SERVICES, ...OPTIONS, ...LAB_SERVICES].find((s) => s.id === data.service)?.title || data.service
 
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey && !crmConfigured()) {
     console.error('Ni RESEND_API_KEY ni CRM_GITHUB_TOKEN : demande non enregistrée', { name: data.name })
-    return back('/contact?error=config') ?? NextResponse.json({ error: 'Envoi non configuré' }, { status: 500 })
+    return back(errorPage('config')) ?? NextResponse.json({ error: 'Envoi non configuré' }, { status: 500 })
   }
 
   // 1. Fiche client dans le cerveau (CRM Obsidian)
@@ -103,9 +125,9 @@ export async function POST(request: NextRequest) {
   }
 
   if (!savedToCrm && !emailed) {
-    return back('/contact?error=1') ?? NextResponse.json({ error: 'Erreur envoi' }, { status: 500 })
+    return back(errorPage()) ?? NextResponse.json({ error: 'Erreur envoi' }, { status: 500 })
   }
 
-  await track('formulaire', clean(raw.page, 60) || '/contact', serviceTitle || '', clean(raw.src, 40))
-  return back('/contact/merci') ?? NextResponse.json({ message: 'Message reçu' })
+  await track('formulaire', page || '/contact', serviceTitle || '', clean(raw.src, 40))
+  return back(thanks) ?? NextResponse.json({ message: 'Message reçu' })
 }

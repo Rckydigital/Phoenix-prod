@@ -1,187 +1,185 @@
 import Link from 'next/link'
-import { SITE } from '@/lib/constants'
+import Reveal from '@/components/Reveal'
+import { Check, CtaBand, Faq, FlowVisual, IconTile, SectionHead } from '@/components/ui'
+import { r, type Lang } from '@/lib/i18n'
 
 // Page « Automation Lab » (pôle automatisation de RCKY DIGITAL), en français et en anglais.
-// Règles : aucun prix affiché avant le pilote, aucun témoignage ni chiffre inventé.
+// Règle : aucun témoignage, client ou chiffre inventé.
 
-type Lang = 'fr' | 'en'
+export const LAB_FAQ = {
+  fr: [
+    { q: 'Comment fonctionne une automatisation Automation Lab ?', a: 'Nous relions vos outils existants (formulaire du site, boîte e-mail, CRM, agenda) et nous ajoutons l’IA Claude pour lire, trier et préparer les réponses. Vous suivez tout dans votre espace client.' },
+    { q: 'Quels outils pouvez-vous connecter ?', a: 'Les plus courants : Gmail ou Outlook, Google Agenda, HubSpot, Airtable, Notion, les formulaires de site (WordPress, Webflow, Wix…). Pour un autre outil, nous vérifions pendant l’audit gratuit.' },
+    { q: 'Qui paie l’usage de l’IA ?', a: 'Vous, directement auprès d’Anthropic, avec votre propre clé : en général quelques euros par mois pour une petite entreprise. C’est transparent et le compte reste à votre nom.' },
+    { q: 'Mes données sont-elles en sécurité ?', a: 'Les accès restent à votre nom et vous pouvez les couper à tout moment. Nous ne gardons que ce qui est nécessaire, et un contrat de sous-traitance (RGPD) est signé avec chaque client.' },
+    { q: 'Quel est le délai de mise en place ?', a: 'En général 1 à 3 semaines selon la formule et le nombre d’outils à connecter. Le délai exact figure sur votre devis.' },
+    { q: 'Puis-je arrêter mon abonnement ?', a: 'Oui. L’abonnement mensuel est sans engagement après les 3 premiers mois, résiliable depuis votre espace client avec un préavis d’un mois.' },
+    { q: 'Que comprend l’essai gratuit de 14 jours ?', a: 'Votre espace client, la démo LeadFlow, un audit de 15 minutes en visio et une proposition sur mesure. Sans carte bancaire et sans engagement.' },
+  ],
+  en: [
+    { q: 'How does an Automation Lab automation work?', a: 'We connect the tools you already use (website form, inbox, CRM, calendar) and add Claude AI to read, qualify and draft replies. You track everything in your client area.' },
+    { q: 'Which tools can you connect?', a: 'The most common ones: Gmail or Outlook, Google Calendar, HubSpot, Airtable, Notion, website forms (WordPress, Webflow, Wix…). For anything else we check during the free audit.' },
+    { q: 'Who pays for the AI usage?', a: 'You do, directly to Anthropic with your own key: usually a few euros a month for a small business. It is transparent and the account stays in your name.' },
+    { q: 'Is my data safe?', a: 'Access stays in your name and you can revoke it at any time. We keep only what is needed, and a data processing agreement (GDPR) is signed with every client.' },
+    { q: 'How long does setup take?', a: 'Usually 1 to 3 weeks depending on the plan and the number of tools. The exact timeline is in your quote.' },
+    { q: 'Can I cancel my subscription?', a: 'Yes. The monthly plan has no commitment after the first 3 months and can be cancelled from your client area with one month’s notice.' },
+    { q: 'What does the 14-day free trial include?', a: 'Your client area, the LeadFlow demo, a 15-minute video audit and a tailored proposal. No credit card, no commitment.' },
+  ],
+}
 
 const T = {
   fr: {
-    badge: 'Automation Lab · par RCKY DIGITAL',
-    h1a: 'Vos demandes clients traitées ',
-    h1b: 'pendant que vous travaillez.',
-    lead: "Nous construisons avec l'IA Claude des automatisations sur mesure pour les agences et les cabinets de conseil : chaque demande est lue, triée, enregistrée et suivie, sans saisie et sans prospect oublié.",
-    cta: 'Réserver un audit gratuit de 15 min',
-    cta2: 'Voir comment ça marche',
-    note: 'En visio · Sans engagement · Réponse sous 48 h',
-    flowTitle: 'LeadFlow : de la demande au rendez-vous, sans saisie',
-    flowSub: 'Notre premier système, installé dans vos outils actuels.',
-    steps: [
-      ['Un prospect vous écrit', 'Formulaire du site, e-mail ou demande de devis : tout arrive au même endroit.'],
-      ["L'IA lit et trie la demande", 'Besoin, urgence, budget annoncé : la demande est classée en quelques secondes.'],
-      ['La fiche se crée dans votre CRM', 'Coordonnées et résumé enregistrés automatiquement (HubSpot, Airtable ou votre outil).'],
-      ['Une réponse personnalisée est prête', "Vous la relisez et l'envoyez, ou elle part seule pour les demandes simples, selon vos règles."],
-      ['Relance et rendez-vous', "Sans réponse, une relance est programmée ; le prospect choisit un créneau dans votre agenda."],
+    kicker: 'Automation Lab · par RCKY DIGITAL',
+    h1a: 'Automatisez vos demandes clients',
+    h1b: 'avec l’IA.',
+    lead: 'Pour les agences, les cabinets de conseil et les PME : chaque demande est lue, triée, enregistrée et suivie, sans saisie et sans prospect oublié. Construit avec Claude, installé dans vos outils, 100 % à distance.',
+    cta1: 'Essai gratuit 14 jours',
+    cta2: 'Voir la démo',
+    solKicker: 'Nos solutions',
+    solTitle: 'Trois systèmes prêts à installer chez vous',
+    solSub: 'Chaque solution est adaptée à vos outils et à vos règles. Elles sont incluses dans nos formules.',
+    sols: [
+      { icon: 'inbox', name: 'LeadFlow', tag: 'Le plus demandé', text: 'Gère vos prospects de la première demande au rendez-vous.', items: ['Collecte des formulaires et e-mails', 'Tri par l’IA : besoin, urgence, budget', 'Fiche créée dans votre CRM', 'Réponse personnalisée préparée', 'Relances et prise de rendez-vous'] },
+      { icon: 'doc', name: 'AdminFlow', tag: '', text: 'Allège votre gestion administrative.', items: ['Lecture des documents reçus', 'Extraction des informations utiles', 'Classement automatique', 'Préparation des devis', 'Validation humaine avant envoi'] },
+      { icon: 'chat', name: 'SupportFlow', tag: '', text: 'Traite les demandes de vos clients plus vite.', items: ['Analyse des e-mails entrants', 'Catégorisation des demandes', 'Suggestions de réponses', 'Transfert à la bonne personne', 'Suivi des demandes en attente'] },
     ],
-    proofTitle: 'Nous l’utilisons nous-mêmes, chaque nuit',
-    proof: "RCKY DIGITAL fonctionne déjà avec une équipe d'agents IA qui travaillent pendant la nuit : recherche et vérification de prospects, veille, suivi des comptes, préparation des contenus. Chaque matin, un briefing résume le travail fait et ce qui reste à valider. C'est ce savoir-faire que nous installons chez vous.",
-    rulesTitle: 'Vous gardez la main',
-    rules: [
-      ['Validation humaine', 'Rien de sensible ne part sans votre accord : devis, prix, décisions.'],
-      ['Vos comptes, vos accès', "Les outils restent à votre nom ; vous pouvez couper un accès à tout moment."],
-      ['Transparence', "Vos clients savent qu'ils échangent avec un assistant IA quand c'est le cas."],
-    ],
-    offersTitle: 'Deux façons de commencer',
-    offers: [
-      ['LeadFlow', "L'automatisation complète de vos demandes entrantes : tri, CRM, réponses, relances, rendez-vous."],
-      ['Claude installé chez vous', "Votre propre assistant Claude réglé pour votre métier : consignes, connexions à Gmail, Agenda ou Drive, tâches programmées."],
-    ],
-    endTitle: 'Combien de demandes vous échappent chaque mois ?',
-    endText: "En 15 minutes, nous regardons ensemble comment vous traitez vos demandes aujourd'hui et ce qu'on peut automatiser. Vous repartez avec 2 ou 3 idées concrètes, même si vous ne travaillez pas avec nous.",
-    mailSubject: 'Audit Automation Lab (15 min)',
-    mailBody: "Bonjour Ricky, je souhaite un audit gratuit de 15 min. Mon entreprise : ",
-    built: 'Construit avec Claude (Anthropic). Basés en Guadeloupe, nous travaillons 100 % à distance.',
-    other: 'English version',
-    otherHref: '/en/automation-lab',
+    included: 'Inclus dans les formules',
+    seePricing: 'Voir les tarifs',
+    howKicker: 'Méthode',
+    howTitle: 'Simple pour vous, solide en coulisses',
+    how: [['link', 'Connectez vos outils', 'Vous nous donnez les accès nécessaires, à votre nom, que vous pouvez couper à tout moment.'], ['bolt', 'Nous construisons', 'Nous configurons l’automatisation, l’IA et vos règles, puis nous testons avec vous.'], ['chart', 'Vous suivez les résultats', 'Demandes traitées, relances, rendez-vous : tout est visible dans votre espace client.']],
+    ctrlKicker: 'Vous gardez la main',
+    ctrlTitle: 'L’IA prépare, vous décidez',
+    ctrl: [['hand', 'Validation humaine', 'Devis, prix, décisions : rien de sensible ne part sans votre accord.'], ['shield', 'Vos comptes, vos accès', 'Les outils et la clé IA restent à votre nom. Accès révocables à tout moment.'], ['user', 'Transparence', 'Vos clients savent quand ils échangent avec un assistant IA.']],
+    faqTitle: 'Questions fréquentes',
+    ctaTitle: 'Prêt à ne plus perdre une seule demande ?',
+    ctaText: 'Créez votre espace : démo, audit gratuit de 15 min et proposition sur mesure.',
+    quote: 'Demander un devis',
   },
   en: {
-    badge: 'Automation Lab · by RCKY DIGITAL',
-    h1a: 'Every client request handled ',
-    h1b: 'while you get on with the work.',
-    lead: 'We build custom automations with Claude AI for marketing agencies and consulting firms: every inbound request is read, sorted, logged and followed up, with no manual data entry and no lead left behind.',
-    cta: 'Book a free 15-min audit',
-    cta2: 'See how it works',
-    note: 'Video call · No commitment · Reply within 48 h',
-    flowTitle: 'LeadFlow: from first message to booked call, hands-free',
-    flowSub: 'Our first system, set up inside the tools you already use.',
-    steps: [
-      ['A prospect gets in touch', 'Website form, email or quote request: everything lands in one place.'],
-      ['AI reads and qualifies it', 'Need, urgency, stated budget: the request is sorted in seconds.'],
-      ['The record is created in your CRM', 'Contact details and a summary are saved automatically (HubSpot, Airtable or your own tool).'],
-      ['A tailored reply is ready', 'You review and send it, or simple requests go out on their own, following your rules.'],
-      ['Follow-up and booking', 'No answer? A follow-up is scheduled; the prospect picks a slot in your calendar.'],
+    kicker: 'Automation Lab · by RCKY DIGITAL',
+    h1a: 'Automate your client requests',
+    h1b: 'with AI.',
+    lead: 'For marketing agencies, consulting firms and small businesses: every request is read, qualified, logged and followed up, with no manual entry and no lead left behind. Built with Claude, set up in your tools, 100% remote.',
+    cta1: 'Start a 14-day free trial',
+    cta2: 'See the demo',
+    solKicker: 'Our solutions',
+    solTitle: 'Three systems ready to set up for you',
+    solSub: 'Each one is adapted to your tools and your rules. They are included in our plans.',
+    sols: [
+      { icon: 'inbox', name: 'LeadFlow', tag: 'Most requested', text: 'Handles your leads from first request to booked call.', items: ['Collects forms and emails', 'AI qualification: need, urgency, budget', 'Record created in your CRM', 'Tailored reply drafted', 'Follow-ups and booking'] },
+      { icon: 'doc', name: 'AdminFlow', tag: '', text: 'Lightens your admin workload.', items: ['Reads incoming documents', 'Extracts the key information', 'Files everything automatically', 'Prepares quotes', 'Human approval before sending'] },
+      { icon: 'chat', name: 'SupportFlow', tag: '', text: 'Handles customer requests faster.', items: ['Analyses incoming emails', 'Categorises requests', 'Suggests replies', 'Routes to the right person', 'Tracks pending requests'] },
     ],
-    proofTitle: 'We run on it ourselves, every night',
-    proof: 'RCKY DIGITAL already runs with a team of AI agents working overnight: finding and checking prospects, market research, bookkeeping checks, content drafts. Every morning a briefing sums up what was done and what needs approval. That is the know-how we bring to your business.',
-    rulesTitle: 'You stay in control',
-    rules: [
-      ['Human approval', 'Nothing sensitive goes out without your sign-off: quotes, prices, decisions.'],
-      ['Your accounts, your access', 'Tools stay in your name; you can revoke access at any time.'],
-      ['Transparency', 'Your customers know when they are talking to an AI assistant.'],
-    ],
-    offersTitle: 'Two ways to start',
-    offers: [
-      ['LeadFlow', 'Full automation of your inbound requests: qualification, CRM, replies, follow-ups, bookings.'],
-      ['Claude, set up for you', 'Your own Claude assistant configured for your business: instructions, Gmail, Calendar or Drive connections, scheduled tasks.'],
-    ],
-    endTitle: 'How many requests slip through each month?',
-    endText: 'In 15 minutes we look at how you handle requests today and what can be automated. You leave with 2 or 3 concrete ideas, whether or not you work with us.',
-    mailSubject: 'Automation Lab audit (15 min)',
-    mailBody: "Hi Ricky, I'd like a free 15-min audit. My company: ",
-    built: 'Built with Claude (Anthropic). Based in Guadeloupe (French Caribbean), working 100% remotely.',
-    other: 'Version française',
-    otherHref: '/automation-lab',
+    included: 'Included in our plans',
+    seePricing: 'See pricing',
+    howKicker: 'Method',
+    howTitle: 'Simple for you, solid behind the scenes',
+    how: [['link', 'Connect your tools', 'You grant the access we need, in your name, revocable at any time.'], ['bolt', 'We build', 'We configure the automation, the AI and your rules, then test it with you.'], ['chart', 'You track results', 'Requests handled, follow-ups, meetings: everything is visible in your client area.']],
+    ctrlKicker: 'You stay in control',
+    ctrlTitle: 'AI prepares, you decide',
+    ctrl: [['hand', 'Human approval', 'Quotes, prices, decisions: nothing sensitive goes out without your sign-off.'], ['shield', 'Your accounts, your access', 'Tools and the AI key stay in your name. Access can be revoked at any time.'], ['user', 'Transparency', 'Your customers know when they are talking to an AI assistant.']],
+    faqTitle: 'Frequently asked questions',
+    ctaTitle: 'Ready to stop losing requests?',
+    ctaText: 'Create your space: demo, free 15-min audit and a tailored proposal.',
+    quote: 'Request a quote',
   },
-} as const
+}
 
 export default function AutomationLab({ lang }: { lang: Lang }) {
   const t = T[lang]
-  const mail = `mailto:${SITE.email}?subject=${encodeURIComponent(t.mailSubject)}&body=${encodeURIComponent(t.mailBody)}`
-  const book = SITE.calendly || mail
-
   return (
     <div lang={lang}>
-      <section className="bg-sand pb-16 pt-28 md:pb-24 md:pt-36">
-        <div className="container-site max-w-4xl">
-          <div className="flex items-center justify-between gap-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-teal-soft px-4 py-1.5 text-sm font-semibold text-teal-deep">
-              <span className="h-2 w-2 rounded-full bg-teal" aria-hidden="true" />
-              {t.badge}
-            </span>
-            <Link href={t.otherHref} className="text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline">
-              {t.other}
-            </Link>
+      <section className="bg-hero relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36">
+        <div aria-hidden="true" className="bg-grid absolute inset-0" />
+        <div className="container-site relative grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
+          <div>
+            <span className="kicker hero-in">{t.kicker}</span>
+            <h1 style={{ '--d': '100ms' } as React.CSSProperties} className="hero-in mt-6 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl md:text-6xl">
+              {t.h1a} <span className="text-brand-deep">{t.h1b}</span>
+            </h1>
+            <p style={{ '--d': '200ms' } as React.CSSProperties} className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{t.lead}</p>
+            <div style={{ '--d': '300ms' } as React.CSSProperties} className="hero-in mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href={r('signup', lang)} data-track="Lab : essai" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>
+              <Link href={r('demo', lang)} data-track="Lab : démo" className="btn-ghost px-7 py-4 text-base"><span aria-hidden="true">▶</span> {t.cta2}</Link>
+            </div>
           </div>
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-ink md:text-6xl">
-            {t.h1a}
-            <span className="text-brand-deep">{t.h1b}</span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">{t.lead}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href={book} data-track="Automation Lab : audit (haut)" className="btn-primary px-7 py-4 text-base">
-              {t.cta}
-            </a>
-            <a href="#leadflow" className="btn-outline px-7 py-4 text-base">
-              {t.cta2}
-            </a>
+          <div className="hero-in" style={{ '--d': '250ms' } as React.CSSProperties}>
+            <FlowVisual lang={lang} />
           </div>
-          <p className="mt-4 text-sm text-ink-muted">{t.note}</p>
         </div>
       </section>
 
-      <section id="leadflow" className="scroll-mt-24 py-14 md:py-20">
-        <div className="container-site max-w-4xl">
-          <h2 className="section-title">{t.flowTitle}</h2>
-          <p className="section-subtitle">{t.flowSub}</p>
-          <ol className="mt-10 grid gap-4">
-            {t.steps.map(([title, text], i) => (
-              <li key={title} className="card flex gap-5">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-teal-soft text-lg font-bold text-teal-deep">{i + 1}</span>
-                <div>
-                  <h3 className="text-lg font-semibold text-ink">{title}</h3>
-                  <p className="mt-1 text-ink-soft">{text}</p>
+      <section id="solutions" className="scroll-mt-24 py-16 md:py-24">
+        <div className="container-site">
+          <SectionHead kicker={t.solKicker} title={t.solTitle} sub={t.solSub} />
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {t.sols.map((s, i) => (
+              <Reveal key={s.name} delay={i * 90} className={`card lift flex flex-col ${i === 0 ? 'ring-2 ring-brand/40' : ''}`}>
+                <div className="flex items-start justify-between gap-3">
+                  <IconTile name={s.icon} tone={i === 1 ? 'teal' : i === 2 ? 'plum' : 'brand'} />
+                  {s.tag && <span className="rounded-full bg-brand-deep px-3 py-1 text-xs font-semibold text-white">{s.tag}</span>}
                 </div>
-              </li>
+                <h3 className="mt-5 text-xl font-bold text-ink">{s.name}</h3>
+                <p className="mt-2 text-ink-soft">{s.text}</p>
+                <ul className="mt-5 flex-1 space-y-2.5">
+                  {s.items.map((it) => (
+                    <li key={it} className="flex gap-2.5 text-sm text-ink"><Check />{it}</li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex items-center justify-between border-t border-line pt-5">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-ink-muted">{t.included}</span>
+                  <Link href={r('pricing', lang)} className="text-sm font-semibold text-brand-deep hover:underline">{t.seePricing} →</Link>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-sand py-16 md:py-24">
+        <div className="container-site">
+          <SectionHead kicker={t.howKicker} title={t.howTitle} center />
+          <ol className="relative mt-12 grid gap-6 md:grid-cols-3">
+            <div aria-hidden="true" className="absolute left-[16%] right-[16%] top-[2.2rem] hidden h-px bg-line md:block" />
+            {t.how.map(([icon, title, text], i) => (
+              <Reveal as="li" key={title} delay={i * 100} className="relative text-center">
+                <span className="relative mx-auto flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-2xl border border-line bg-white text-teal-deep shadow-sm">
+                  <IconTile name={icon} tone="teal" />
+                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand-deep text-xs font-bold text-white">{i + 1}</span>
+                </span>
+                <h3 className="mt-5 text-lg font-bold text-ink">{title}</h3>
+                <p className="mx-auto mt-2 max-w-xs leading-relaxed text-ink-soft">{text}</p>
+              </Reveal>
             ))}
           </ol>
         </div>
       </section>
 
-      <section className="bg-teal-soft/40 py-14 md:py-20">
-        <div className="container-site grid max-w-5xl gap-10 md:grid-cols-2">
+      <section className="py-16 md:py-24">
+        <div className="container-site grid gap-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
-            <h2 className="section-title">{t.proofTitle}</h2>
-            <p className="mt-4 text-lg leading-relaxed text-ink-soft">{t.proof}</p>
-          </div>
-          <div>
-            <h2 className="section-title">{t.rulesTitle}</h2>
-            <ul className="mt-4 grid gap-3">
-              {t.rules.map(([title, text]) => (
-                <li key={title} className="rounded-2xl bg-white p-4">
-                  <p className="font-semibold text-ink">{title}</p>
-                  <p className="mt-1 text-ink-soft">{text}</p>
+            <SectionHead kicker={t.ctrlKicker} title={t.ctrlTitle} />
+            <ul className="mt-8 space-y-4">
+              {t.ctrl.map(([icon, title, text]) => (
+                <li key={title} className="flex gap-4">
+                  <IconTile name={icon} tone="teal" />
+                  <div>
+                    <p className="font-semibold text-ink">{title}</p>
+                    <p className="mt-1 text-ink-soft">{text}</p>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
-      </section>
-
-      <section className="py-14 md:py-20">
-        <div className="container-site max-w-4xl">
-          <h2 className="section-title">{t.offersTitle}</h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {t.offers.map(([title, text]) => (
-              <div key={title} className="card">
-                <h3 className="text-xl font-bold text-ink">{title}</h3>
-                <p className="mt-2 text-ink-soft">{text}</p>
-              </div>
-            ))}
+          <div id="faq" className="scroll-mt-24">
+            <h2 className="mb-6 text-2xl font-bold text-ink">{t.faqTitle}</h2>
+            <Faq items={LAB_FAQ[lang]} />
           </div>
         </div>
       </section>
 
-      <section className="bg-ink py-14 text-white md:py-20">
-        <div className="container-site max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{t.endTitle}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">{t.endText}</p>
-          <a href={book} data-track="Automation Lab : audit (bas)" className="btn-primary mt-8 px-7 py-4 text-base">
-            {t.cta}
-          </a>
-          <p className="mt-6 text-sm text-white/60">{t.built}</p>
-        </div>
-      </section>
+      <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: r('signup', lang), label: t.cta1 }} secondary={{ href: r('quote', lang), label: t.quote }} />
     </div>
   )
 }

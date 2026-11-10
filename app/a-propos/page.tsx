@@ -5,7 +5,8 @@ import { SITE, LAST_UPDATE } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'À propos',
   description:
-    'RCKY DIGITAL est l’agence digitale de Ricky GALIN, en Guadeloupe : photo, vidéo, réseaux sociaux et sites avec réservation pour les petites entreprises locales.',
+    'RCKY DIGITAL est l’agence digitale de Ricky GALIN, en Guadeloupe : photo, vidéo, réseaux sociaux et sites pour les entreprises locales, et automatisations IA (Automation Lab) à distance.',
+  alternates: { canonical: '/a-propos', languages: { fr: '/a-propos', en: '/en/about' } },
 }
 
 const personSchema = {
@@ -27,11 +28,11 @@ export default function AProposPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
-      <section className="bg-sand pb-16 pt-32 md:pt-40">
+      <section className="bg-hero pb-16 pt-32 md:pt-40">
         <div className="container-site">
           <span className="eyebrow">À propos</span>
           <h1 className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
-            Une agence guadeloupéenne, pour les entreprises d’ici.
+            Une agence guadeloupéenne, pour les entreprises d’ici et d’ailleurs.
           </h1>
           <p className="section-subtitle">
             RCKY DIGITAL est une agence de communication digitale créée en 2023 en Guadeloupe par Ricky GALIN. Elle aide les petites
@@ -52,6 +53,11 @@ export default function AProposPage() {
             <p>
               Aujourd’hui, je mets ces compétences au service des gîtes, des activités touristiques, des salons, des instituts et des
               commerces de Guadeloupe. Mon objectif : des contenus beaux et utiles, qui vous apportent des réservations et des clients.
+            </p>
+            <p>
+              Depuis 2026, RCKY DIGITAL a aussi un pôle <Link href="/automation-lab" className="font-semibold text-brand-deep underline">Automation Lab</Link> :
+              des automatisations construites avec l’IA Claude pour les agences, les cabinets de conseil et les PME, installées à distance.
+              Nous les testons d’abord sur nous-mêmes : l’agence fonctionne avec une équipe d’agents IA qui travaillent chaque nuit.
             </p>
           </div>
           <div className="space-y-5">

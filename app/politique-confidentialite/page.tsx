@@ -122,6 +122,15 @@ export default function PolitiqueConfidentialitePage() {
             </p>
           </section>
 
+          <section>
+            <h2 className="text-xl font-bold text-ink mb-4 border-l-4 border-brand pl-4">
+              7. Espace client, paiements et automatisations (Automation Lab)
+            </h2>
+            <p className="text-sm">
+              Si vous créez un espace client, nous traitons votre nom, votre entreprise, votre adresse e-mail, votre mot de passe (chiffré, jamais lisible par nous), votre formule et le suivi de vos automatisations, pour exécuter le contrat. Ces données sont hébergées par Supabase Inc. (serveurs situés dans l’Union européenne). Les paiements en ligne sont traités par Stripe, qui reçoit vos données de paiement : RCKY DIGITAL n’a jamais accès à votre numéro de carte. Les automatisations installées chez un client peuvent utiliser l’IA Claude d’Anthropic, avec un compte au nom du client ; un contrat de sous-traitance (article 28 RGPD) précise alors les données traitées et leur durée de conservation. Les données de l’espace client sont conservées pendant la durée du contrat puis 3 ans, sauf obligation légale (factures : 10 ans). Vous pouvez demander la suppression de votre espace à tout moment à {SITE.email}.
+            </p>
+          </section>
+
           <p className="text-ink-muted text-xs border-t border-line pt-6">
             Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
           </p>

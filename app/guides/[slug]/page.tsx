@@ -102,7 +102,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <article>
-        <header className="bg-sand pb-12 pt-32 md:pt-40">
+        <header className="bg-hero pb-12 pt-32 md:pt-40">
           <div className="container-site max-w-3xl">
             <nav aria-label="Fil d’Ariane" className="text-sm text-ink-soft">
               <Link href="/guides" className="hover:text-brand-deep">Guides</Link>

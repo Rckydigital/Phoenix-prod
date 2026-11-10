@@ -1,101 +1,91 @@
+'use client'
+
 import Link from 'next/link'
-import { SITE, NAV_LINKS, LAST_UPDATE } from '@/lib/constants'
+import { usePathname } from 'next/navigation'
+import { SITE, LAST_UPDATE } from '@/lib/constants'
 import Logo from '@/components/Logo'
+import { langOf, r } from '@/lib/i18n'
+
+const T = {
+  fr: {
+    pitch: 'Agence digitale en Guadeloupe. Visibilité locale (photo, vidéo, réseaux, sites) et Automation Lab : des automatisations IA construites avec Claude, 100 % à distance.',
+    lab: 'Automation Lab',
+    local: 'Visibilité locale',
+    company: 'Entreprise',
+    contact: 'Contact',
+    labLinks: [['lab', 'Solutions'], ['pricing', 'Tarifs'], ['demo', 'Démo LeadFlow'], ['quote', 'Demander un devis'], ['dashboard', 'Espace client']],
+    localLinks: [['services', 'Services & tarifs'], ['work', 'Réalisations'], ['guides', 'Guides gratuits']],
+    companyLinks: [['about', 'À propos'], ['contact', 'Contact'], ['legal', 'Mentions légales'], ['privacy', 'Confidentialité']],
+    rights: 'entrepreneur individuel',
+    updated: 'Mis à jour le',
+  },
+  en: {
+    pitch: 'Digital agency based in Guadeloupe (French Caribbean). Automation Lab: AI automations built with Claude for agencies and consultancies, delivered 100% remotely.',
+    lab: 'Automation Lab',
+    local: 'Local visibility (FR)',
+    company: 'Company',
+    contact: 'Contact',
+    labLinks: [['lab', 'Solutions'], ['pricing', 'Pricing'], ['demo', 'LeadFlow demo'], ['quote', 'Request a quote'], ['dashboard', 'Client area']],
+    localLinks: [['services', 'Services (French)'], ['work', 'Our work (French)']],
+    companyLinks: [['about', 'About'], ['contact', 'Contact'], ['legal', 'Legal notice (FR)'], ['privacy', 'Privacy (FR)']],
+    rights: 'sole proprietor',
+    updated: 'Updated',
+  },
+} as const
 
 export default function Footer() {
+  const pathname = usePathname()
+  const lang = langOf(pathname)
+  const t = T[lang]
+  const col = (title: string, items: readonly (readonly [string, string])[]) => (
+    <div>
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.14em] text-white">{title}</h2>
+      <ul className="space-y-2.5 text-sm">
+        {items.map(([k, label]) => (
+          <li key={k}>
+            <Link href={r(k as Parameters<typeof r>[0], lang)} className="hover:text-white">
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+
   return (
-    <footer className="bg-ink px-4 pb-8 pt-16 text-white/80">
-      <div className="max-w-site mx-auto sm:px-2">
-        <div className="mb-12 grid gap-10 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <Link href="/" aria-label="RCKY DIGITAL, accueil">
+    <footer className="bg-ink px-4 pb-8 pt-16 text-white/70" lang={lang}>
+      <div className="mx-auto max-w-site sm:px-2">
+        <div className="mb-12 grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
+          <div>
+            <Link href={r('home', lang)} aria-label="RCKY DIGITAL">
               <Logo light />
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
-              Agence digitale en Guadeloupe. Photos, vidéos, réseaux sociaux et sites avec réservation pour le tourisme,
-              la beauté et les indépendants.
-            </p>
-            <a
-              href={SITE.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-[#F2A65A]"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-              </svg>
-              @_rcky_digital
-            </a>
-            <a
-              href={SITE.social.google}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-6 mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-[#F2A65A]"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z" />
-              </svg>
-              Avis Google
-            </a>
-            <a
-              href={SITE.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-6 mt-6 inline-flex items-center gap-2 text-sm font-medium text-white hover:text-[#F2A65A]"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="3" />
-                <path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7" />
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-
-          <div>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Navigation</h2>
-            <ul className="space-y-3 text-sm">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="hover:text-white">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <p className="mt-4 max-w-sm text-sm leading-relaxed">{t.pitch}</p>
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-white">
+              <a href={SITE.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-[#F2A65A]">LinkedIn</a>
+              <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-[#F2A65A]">Instagram</a>
+              <a href={SITE.social.google} target="_blank" rel="noopener noreferrer" className="hover:text-[#F2A65A]">Google</a>
+            </div>
+            <ul className="mt-6 space-y-1.5 text-sm">
+              <li><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
+              <li><a href={`tel:${SITE.phone.replace(/\s/g, '')}`} className="hover:text-white">{SITE.phone}</a></li>
             </ul>
           </div>
-
-          <div>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">Contact</h2>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a href={`mailto:${SITE.email}`} className="hover:text-white">
-                  {SITE.email}
-                </a>
-              </li>
-              <li>
-                <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} className="hover:text-white">
-                  {SITE.phone}
-                </a>
-              </li>
-              <li>{SITE.address}</li>
-            </ul>
-          </div>
+          {col(t.lab, t.labLinks)}
+          {col(t.local, t.localLinks)}
+          {col(t.company, t.companyLinks)}
         </div>
 
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 text-xs text-white/60 md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 text-xs text-white/55 md:flex-row">
           <p>
-            © {new Date().getFullYear()} {SITE.name} — {SITE.owner}, entrepreneur individuel. SIRET {SITE.siret} · Mis à jour le <time dateTime={LAST_UPDATE}>{new Date(LAST_UPDATE + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+            © {new Date().getFullYear()} {SITE.name} · {SITE.owner}, {t.rights} · SIRET {SITE.siret}
           </p>
-          <div className="flex gap-6">
-            <Link href="/mentions-legales" className="hover:text-white">
-              Mentions légales
-            </Link>
-            <Link href="/politique-confidentialite" className="hover:text-white">
-              Politique de confidentialité
-            </Link>
-          </div>
+          <p>
+            {t.updated}{' '}
+            <time dateTime={LAST_UPDATE}>
+              {new Date(LAST_UPDATE + 'T12:00:00').toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </time>
+          </p>
         </div>
       </div>
     </footer>

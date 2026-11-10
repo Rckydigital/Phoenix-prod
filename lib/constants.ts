@@ -9,7 +9,7 @@ export const SITE = {
   owner: 'Ricky GALIN',
   tagline: 'Photos, vidéos et sites qui donnent envie de réserver',
   description:
-    "RCKY DIGITAL, agence digitale en Guadeloupe : shooting photo et vidéo, gestion des réseaux sociaux et sites avec réservation pour le tourisme, la beauté et le bien-être.",
+    "RCKY DIGITAL, agence digitale en Guadeloupe : photo, vidéo, réseaux sociaux et sites avec réservation pour les entreprises locales, et Automation Lab, des automatisations IA construites avec Claude pour les agences et PME, à distance.",
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
   email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',
@@ -114,6 +114,18 @@ export const SERVICES: Service[] = [
     forWho: 'Ceux qui savent qu’il faut publier, mais n’ont pas le temps',
     launch: true,
   },
+]
+
+// Demandes Automation Lab (formulaire de devis)
+export const LAB_SERVICES = [
+  { id: 'leadflow', title: 'Automation Lab · LeadFlow (prospects)' },
+  { id: 'adminflow', title: 'Automation Lab · AdminFlow (administratif)' },
+  { id: 'supportflow', title: 'Automation Lab · SupportFlow (demandes clients)' },
+  { id: 'claude-setup', title: 'Automation Lab · Claude installé chez vous' },
+  { id: 'lab-starter', title: 'Automation Lab · Formule Starter' },
+  { id: 'lab-business', title: 'Automation Lab · Formule Business' },
+  { id: 'lab-premium', title: 'Automation Lab · Formule Premium' },
+  { id: 'lab-autre', title: 'Automation Lab · Autre automatisation' },
 ]
 
 // Options à la carte
@@ -281,7 +293,7 @@ export const FAQ = [
 ]
 
 // Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
-export const LAST_UPDATE = '2026-10-14'
+export const LAST_UPDATE = '2026-11-10'
 
 export const priceNumber = (p: string) => {
   const m = p.match(/(\d[\d\s]*)/)

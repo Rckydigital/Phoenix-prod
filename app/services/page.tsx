@@ -21,7 +21,7 @@ export default function ServicesPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <section className="bg-sand pb-16 pt-32 md:pt-40">
+      <section className="bg-hero pb-16 pt-32 md:pt-40">
         <div className="container-site">
           <span className="eyebrow">Services et tarifs</span>
           <h1 className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
