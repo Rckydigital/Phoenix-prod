@@ -248,6 +248,7 @@ export const NAV_LINKS = [
   { href: '/realisations', label: 'Réalisations' },
   { href: '/a-propos', label: 'À propos' },
   { href: '/guides', label: 'Guides' },
+  { href: '/automation-lab', label: 'Automation Lab' },
   { href: '/contact', label: 'Contact' },
 ]
 
