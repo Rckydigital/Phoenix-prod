@@ -12,9 +12,9 @@ const T = {
     h1a: 'Plus de clients,',
     h1b: 'moins de tâches répétitives.',
     lead: 'RCKY DIGITAL aide les entreprises à être trouvées et à mieux traiter leurs demandes : visibilité locale en Guadeloupe, et automatisations IA construites avec Claude, partout à distance.',
-    cta1: 'Essai gratuit 14 jours',
+    cta1: 'Réserver un appel de 15 min',
     cta2: 'Voir la démo LeadFlow',
-    noCard: 'Sans carte bancaire · Sans engagement',
+    noCard: 'Gratuit · Par téléphone ou WhatsApp · Sans engagement',
     facts: [['globe', 'Basé en Guadeloupe'], ['link', 'Automatisation 100 % à distance'], ['bolt', 'Construit avec Claude (Anthropic)'], ['clock', 'Réponse sous 48 h']],
     twoKicker: 'Deux expertises',
     twoTitle: 'Une agence, deux façons de faire grandir votre activité',
@@ -44,7 +44,7 @@ const T = {
     guidesCta: 'Tous les guides',
     read: 'Lire',
     ctaTitle: 'Combien de demandes vous échappent chaque mois ?',
-    ctaText: 'Créez votre espace en 1 minute : démo LeadFlow, audit gratuit et proposition sur mesure.',
+    ctaText: 'Un appel de 15 min pour voir ce qui peut être automatisé, puis un pilote de 10 jours sur vos vrais cas.',
     ctaSecondary: 'Demander un devis',
   },
   en: {
@@ -52,9 +52,9 @@ const T = {
     h1a: 'More clients,',
     h1b: 'fewer repetitive tasks.',
     lead: 'RCKY DIGITAL builds AI automations with Claude for marketing agencies, consulting firms and small businesses: every inbound request is read, sorted, logged and followed up, delivered 100% remotely.',
-    cta1: 'Start a 14-day free trial',
+    cta1: 'Book a 15-min call',
     cta2: 'See the LeadFlow demo',
-    noCard: 'No credit card · No commitment',
+    noCard: 'Free · By phone or WhatsApp · No commitment',
     facts: [['globe', 'Based in Guadeloupe (French Caribbean)'], ['link', '100% remote delivery'], ['bolt', 'Built with Claude (Anthropic)'], ['clock', 'Reply within 48 h']],
     twoKicker: 'What we do',
     twoTitle: 'Automations that turn requests into meetings',
@@ -84,7 +84,7 @@ const T = {
     guidesCta: '',
     read: '',
     ctaTitle: 'How many requests slip through each month?',
-    ctaText: 'Create your space in one minute: LeadFlow demo, free audit and a tailored proposal.',
+    ctaText: 'A 15-min call to see what can be automated, then a 10-day pilot on your real cases.',
     ctaSecondary: 'Request a quote',
   },
 }
@@ -104,7 +104,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
             </h1>
             <p style={{ '--d': '200ms' } as React.CSSProperties} className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{t.lead}</p>
             <div style={{ '--d': '300ms' } as React.CSSProperties} className="hero-in mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={r('signup', lang)} data-track="Accueil : essai" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>
+              <Link href={r('book', lang)} data-track="Accueil : rendez-vous" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>
               <Link href={r('demo', lang)} data-track="Accueil : démo" className="btn-ghost px-7 py-4 text-base">
                 <span aria-hidden="true">▶</span> {t.cta2}
               </Link>
@@ -260,7 +260,7 @@ export default function HomePage({ lang }: { lang: Lang }) {
         </section>
       )}
 
-      <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: r('signup', lang), label: t.cta1 }} secondary={{ href: r('quote', lang), label: t.ctaSecondary }} />
+      <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: r('book', lang), label: t.cta1 }} secondary={{ href: r('quote', lang), label: t.ctaSecondary }} />
     </div>
   )
 }

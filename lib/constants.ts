@@ -118,6 +118,8 @@ export const SERVICES: Service[] = [
 
 // Demandes Automation Lab (formulaire de devis)
 export const LAB_SERVICES = [
+  { id: 'lab-pilote', title: 'Automation Lab · Pilote 10 jours' },
+  { id: 'lab-fondateur', title: 'Automation Lab · Offre Client fondateur' },
   { id: 'leadflow', title: 'Automation Lab · LeadFlow (prospects)' },
   { id: 'adminflow', title: 'Automation Lab · AdminFlow (administratif)' },
   { id: 'supportflow', title: 'Automation Lab · SupportFlow (demandes clients)' },

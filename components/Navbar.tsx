@@ -26,8 +26,8 @@ const LINKS: Record<Lang, { href: string; label: string }[]> = {
 }
 
 const T = {
-  fr: { login: 'Connexion', trial: 'Essai gratuit', open: 'Ouvrir le menu', close: 'Fermer le menu', home: 'RCKY DIGITAL, accueil', lang: 'Langue' },
-  en: { login: 'Log in', trial: 'Free trial', open: 'Open menu', close: 'Close menu', home: 'RCKY DIGITAL, home', lang: 'Language' },
+  fr: { login: 'Connexion', trial: 'Réserver un appel', open: 'Ouvrir le menu', close: 'Fermer le menu', home: 'RCKY DIGITAL, accueil', lang: 'Langue' },
+  en: { login: 'Log in', trial: 'Book a call', open: 'Open menu', close: 'Close menu', home: 'RCKY DIGITAL, home', lang: 'Language' },
 }
 
 function LangSwitch({ pathname, lang, onDark = false }: { pathname: string; lang: Lang; onDark?: boolean }) {
@@ -112,7 +112,7 @@ export default function Navbar() {
           <Link href={r('login', lang)} className="whitespace-nowrap text-sm font-semibold text-ink hover:text-brand-deep">
             {t.login}
           </Link>
-          <Link href={r('signup', lang)} data-track="Barre : essai gratuit" className="btn-primary whitespace-nowrap px-5 py-2.5 text-sm">
+          <Link href={r('book', lang)} data-track="Barre : rendez-vous" className="btn-primary whitespace-nowrap px-5 py-2.5 text-sm">
             {t.trial}
           </Link>
         </div>
@@ -150,7 +150,7 @@ export default function Navbar() {
             <Link href={r('login', lang)} tabIndex={isOpen ? 0 : -1} className="btn-outline w-full">
               {t.login}
             </Link>
-            <Link href={r('signup', lang)} tabIndex={isOpen ? 0 : -1} className="btn-primary w-full">
+            <Link href={r('book', lang)} tabIndex={isOpen ? 0 : -1} className="btn-primary w-full">
               {t.trial}
             </Link>
           </div>

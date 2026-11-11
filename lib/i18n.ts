@@ -89,6 +89,11 @@ export const PLANS: {
   },
 ]
 
+// Porte d'entrée : pilote payant à prix fixe, déduit de l'installation si le client signe
+export const PILOT = { price: 490, days: 10 }
+// Offre « Client fondateur » : remise sur l'installation contre une étude de cas publiée
+export const FOUNDER = { discount: 40, seats: 2 }
+
 export const eur = (n: number, lang: Lang) =>
   lang === 'fr'
     ? n.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' €'

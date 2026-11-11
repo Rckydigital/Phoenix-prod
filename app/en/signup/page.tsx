@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import AuthForm from '@/components/AuthForm'
 
-export const metadata: Metadata = { title: '14-day free trial', robots: { index: false } }
+export const metadata: Metadata = { title: 'Create your client account', robots: { index: false } }
 
 export default function Page({ searchParams }: { searchParams: { plan?: string } }) {
   return (

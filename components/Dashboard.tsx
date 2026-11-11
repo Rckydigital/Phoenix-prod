@@ -18,7 +18,7 @@ const T = {
     tabs: { overview: 'Tableau de bord', automations: 'Automatisations', billing: 'Abonnement', settings: 'Paramètres' },
     hello: 'Bonjour', logout: 'Déconnexion', loading: 'Chargement de votre espace…',
     unavailable: 'L’espace client ouvre très bientôt. En attendant, écrivez-nous ou demandez un devis.', quote: 'Demander un devis',
-    plan: 'Formule', trial: 'Essai gratuit', daysLeft: (n: number) => (n > 0 ? `${n} jour${n > 1 ? 's' : ''} restant${n > 1 ? 's' : ''}` : 'Essai terminé'),
+    plan: 'Formule', trial: 'Découverte', next: 'Prochaine étape : votre appel ou votre pilote', daysLeft: (n: number) => (n > 0 ? `${n} jour${n > 1 ? 's' : ''} restant${n > 1 ? 's' : ''}` : 'Essai terminé'),
     active: 'Automatisations actives', events30: 'Actions sur 30 jours', meetings: 'Rendez-vous pris',
     chart: 'Activité des 30 derniers jours', recent: 'Dernières actions',
     emptyTitle: 'Votre première automatisation se prépare',
@@ -41,7 +41,7 @@ const T = {
     tabs: { overview: 'Dashboard', automations: 'Automations', billing: 'Subscription', settings: 'Settings' },
     hello: 'Hello', logout: 'Log out', loading: 'Loading your space…',
     unavailable: 'The client area opens very soon. Meanwhile, email us or request a quote.', quote: 'Request a quote',
-    plan: 'Plan', trial: 'Free trial', daysLeft: (n: number) => (n > 0 ? `${n} day${n > 1 ? 's' : ''} left` : 'Trial ended'),
+    plan: 'Plan', trial: 'Discovery', next: 'Next step: your call or your pilot', daysLeft: (n: number) => (n > 0 ? `${n} day${n > 1 ? 's' : ''} left` : 'Trial ended'),
     active: 'Active automations', events30: 'Actions in 30 days', meetings: 'Meetings booked',
     chart: 'Activity over the last 30 days', recent: 'Latest actions',
     emptyTitle: 'Your first automation is being prepared',
@@ -217,7 +217,7 @@ export default function Dashboard({ lang, paid, reset, plan: planHint, stripeTes
           <div className="mt-6 space-y-6">
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {[
-                [t.plan, planName, isTrial ? t.daysLeft(daysLeft) : t.subStatus[profile?.subscription_status || 'active'] || ''],
+                [t.plan, planName, isTrial ? t.next : t.subStatus[profile?.subscription_status || 'active'] || ''],
                 [t.active, String(activeCount), `${autos.length} ${lang === 'fr' ? 'au total' : 'in total'}`],
                 [t.events30, String(events.length), ''],
                 [t.meetings, String(rdv), lang === 'fr' ? '30 derniers jours' : 'last 30 days'],
