@@ -21,7 +21,7 @@
       desc: 'Aspiration complète, plastiques, sièges et tapis, vitres intérieures et shampouinage des textiles.' },
     { id: 'complet', name: 'Nettoyage complet', short: 'Complet', price: 100, dur: 150, star: true,
       desc: 'Intérieur et extérieur comme neufs, nettoyés en profondeur jusque dans les moindres recoins.' },
-    { id: 'detailing', name: 'Detailing complet', short: 'Detailing', price: 130, dur: 240,
+    { id: 'detailing', name: 'Detailing complet', short: 'Detailing', price: 130, dur: 240, soon: true,
       desc: 'Le soin le plus poussé : intérieur et extérieur remis à neuf, jusque dans les moindres détails.' }
   ];
   IW.PLANS = [

@@ -107,6 +107,10 @@ section{padding:96px 0 0}
 .svc.feat h3,.svc.feat .p{color:#fff}
 .svc.feat .d,.svc.feat .t,.svc.feat .p small{color:var(--on-dark-2)}
 .svc.feat .foot{border-top-color:rgba(234,244,244,.18)}
+.svc.soon{background:var(--rule-soft);border-style:dashed;box-shadow:none}
+.svc.soon h3,.svc.soon .p{color:var(--muted)}
+.svc.soon .btn{opacity:.6;cursor:default;pointer-events:none}
+.svc.soon .tag{background:var(--muted)}
 .svc.feat .tag{background:var(--sun);color:var(--lacquer)}
 .svc .tag{position:absolute;top:-12px;left:22px;font-size:.78rem;font-weight:700;color:#fff;background:var(--lagoon);padding:.2rem .7rem;border-radius:999px}
 @media (max-width:420px){.svc{padding:22px 18px 18px}.svc.feat{padding:21px 17px 17px}.svc .btn{width:100%}.svc .p{margin-left:auto}}
@@ -498,9 +502,9 @@ footer a{color:var(--on-dark)}
 
   /* carte des prestations */
   $('cards').innerHTML=IW.SERVICES.map(function(s){
-    return '<div class="svc'+(s.star?' feat':'')+'">'+(s.star?'<span class="tag">Intérieur et extérieur</span>':'')+'<h3>'+s.name+'</h3>'+
+    return '<div class="svc'+(s.star?' feat':'')+(s.soon?' soon':'')+'">'+(s.star?'<span class="tag">Intérieur et extérieur</span>':'')+(s.soon?'<span class="tag">Bientôt disponible</span>':'')+'<h3>'+s.name+'</h3>'+
       '<p class="d">'+s.desc+'</p><div class="foot"><span class="t">Environ '+IW.dur(s.dur)+'</span><span class="p">'+s.price+' €<small>TTC</small></span>'+
-      '<button class="btn '+(s.star?'light':'line')+' sm" type="button" data-book="'+s.id+'">Réserver</button></div></div>';
+      (s.soon?'<span class="btn line sm" aria-disabled="true">Bientôt</span>':'<button class="btn '+(s.star?'light':'line')+' sm" type="button" data-book="'+s.id+'">Réserver</button>')+'</div></div>';
   }).join('');
   var minPer=Math.min.apply(null,IW.PLANS.map(function(p){return p.price/p.n}));
   $('plans').innerHTML=IW.PLANS.map(function(p){
@@ -518,7 +522,7 @@ footer a{color:var(--on-dark)}
   /* réservation */
   var st={offer:null,date:null,start:null,gps:''},step=1,lastBooking=null;
   function optHtml(o,sub){return '<button type="button" class="opt" data-offer="'+o.id+'"><span><b>'+o.name+'</b><small>'+(sub?o.n+' passage'+(o.n>1?'s':'')+' par mois':'Environ '+IW.dur(o.dur))+'</small></span><span class="pr">'+o.price+' €</span></button>'}
-  $('optSvc').innerHTML=IW.SERVICES.map(function(o){return optHtml(o,false)}).join('');
+  $('optSvc').innerHTML=IW.SERVICES.filter(function(o){return !o.soon}).map(function(o){return optHtml(o,false)}).join('');
   $('optPlan').innerHTML=IW.PLANS.map(function(o){return optHtml(o,true)}).join('');
   function chooseOffer(id){st.offer=id;document.querySelectorAll('.opt').forEach(function(b){b.classList.toggle('on',b.dataset.offer===id)});
     if(st.date&&st.start!==null&&IW.slots(st.date,IW.offer(id).dur).indexOf(st.start)<0)st.start=null;summary()}
