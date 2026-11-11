@@ -147,6 +147,7 @@ export const AGENTS: AgentDef[] = [
   { id: 'finance', folder: '70 - Fichiers/Finance', name: 'Finance & Admin', role: 'CA, factures, échéances', schedule: 'Vendredi · 12h35', match: ['finance'], reportPrefix: 'Finance', color: '#C8383C' },
   { id: 'secretaire', folder: '70 - Fichiers/Secrétaire', name: 'Secrétaire', role: 'Agenda, rendez-vous, accueil', schedule: 'Lun-ven · 6h45', match: ['secrétaire', 'secretaire'], reportPrefix: 'Secrétaire', color: '#C9A227' },
   { id: 'veille', folder: '70 - Fichiers/Veille', name: 'Veille', role: 'Tendances, ressources, apprentissage', schedule: 'Mardi et jeudi', match: ['veille'], reportPrefix: 'Veille', color: '#3F7D4E' },
+  { id: 'dev', folder: '80 - Outils/labo', name: 'Dev', role: 'Labo IA : prototypes, outils et LeadFlow', schedule: 'Chaque nuit · 3h10', match: ['dev'], reportPrefix: 'Dev', color: '#7C3AED' },
 ]
 
 export type AgentFile = { path: string; name: string; group: string; size: number; ext: string }

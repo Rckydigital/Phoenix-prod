@@ -84,9 +84,52 @@ function Chair({ x, y, color = '#2E3B45' }: { x: number; y: number; color?: stri
   )
 }
 
+// ---------- Coin Dev (gaming) ----------
+const rgb = (t: number) => `hsl(${Math.round((t * 50) % 360)}, 90%, 62%)`
+
+function GamingDesk({ x, y, on, t }: { x: number; y: number; on: boolean; t: number }) {
+  const scr = (x1: number, x2: number, z1: number, z2: number, fill: string, k: string) => (
+    <polygon key={k} points={pts(P(x1, y + 0.2, z1), P(x2, y + 0.2, z1), P(x2, y + 0.2, z2), P(x1, y + 0.2, z2))} fill={fill} stroke="#0B0A12" strokeWidth={2} />
+  )
+  const [lx, ly] = P(x + 0.95, y + 0.2, 44)
+  return (
+    <g>
+      <Box x={x} y={y} w={2.2} d={0.9} h={26} color="#20202A" top="#2B2B38" />
+      {/* bande LED RGB sous le plateau */}
+      <polygon points={pts(P(x, y + 0.9, 22), P(x + 2.2, y + 0.9, 22), P(x + 2.2, y + 0.9, 25), P(x, y + 0.9, 25))} fill={rgb(t)} filter="url(#neon)" />
+      {/* 3 écrans */}
+      {scr(x + 0.12, x + 0.72, 30, 48, on ? '#A855F7' : '#2E3B45', 's1')}
+      {scr(x + 0.78, x + 1.48, 29, 52, on ? '#0F172A' : '#2E3B45', 's2')}
+      {scr(x + 1.54, x + 2.12, 30, 48, on ? '#22D3EE' : '#2E3B45', 's3')}
+      {on && (
+        <g transform={`translate(${lx} ${ly}) skewY(26.565)`}>
+          {[0, 1, 2, 3].map((r) => (
+            <rect key={r} x={2 + (r % 2) * 5} y={-15 + r * 3.6 - ((t * 6) % 3.6)} width={10 + ((r * 7) % 9)} height={1.6} fill={r % 2 ? '#4ADE80' : '#F472B6'} />
+          ))}
+        </g>
+      )}
+      {/* clavier RGB + souris */}
+      <Box x={x + 0.75} y={y + 0.5} w={0.7} d={0.2} h={2} z={26} color="#15121F" top={rgb(t + 2)} shadow={false} />
+      <Box x={x + 1.6} y={y + 0.52} w={0.12} d={0.16} h={2} z={26} color="#15121F" top="#22D3EE" shadow={false} />
+      {/* canette */}
+      <Box x={x + 0.25} y={y + 0.55} w={0.12} d={0.12} h={7} z={26} color="#16A34A" shadow={false} />
+    </g>
+  )
+}
+
+function GamingChair({ x, y }: { x: number; y: number }) {
+  return (
+    <g>
+      <Box x={x - 0.28} y={y - 0.28} w={0.56} d={0.56} h={12} color="#15121F" top="#C8383C" />
+      <Box x={x - 0.28} y={y - 0.36} w={0.56} d={0.12} h={30} z={12} color="#15121F" top="#C8383C" shadow={false} />
+      <Box x={x - 0.12} y={y - 0.37} w={0.24} d={0.02} h={22} z={16} color="#C8383C" shadow={false} />
+    </g>
+  )
+}
+
 // ---------- Personnages ----------
-type PersonProps = { x: number; y: number; color: string; skin?: string; hair?: string; walking?: boolean; seated?: boolean; phase?: number; dim?: boolean }
-function Person({ x, y, color, skin = '#E5B993', hair = '#2B2420', walking, seated, phase = 0, dim }: PersonProps) {
+type PersonProps = { x: number; y: number; color: string; skin?: string; hair?: string; walking?: boolean; seated?: boolean; phase?: number; dim?: boolean; headset?: string }
+function Person({ x, y, color, skin = '#E5B993', hair = '#2B2420', walking, seated, phase = 0, dim, headset }: PersonProps) {
   const [px, py] = P(x, y)
   const lift = seated ? 10 : 0
   const step = walking ? Math.sin(phase * Math.PI * 2) * 4 : 0
@@ -106,6 +149,14 @@ function Person({ x, y, color, skin = '#E5B993', hair = '#2B2420', walking, seat
       <rect x={px + 9} y={by - 34 - step * 0.3} width={4} height={14} rx={2} fill={shade(color, -25)} />
       <circle cx={px} cy={by - 49} r={9.5} fill={skin} />
       <path d={`M${px - 9.5} ${by - 51} Q${px} ${by - 65} ${px + 9.5} ${by - 51} Q${px + 3} ${by - 56} ${px - 9.5} ${by - 51} Z`} fill={hair} />
+      {headset && (
+        <g>
+          <path d={`M${px - 11} ${by - 48} Q${px} ${by - 68} ${px + 11} ${by - 48}`} fill="none" stroke="#15121F" strokeWidth={3} />
+          <rect x={px - 13.5} y={by - 52} width={5.5} height={9} rx={2.5} fill="#15121F" stroke={headset} strokeWidth={1.2} />
+          <rect x={px + 8} y={by - 52} width={5.5} height={9} rx={2.5} fill="#15121F" stroke={headset} strokeWidth={1.2} />
+          <path d={`M${px - 11} ${by - 45} Q${px - 9} ${by - 39} ${px - 3} ${by - 40}`} fill="none" stroke="#15121F" strokeWidth={1.5} />
+        </g>
+      )}
     </g>
   )
 }
@@ -135,6 +186,7 @@ const DESKS: Record<string, { x: number; y: number; seat: [number, number] }> = 
   finance: { x: 6.3, y: 4.2, seat: [7.3, 3.75] },
   veille: { x: 10.3, y: 4.2, seat: [11.3, 3.75] },
   secretaire: { x: 11.3, y: 7.6, seat: [12.6, 7.25] }, // derrière le comptoir d'accueil
+  dev: { x: 13.6, y: 3.4, seat: [14.6, 2.95] }, // coin gaming, au fond de l'open space
 }
 
 // Trajet aller (bureau → café) ; le retour est le chemin inverse
@@ -145,8 +197,10 @@ const ROUTES: Record<string, Way[]> = {
   finance: [{ x: 7.3, y: 3.75, wait: 19 }, { x: 9.2, y: 3.75 }, { x: 9.2, y: 7.0 }, { x: 8.4, y: 9.4, wait: 5 }],
   veille: [{ x: 11.3, y: 3.75, wait: 13 }, { x: 9.4, y: 3.75 }, { x: 9.4, y: 7.2 }, { x: 14.6, y: 8.6, wait: 3 }],
   secretaire: [{ x: 12.6, y: 7.25, wait: 20 }, { x: 10.9, y: 7.25 }, { x: 9.6, y: 7.6 }, { x: 8.9, y: 8.8, wait: 4 }],
+  // Le Dev code longtemps, puis va souffler à côté du pouf
+  dev: [{ x: 14.6, y: 2.95, wait: 24 }, { x: 12.75, y: 2.95 }, { x: 12.75, y: 5.6 }, { x: 13.6, y: 5.6, wait: 7 }],
 }
-const OFFSET: Record<string, number> = { directeur: 3, commercial: 9, marketing: 0, finance: 15, veille: 6, secretaire: 11 }
+const OFFSET: Record<string, number> = { directeur: 3, commercial: 9, marketing: 0, finance: 15, veille: 6, secretaire: 11, dev: 2 }
 const SPEED = 1.15 // tuiles par seconde
 
 function buildTimeline(route: Way[]) {
@@ -243,8 +297,13 @@ export default function Scene({
     // Open space : rangement, imprimante, plantes
     add(15.3, <g key="printer"><Box x={14.6} y={0.3} w={1.0} d={0.7} h={30} color="#E9ECEF" /><Box x={14.75} y={0.38} w={0.7} d={0.5} h={6} z={30} color="#2E3B45" shadow={false} /></g>)
     add(13.2, <Box key="cab" x={12.6} y={0.25} w={1.4} d={0.5} h={40} color="#D8C7B0" />)
-    add(15.6, <Plant key="os-plant" x={15.5} y={5.8} big />)
     add(5.9, <Plant key="os-plant2" x={5.5} y={0.5} />)
+
+    // Coin Dev (gaming) : PC tour RGB, borne d'arcade, pouf, mini-frigo
+    add(17.0, <g key="dev-tower"><Box x={15.75} y={3.5} w={0.22} d={0.75} h={46} color="#17141F" top="#2A2438" /><polygon points={pts(P(15.75, 3.62, 8), P(15.75, 4.13, 8), P(15.75, 4.13, 40), P(15.75, 3.62, 40))} fill="rgba(124,58,237,0.55)" stroke="#22D3EE" strokeWidth={1.2} /></g>)
+    add(17.6, <g key="dev-arcade"><Box x={15.15} y={2.1} w={0.75} d={0.75} h={66} color="#2B1E4A" top="#3B2A63" /><polygon points={pts(P(15.15, 2.17, 34), P(15.15, 2.77, 34), P(15.15, 2.77, 56), P(15.15, 2.17, 56))} fill="#0B0A12" stroke="#F472B6" strokeWidth={1.5} /><polygon points={pts(P(15.15, 2.17, 58), P(15.15, 2.77, 58), P(15.15, 2.77, 66), P(15.15, 2.17, 66))} fill="#F59E0B" /><Box x={14.9} y={2.15} w={0.25} d={0.65} h={3} z={30} color="#15121F" shadow={false} /></g>)
+    add(20.0, <g key="dev-bean"><ellipse cx={P(14.2, 5.9)[0]} cy={P(14.2, 5.9)[1] - 6} rx={20} ry={11} fill="#22D3EE" /><ellipse cx={P(14.2, 5.9)[0] - 3} cy={P(14.2, 5.9)[1] - 11} rx={12} ry={6} fill="#67E8F9" /></g>)
+    add(16.1, <g key="dev-fridge"><Box x={12.95} y={2.2} w={0.55} d={0.55} h={24} color="#E9ECEF" /><polygon points={pts(P(12.95, 2.75, 4), P(13.5, 2.75, 4), P(13.5, 2.75, 22), P(12.95, 2.75, 22))} fill="rgba(34,211,238,0.35)" /></g>)
 
     // Salle de réunion
     for (const [cx, cy] of [[1.4, 7.6], [3.6, 7.6], [1.4, 9.4], [3.6, 9.4]] as Pt[]) add(cx + cy, <Chair key={`mc-${cx}-${cy}`} x={cx} y={cy} color="#2A93A8" />)
@@ -261,7 +320,6 @@ export default function Scene({
     add(20.6, <g key="reception"><Box x={11.3} y={7.6} w={2.6} d={0.8} h={34} color="#E8742A" top="#F2F0EC" /></g>)
     add(24.9, <g key="sofa"><Box x={12.6} y={9.9} w={3.0} d={0.9} h={14} color="#2A93A8" /><Box x={12.6} y={10.6} w={3.0} d={0.25} h={32} color="#237E90" shadow={false} /></g>)
     add(23.8, <Box key="low-table" x={13.2} y={8.9} w={1.6} d={0.7} h={10} color="#C9A27A" top="#D9B58F" />)
-    add(18.6, <Plant key="wait-plant" x={15.5} y={7.4} big />)
     add(22.2, <Plant key="wait-plant2" x={11.0} y={10.6} />)
 
     // Cloisons vitrées
@@ -286,7 +344,9 @@ export default function Scene({
     const pos = positionAt(a.id, t)
     const atDesk = pos.seated
     // Bureau (table + écran + chaise)
-    if (a.id !== 'secretaire') items.push({
+    if (a.id === 'dev') {
+      items.push({ depth: d.x + 1 + d.y + 0.45, node: <g key="desk-dev" {...click('dev')}><GamingDesk x={d.x} y={d.y} on={st.key === 'on'} t={t} /></g> })
+    } else if (a.id !== 'secretaire') items.push({
       depth: d.x + 1 + d.y + 0.45,
       node: (
         <g key={`desk-${a.id}`} {...click(a.id)}>
@@ -303,13 +363,13 @@ export default function Scene({
         </g>
       ),
     })
-    items.push({ depth: d.seat[0] + d.seat[1] - 0.3, node: <g key={`chair-${a.id}`}><Chair x={d.seat[0]} y={d.seat[1] - 0.15} /></g> })
+    items.push({ depth: d.seat[0] + d.seat[1] - 0.3, node: <g key={`chair-${a.id}`}>{a.id === 'dev' ? <GamingChair x={d.seat[0]} y={d.seat[1] - 0.15} /> : <Chair x={d.seat[0]} y={d.seat[1] - 0.15} />}</g> })
     // Agent
     items.push({
       depth: pos.x + pos.y + (atDesk ? 0 : 0.2),
       node: (
         <g key={`ag-${a.id}`} {...click(a.id)}>
-          <Person x={pos.x} y={pos.y} color={a.color} skin={SKINS[i % SKINS.length]} hair={HAIRS[i % HAIRS.length]} walking={pos.walking} seated={atDesk} phase={pos.phase} />
+          <Person x={pos.x} y={pos.y} color={a.color} skin={SKINS[i % SKINS.length]} hair={HAIRS[i % HAIRS.length]} walking={pos.walking} seated={atDesk} phase={pos.phase} headset={a.id === 'dev' ? rgb(t) : undefined} />
         </g>
       ),
     })
@@ -351,6 +411,10 @@ export default function Scene({
   return (
     <svg viewBox="20 25 990 650" className="block h-auto w-full min-w-[820px] lg:h-[calc(100vh-230px)] lg:min-h-[600px] lg:min-w-0" role="group" aria-label="Bâtiment RCKY DIGITAL : touchez un poste, la salle de réunion ou l’accueil">
       <defs>
+        <filter id="neon" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.2" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#CDEBF4" />
           <stop offset="1" stopColor="#F2FAFC" />
@@ -429,9 +493,17 @@ export default function Scene({
       <polygon points={pts(P(10.8, 7.2), P(W, 7.2), P(W, D), P(10.8, D))} fill="#E7F3F5" onClick={() => setSel(null)} />
       <polygon points={pts(P(14, 10.6), P(15.4, 10.6), P(15.4, D), P(14, D))} fill="#1E2A33" opacity={0.75} />
       {/* Tapis open space */}
-      {Object.values(DESKS).slice(1).map((d, i) => (
+      {(['commercial', 'marketing', 'finance', 'veille'] as const).map((k) => DESKS[k]).map((d, i) => (
         <polygon key={`rug${i}`} points={pts(P(d.x - 0.3, d.y - 1.0), P(d.x + 2.3, d.y - 1.0), P(d.x + 2.3, d.y + 1.2), P(d.x - 0.3, d.y + 1.2))} fill={['#E7F4F6', '#F5EAF2', '#FBE9E9', '#EAF3EC'][i]} />
       ))}
+
+      {/* Sol du coin Dev : dalle sombre, grille et bordure néon */}
+      <g onClick={() => setSel(null)}>
+        <polygon points={pts(P(12.85, 2.0), P(W, 2.0), P(W, 6.95), P(12.85, 6.95))} fill="#1B1530" />
+        {[3.0, 4.0, 5.0, 6.0].map((gy) => <line key={`dg-y${gy}`} x1={P(12.85, gy)[0]} y1={P(12.85, gy)[1]} x2={P(W, gy)[0]} y2={P(W, gy)[1]} stroke="#3B2A63" />)}
+        {[13.85, 14.85].map((gx) => <line key={`dg-x${gx}`} x1={P(gx, 2.0)[0]} y1={P(gx, 2.0)[1]} x2={P(gx, 6.95)[0]} y2={P(gx, 6.95)[1]} stroke="#3B2A63" />)}
+        <polygon points={pts(P(12.85, 2.0), P(W, 2.0), P(W, 6.95), P(12.85, 6.95))} fill="none" stroke={rgb(t)} strokeWidth={2.5} filter="url(#neon)" />
+      </g>
 
       {items.map((it) => it.node)}
       {tags}
@@ -440,6 +512,7 @@ export default function Scene({
       {zone('reunion', 'Salle de réunion', 2.5, 10.9, '#1E2A33', data.aValider.length ? '#E3A21A' : '#2FA65A')}
       {zone('crm', visitors.length ? `Accueil · ${visitors.length} en attente` : 'Accueil · personne en attente', 13.4, 11.3, '#C8383C', visitors.length ? '#C8383C' : '#9AA3AB')}
       {zone('directeur', 'Bureau du Directeur', 2.4, 4.3, '#E8742A')}
+      {zone('dev', 'Labo Dev', 13.7, 6.75, '#7C3AED')}
     </svg>
   )
 }
