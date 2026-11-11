@@ -22,8 +22,8 @@ const T = {
     active: 'Automatisations actives', events30: 'Actions sur 30 jours', meetings: 'Rendez-vous pris',
     chart: 'Activité des 30 derniers jours', recent: 'Dernières actions',
     emptyTitle: 'Votre première automatisation se prépare',
-    emptyText: 'Dès qu’elle sera en service, vous verrez ici les demandes traitées, les réponses, les relances et les rendez-vous. En attendant, essayez la démo ou réservez votre audit de 15 min.',
-    demo: 'Voir la démo LeadFlow', audit: 'Réserver mon audit',
+    emptyText: 'Dès qu’elle sera en service, vous verrez ici les demandes traitées, les réponses, les relances et les rendez-vous. En attendant, essayez la démo ou réservez votre appel découverte de 15 min.',
+    demo: 'Voir la démo LeadFlow', audit: 'Réserver mon appel découverte',
     status: { en_preparation: 'En préparation', active: 'Active', en_pause: 'En pause' },
     types: { demande: 'Demande traitée', reponse: 'Réponse envoyée', relance: 'Relance', rdv: 'Rendez-vous', autre: 'Action' },
     noAuto: 'Aucune automatisation pour l’instant.', askAuto: 'Demander une automatisation',
@@ -45,8 +45,8 @@ const T = {
     active: 'Active automations', events30: 'Actions in 30 days', meetings: 'Meetings booked',
     chart: 'Activity over the last 30 days', recent: 'Latest actions',
     emptyTitle: 'Your first automation is being prepared',
-    emptyText: 'Once it is live you will see requests handled, replies, follow-ups and meetings here. Meanwhile, try the demo or book your 15-min audit.',
-    demo: 'See the LeadFlow demo', audit: 'Book my audit',
+    emptyText: 'Once it is live you will see requests handled, replies, follow-ups and meetings here. Meanwhile, try the demo or book your 15-min discovery call.',
+    demo: 'See the LeadFlow demo', audit: 'Book my discovery call',
     status: { en_preparation: 'In preparation', active: 'Active', en_pause: 'Paused' },
     types: { demande: 'Request handled', reponse: 'Reply sent', relance: 'Follow-up', rdv: 'Meeting', autre: 'Action' },
     noAuto: 'No automation yet.', askAuto: 'Request an automation',
@@ -236,7 +236,7 @@ export default function Dashboard({ lang, paid, reset, plan: planHint, stripeTes
                 <p className="mt-2 max-w-2xl text-ink-soft">{t.emptyText}</p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link href={r('demo', lang)} className="btn-primary">{t.demo}</Link>
-                  <a href={SITE.calendly || `mailto:${SITE.email}?subject=${encodeURIComponent(lang === 'fr' ? 'Audit Automation Lab (15 min)' : 'Automation Lab audit (15 min)')}`} className="btn-outline">{t.audit}</a>
+                  <Link href={r('book', lang)} className="btn-outline">{t.audit}</Link>
                 </div>
               </div>
             ) : (

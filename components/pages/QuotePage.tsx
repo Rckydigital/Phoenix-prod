@@ -19,7 +19,7 @@ const T = {
     send: 'Envoyer ma demande de devis',
     err: 'La demande n’a pas pu être envoyée. Vérifiez les champs obligatoires et réessayez.',
     errConfig: 'Le formulaire est momentanément indisponible. Écrivez-nous à ',
-    alt: 'Vous préférez en parler ?', altCta: 'Essai gratuit + audit de 15 min',
+    alt: 'Vous préférez en parler ?', altCta: 'Réserver un appel de 15 min',
   },
   en: {
     kicker: 'Free quote',
@@ -36,7 +36,7 @@ const T = {
     send: 'Send my quote request',
     err: 'Your request could not be sent. Please check the required fields and try again.',
     errConfig: 'The form is temporarily unavailable. Email us at ',
-    alt: 'Prefer to talk first?', altCta: 'Free trial + 15-min audit',
+    alt: 'Prefer to talk first?', altCta: 'Book a 15-min call',
   },
 }
 
@@ -111,7 +111,7 @@ export default function QuotePage({ lang, error, preset }: { lang: Lang; error?:
                 <li className="flex gap-2"><Check className="h-5 w-5 text-[#7fd3e2]" /><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
                 <li className="flex gap-2"><Check className="h-5 w-5 text-[#7fd3e2]" /><a href={`tel:${SITE.phone.replace(/\s/g, '')}`} className="hover:text-white">{SITE.phone}</a></li>
               </ul>
-              <Link href={r('signup', lang)} className="btn-primary mt-5 w-full">{t.altCta}</Link>
+              <Link href={r('book', lang)} className="btn-primary mt-5 w-full">{t.altCta}</Link>
             </div>
           </aside>
         </div>

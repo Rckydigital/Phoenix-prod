@@ -20,6 +20,7 @@ const LINKS: Record<Lang, { href: string; label: string }[]> = {
     { href: r('pricing', 'en'), label: 'Pricing' },
     { href: r('demo', 'en'), label: 'Demo' },
     { href: r('about', 'en'), label: 'About' },
+    { href: r('book', 'en'), label: 'Book a call' },
     { href: r('contact', 'en'), label: 'Contact' },
   ],
 }
@@ -94,29 +95,29 @@ export default function Navbar() {
           <Logo />
         </Link>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-5 xl:flex 2xl:gap-6">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors ${active(link.href) ? 'text-brand-deep' : 'text-ink-soft hover:text-ink'}`}
+              className={`whitespace-nowrap text-sm font-medium transition-colors ${active(link.href) ? 'text-brand-deep' : 'text-ink-soft hover:text-ink'}`}
             >
               {link.label}
             </Link>
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <LangSwitch pathname={pathname} lang={lang} />
-          <Link href={r('login', lang)} className="text-sm font-semibold text-ink hover:text-brand-deep">
+          <Link href={r('login', lang)} className="whitespace-nowrap text-sm font-semibold text-ink hover:text-brand-deep">
             {t.login}
           </Link>
-          <Link href={r('signup', lang)} data-track="Barre : essai gratuit" className="btn-primary px-5 py-2.5 text-sm">
+          <Link href={r('signup', lang)} data-track="Barre : essai gratuit" className="btn-primary whitespace-nowrap px-5 py-2.5 text-sm">
             {t.trial}
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <LangSwitch pathname={pathname} lang={lang} />
           <button
             type="button"
@@ -133,7 +134,7 @@ export default function Navbar() {
       </nav>
 
       {/* Toujours monté pour pouvoir animer l'entrée ET la sortie */}
-      <div data-open={isOpen} aria-hidden={!isOpen} className="menu-panel material-thick absolute inset-x-0 top-full rounded-b-3xl lg:hidden">
+      <div data-open={isOpen} aria-hidden={!isOpen} className="menu-panel material-thick absolute inset-x-0 top-full rounded-b-3xl xl:hidden">
         <div className="container-site space-y-1 pb-6 pt-2">
           {links.map((link) => (
             <Link

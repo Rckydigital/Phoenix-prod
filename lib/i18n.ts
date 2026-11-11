@@ -11,6 +11,7 @@ export const ROUTES = {
   pricing: { fr: '/tarifs', en: '/en/pricing' },
   demo: { fr: '/demo', en: '/en/demo' },
   quote: { fr: '/devis', en: '/en/quote' },
+  book: { fr: '/rendez-vous', en: '/en/book' },
   contact: { fr: '/contact', en: '/en/contact' },
   about: { fr: '/a-propos', en: '/en/about' },
   signup: { fr: '/inscription', en: '/en/signup' },

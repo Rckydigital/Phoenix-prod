@@ -14,7 +14,7 @@ export const LAB_FAQ = {
     { q: 'Mes données sont-elles en sécurité ?', a: 'Les accès restent à votre nom et vous pouvez les couper à tout moment. Nous ne gardons que ce qui est nécessaire, et un contrat de sous-traitance (RGPD) est signé avec chaque client.' },
     { q: 'Quel est le délai de mise en place ?', a: 'En général 1 à 3 semaines selon la formule et le nombre d’outils à connecter. Le délai exact figure sur votre devis.' },
     { q: 'Puis-je arrêter mon abonnement ?', a: 'Oui. L’abonnement mensuel est sans engagement après les 3 premiers mois, résiliable depuis votre espace client avec un préavis d’un mois.' },
-    { q: 'Que comprend l’essai gratuit de 14 jours ?', a: 'Votre espace client, la démo LeadFlow, un audit de 15 minutes en visio et une proposition sur mesure. Sans carte bancaire et sans engagement.' },
+    { q: 'Que comprend l’essai gratuit de 14 jours ?', a: 'Votre espace client, la démo LeadFlow, un appel découverte de 15 minutes (téléphone ou WhatsApp), une démo en visio si besoin et une proposition sur mesure. Sans carte bancaire et sans engagement.' },
   ],
   en: [
     { q: 'How does an Automation Lab automation work?', a: 'We connect the tools you already use (website form, inbox, CRM, calendar) and add Claude AI to read, qualify and draft replies. You track everything in your client area.' },
@@ -23,7 +23,7 @@ export const LAB_FAQ = {
     { q: 'Is my data safe?', a: 'Access stays in your name and you can revoke it at any time. We keep only what is needed, and a data processing agreement (GDPR) is signed with every client.' },
     { q: 'How long does setup take?', a: 'Usually 1 to 3 weeks depending on the plan and the number of tools. The exact timeline is in your quote.' },
     { q: 'Can I cancel my subscription?', a: 'Yes. The monthly plan has no commitment after the first 3 months and can be cancelled from your client area with one month’s notice.' },
-    { q: 'What does the 14-day free trial include?', a: 'Your client area, the LeadFlow demo, a 15-minute video audit and a tailored proposal. No credit card, no commitment.' },
+    { q: 'What does the 14-day free trial include?', a: 'Your client area, the LeadFlow demo, a 15-minute discovery call (phone or WhatsApp), a video demo if useful and a tailored proposal. No credit card, no commitment.' },
   ],
 }
 
@@ -53,8 +53,9 @@ const T = {
     ctrl: [['hand', 'Validation humaine', 'Devis, prix, décisions : rien de sensible ne part sans votre accord.'], ['shield', 'Vos comptes, vos accès', 'Les outils et la clé IA restent à votre nom. Accès révocables à tout moment.'], ['user', 'Transparence', 'Vos clients savent quand ils échangent avec un assistant IA.']],
     faqTitle: 'Questions fréquentes',
     ctaTitle: 'Prêt à ne plus perdre une seule demande ?',
-    ctaText: 'Créez votre espace : démo, audit gratuit de 15 min et proposition sur mesure.',
+    ctaText: 'Réservez un appel découverte de 15 min, par téléphone ou WhatsApp : on regarde ensemble ce qui peut être automatisé.',
     quote: 'Demander un devis',
+    book: 'Réserver un appel de 15 min',
   },
   en: {
     kicker: 'Automation Lab · by RCKY DIGITAL',
@@ -81,8 +82,9 @@ const T = {
     ctrl: [['hand', 'Human approval', 'Quotes, prices, decisions: nothing sensitive goes out without your sign-off.'], ['shield', 'Your accounts, your access', 'Tools and the AI key stay in your name. Access can be revoked at any time.'], ['user', 'Transparency', 'Your customers know when they are talking to an AI assistant.']],
     faqTitle: 'Frequently asked questions',
     ctaTitle: 'Ready to stop losing requests?',
-    ctaText: 'Create your space: demo, free 15-min audit and a tailored proposal.',
+    ctaText: 'Book a 15-min discovery call, by phone or WhatsApp: we look at what can be automated together.',
     quote: 'Request a quote',
+    book: 'Book a 15-min call',
   },
 }
 
@@ -179,7 +181,7 @@ export default function AutomationLab({ lang }: { lang: Lang }) {
         </div>
       </section>
 
-      <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: r('signup', lang), label: t.cta1 }} secondary={{ href: r('quote', lang), label: t.quote }} />
+      <CtaBand title={t.ctaTitle} text={t.ctaText} primary={{ href: r('book', lang), label: t.book }} secondary={{ href: r('signup', lang), label: t.cta1 }} />
     </div>
   )
 }

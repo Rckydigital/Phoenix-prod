@@ -16,7 +16,7 @@ export const SITE = {
   address: 'Guadeloupe (971)',
   siret: '980 046 965 00011',
   // Lien de prise de RDV (Calendly ou autre). Laisser vide pour masquer le bloc.
-  calendly: process.env.NEXT_PUBLIC_CALENDLY_URL || '',
+  calendly: process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/contact-rckydigital/audit-automation-lab',
   social: {
     instagram: 'https://www.instagram.com/_rcky_digital/',
     google: 'https://share.google/eoM0Q4PmMPo3JHaZK',
