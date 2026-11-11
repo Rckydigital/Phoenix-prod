@@ -53,6 +53,13 @@ create policy "automatisations : lecture" on public.automations for select using
 drop policy if exists "activité : lecture" on public.automation_events;
 create policy "activité : lecture" on public.automation_events for select using (auth.uid() = user_id);
 
+-- Accès de l'API : lecture pour les clients connectés uniquement (rien pour les visiteurs anonymes).
+-- Nécessaire si l'option « Automatically expose new tables » est décochée à la création du projet.
+grant usage on schema public to authenticated, service_role;
+grant select on public.profiles, public.automations, public.automation_events to authenticated;
+grant all on public.profiles, public.automations, public.automation_events to service_role;
+revoke all on public.profiles, public.automations, public.automation_events from anon;
+
 -- Le client ne peut modifier que son nom, son entreprise et sa langue (jamais son abonnement)
 revoke update on public.profiles from authenticated;
 grant update (full_name, company, lang) on public.profiles to authenticated;
