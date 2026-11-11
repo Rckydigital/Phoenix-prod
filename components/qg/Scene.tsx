@@ -84,6 +84,118 @@ function Chair({ x, y, color = '#2E3B45' }: { x: number; y: number; color?: stri
   )
 }
 
+// ---------- Mini-ville autour du bâtiment ----------
+const CITY = { x0: -3, x1: 26, y0: -3.6, y1: 17.6 }
+const SLOTS = 8 // places du parking clients
+const slotY = (i: number) => 0.45 + i * 1.25
+const CAR_COLORS = ['#C8383C', '#2A93A8', '#E3A21A', '#3F7D4E', '#7A2E6B', '#E9ECEF', '#1E2A33', '#E8742A']
+
+function Palm({ x, y, h = 70, t = 0, lean = 0.25 }: { x: number; y: number; h?: number; t?: number; lean?: number }) {
+  const [bx, by] = P(x, y)
+  const [tx, ty] = P(x + lean, y - lean * 0.2, h)
+  const sway = Math.sin(t * 0.9 + x + y) * 3
+  const fronds = [-150, -110, -70, -30, 10, 50, 200, 160]
+  return (
+    <g>
+      <ellipse cx={bx} cy={by + 2} rx={16} ry={7} fill="rgba(30,42,51,0.13)" />
+      <path d={`M${bx - 3} ${by} Q${(bx + tx) / 2 - 8} ${(by + ty) / 2} ${tx - 2} ${ty} L${tx + 2} ${ty} Q${(bx + tx) / 2 - 3} ${(by + ty) / 2} ${bx + 3} ${by} Z`} fill="#9B7651" />
+      <g transform={`rotate(${sway} ${tx} ${ty})`}>
+        {fronds.map((a, i) => {
+          const r = (a * Math.PI) / 180
+          const ex = tx + Math.cos(r) * 30
+          const ey = ty + Math.sin(r) * 13 + 9
+          return <path key={i} d={`M${tx} ${ty} Q${(tx + ex) / 2} ${ty - 12 + Math.sin(r) * 4} ${ex} ${ey}`} fill="none" stroke={i % 2 ? '#3F7D4E' : '#58A06B'} strokeWidth={7} strokeLinecap="round" />
+        })}
+        <circle cx={tx - 3} cy={ty + 3} r={3.5} fill="#7A5A3A" />
+        <circle cx={tx + 3} cy={ty + 4} r={3.5} fill="#7A5A3A" />
+      </g>
+    </g>
+  )
+}
+
+// Case créole : murs colorés, toit à quatre pans, volets
+function House({ x, y, w, d, h, wall, roof, shutter = '#FFFFFF' }: { x: number; y: number; w: number; d: number; h: number; wall: string; roof: string; shutter?: string }) {
+  const apex = P(x + w / 2, y + d / 2, h + 26)
+  const win = (wx: number, k: string) => (
+    <polygon key={k} points={pts(P(wx, y + d, 10), P(wx + 0.45, y + d, 10), P(wx + 0.45, y + d, 26), P(wx, y + d, 26))} fill={shutter} stroke={shade(wall, -60)} strokeWidth={1} />
+  )
+  return (
+    <g>
+      <Box x={x} y={y} w={w} d={d} h={h} color={wall} />
+      {w > 1.6 && win(x + 0.3, 'w1')}
+      {w > 1.6 && win(x + w - 0.75, 'w2')}
+      <polygon points={pts(P(x + w / 2 - 0.3, y + d, 0), P(x + w / 2 + 0.3, y + d, 0), P(x + w / 2 + 0.3, y + d, 24), P(x + w / 2 - 0.3, y + d, 24))} fill={shade(wall, -70)} />
+      <polygon points={pts(P(x - 0.15, y + d + 0.15, h), P(x + w + 0.15, y + d + 0.15, h), apex)} fill={roof} />
+      <polygon points={pts(P(x + w + 0.15, y - 0.15, h), P(x + w + 0.15, y + d + 0.15, h), apex)} fill={shade(roof, -30)} />
+    </g>
+  )
+}
+
+function Tower({ x, y, w, d, h, color }: { x: number; y: number; w: number; d: number; h: number; color: string }) {
+  const rows = Math.floor((h - 20) / 22)
+  const win: JSX.Element[] = []
+  for (let r = 0; r < rows; r++) {
+    const z = 16 + r * 22
+    for (let c = 0; c < Math.floor(w / 0.7); c++) {
+      const wx = x + 0.2 + c * 0.7
+      win.push(<polygon key={`f${r}-${c}`} points={pts(P(wx, y + d, z), P(wx + 0.4, y + d, z), P(wx + 0.4, y + d, z + 12), P(wx, y + d, z + 12))} fill="#BFE3EE" opacity={0.85} />)
+    }
+    for (let c = 0; c < Math.floor(d / 0.7); c++) {
+      const wy = y + 0.2 + c * 0.7
+      win.push(<polygon key={`s${r}-${c}`} points={pts(P(x + w, wy, z), P(x + w, wy + 0.4, z), P(x + w, wy + 0.4, z + 12), P(x + w, wy, z + 12))} fill="#9FCAD8" opacity={0.85} />)
+    }
+  }
+  return (
+    <g>
+      <Box x={x} y={y} w={w} d={d} h={h} color={color} />
+      {win}
+    </g>
+  )
+}
+
+function Car({ x, y, color }: { x: number; y: number; color: string }) {
+  const wheel = (wx: number, k: string) => {
+    const [cx, cy] = P(wx, y + 0.85, 3)
+    return <ellipse key={k} cx={cx} cy={cy} rx={5} ry={4} fill="#15121F" />
+  }
+  return (
+    <g>
+      <polygon points={pts(P(x + 0.05, y + 0.1), P(x + 1.85, y + 0.1), P(x + 1.85, y + 1.0), P(x + 0.05, y + 1.0))} fill="rgba(30,42,51,0.18)" />
+      <Box x={x} y={y} w={1.7} d={0.85} h={11} z={3} color={color} shadow={false} />
+      <Box x={x + 0.4} y={y + 0.07} w={0.95} d={0.71} h={10} z={14} color="#9FD3E2" top={color} shadow={false} />
+      {wheel(x + 0.3, 'a')}
+      {wheel(x + 1.35, 'b')}
+      {(() => {
+        const [lx, ly] = P(x, y + 0.2, 9)
+        const [lx2, ly2] = P(x, y + 0.65, 9)
+        return (
+          <>
+            <circle cx={lx} cy={ly} r={2} fill="#FFF6C8" />
+            <circle cx={lx2} cy={ly2} r={2} fill="#FFF6C8" />
+          </>
+        )
+      })()}
+    </g>
+  )
+}
+
+function Road({ x0, y0, x1, y1, dir }: { x0: number; y0: number; x1: number; y1: number; dir: 'x' | 'y' }) {
+  const dashes: JSX.Element[] = []
+  if (dir === 'x') {
+    const my = (y0 + y1) / 2
+    for (let a = x0 + 0.3; a < x1 - 0.5; a += 1.4) dashes.push(<line key={a} x1={P(a, my)[0]} y1={P(a, my)[1]} x2={P(a + 0.7, my)[0]} y2={P(a + 0.7, my)[1]} stroke="#F2F0EC" strokeWidth={2.5} />)
+  } else {
+    const mx = (x0 + x1) / 2
+    for (let a = y0 + 0.3; a < y1 - 0.5; a += 1.4) dashes.push(<line key={a} x1={P(mx, a)[0]} y1={P(mx, a)[1]} x2={P(mx, a + 0.7)[0]} y2={P(mx, a + 0.7)[1]} stroke="#F2F0EC" strokeWidth={2.5} />)
+  }
+  return (
+    <g>
+      <polygon points={pts(P(x0, y0), P(x1, y0), P(x1, y1), P(x0, y1))} fill="#5B6770" />
+      {dashes}
+    </g>
+  )
+}
+
 // ---------- Coin Dev (gaming) ----------
 const rgb = (t: number) => `hsl(${Math.round((t * 50) % 360)}, 90%, 62%)`
 
@@ -251,6 +363,7 @@ export default function Scene({
   statuses: Record<string, Status>
 }) {
   const [t, setT] = useState(0)
+  const [view, setView] = useState<'ville' | 'bureau'>('ville')
   const start = useRef<number | null>(null)
 
   useEffect(() => {
@@ -398,6 +511,69 @@ export default function Scene({
 
   items.sort((a, b) => a.depth - b.depth)
 
+  // ---------- Ville : décor arrière (derrière le bâtiment) ----------
+  const cityBack = (
+    <g>
+      <polygon points={pts(P(CITY.x0, CITY.y0), P(CITY.x1, CITY.y0), P(CITY.x1, CITY.y1), P(CITY.x0, CITY.y1))} fill="#CFE2B0" onClick={() => setSel(null)} />
+      {/* plage et mer, en bas à droite */}
+      <polygon points={pts(P(16.8, 14.8), P(CITY.x1, 14.8), P(CITY.x1, CITY.y1), P(16.8, CITY.y1))} fill="#F1DFB5" />
+      <polygon points={pts(P(18.2, 16.3), P(CITY.x1, 16.3), P(CITY.x1, CITY.y1), P(18.2, CITY.y1))} fill="#5BC0D6" />
+      <path d={`M${P(18.2, 16.3)[0]} ${P(18.2, 16.3)[1]} L${P(CITY.x1, 16.3)[0]} ${P(CITY.x1, 16.3)[1]}`} stroke="#E8F7FA" strokeWidth={3} strokeDasharray="10 8" strokeDashoffset={-t * 6} />
+      {/* trottoir autour du bâtiment */}
+      <polygon points={pts(P(-0.8, -0.8), P(16.9, -0.8), P(16.9, 12.3), P(-0.8, 12.3))} fill="#E6DED2" />
+      <Road x0={CITY.x0} y0={12.4} x1={23.6} y1={14.4} dir="x" />
+      <Road x0={21.6} y0={CITY.y0} x1={23.6} y1={12.4} dir="y" />
+      <polygon points={pts(P(21.6, 12.4), P(23.6, 12.4), P(23.6, 14.4), P(21.6, 14.4))} fill="#5B6770" />
+      {/* parking clients */}
+      <polygon points={pts(P(16.9, 0), P(21.6, 0), P(21.6, 11.4), P(16.9, 11.4))} fill="#7A848C" />
+      {Array.from({ length: SLOTS + 1 }, (_, i) => (
+        <line key={`slot${i}`} x1={P(17.0, slotY(i))[0]} y1={P(17.0, slotY(i))[1]} x2={P(19.1, slotY(i))[0]} y2={P(19.1, slotY(i))[1]} stroke="#F2F0EC" strokeWidth={2} />
+      ))}
+      {Array.from({ length: SLOTS }, (_, i) => {
+        const [px, py] = P(18.05, slotY(i) + 0.62)
+        return <text key={`p${i}`} x={px} y={py + 4} textAnchor="middle" fontSize={11} fontWeight={800} fill="rgba(255,255,255,0.35)">P</text>
+      })}
+      {[2.5, 6.5].map((ay) => (
+        <path key={`ar${ay}`} d={`M${P(20.3, ay)[0]} ${P(20.3, ay)[1]} L${P(20.3, ay + 1.4)[0]} ${P(20.3, ay + 1.4)[1]}`} stroke="#F2F0EC" strokeWidth={2.5} markerEnd="url(#arrow)" />
+      ))}
+      {/* immeubles en fond */}
+      <Tower x={0.5} y={-3.3} w={3} d={2} h={150} color="#E7D7C9" />
+      <Tower x={4.8} y={-3.1} w={2.6} d={1.9} h={110} color="#CFE0E6" />
+      <Tower x={8.9} y={-3.4} w={3.2} d={2.1} h={185} color="#F2D7C4" />
+      <Tower x={13.4} y={-3.2} w={2.6} d={2} h={135} color="#DCE7D3" />
+      <House x={17.4} y={-3.2} w={2.6} d={2} h={40} wall="#F6C9D5" roof="#B4511A" />
+      <Palm x={20.6} y={-2.2} h={80} t={t} />
+      <Palm x={-2} y={-1.8} h={90} t={t} />
+    </g>
+  )
+
+  // ---------- Ville : décor avant (voitures = clients, cases, palmiers) ----------
+  const clients = data.crm.clients.length ? data.crm.clients : Array.from({ length: data.crm.actifs }, (_, i) => `Client ${i + 1}`)
+  const parked = clients.slice(0, SLOTS)
+  const front: Item[] = []
+  const carTags: JSX.Element[] = []
+  parked.forEach((name, i) => {
+    const y = slotY(i) + 0.2
+    front.push({ depth: 17 + y + 1, node: <g key={`car-${i}`} {...click('crm')}><Car x={17.2} y={y} color={CAR_COLORS[i % CAR_COLORS.length]} /></g> })
+    carTags.push(<g key={`cartag-${i}`} {...click('crm')}><Tag x={18} y={y + 0.4} z={46} label={name.length > 16 ? name.slice(0, 15) + '…' : name} color="#2FA65A" dot="#2FA65A" selected={sel === 'crm'} /></g>)
+  })
+  const deco: [number, JSX.Element][] = [
+    [16.5, <House key="h1" x={0.2} y={15.2} w={2.4} d={1.9} h={36} wall="#F7D774" roof="#C8383C" shutter="#2A93A8" />],
+    [19.7, <House key="h2" x={3.4} y={15.4} w={2.2} d={1.8} h={34} wall="#9ED3E0" roof="#B4511A" />],
+    [23.0, <House key="h3" x={6.6} y={15.2} w={2.6} d={1.9} h={38} wall="#C9E4B4" roof="#C8383C" shutter="#E8742A" />],
+    [26.0, <g key="lolo"><House x={10.2} y={15.3} w={2.6} d={1.8} h={36} wall="#FFFFFF" roof="#2A93A8" shutter="#E3A21A" /><g transform={`translate(${P(10.5, 17.1, 30)[0]} ${P(10.5, 17.1, 30)[1]}) skewY(-26.565)`}><rect x={-2} y={-11} width={44} height={14} rx={2} fill="#E3A21A" /><text x={20} y={0} textAnchor="middle" fontSize={10} fontWeight={800} fill="#1E2A33">LOLO</text></g></g>],
+    [29.5, <Palm key="pf1" x={14.2} y={15.6} h={78} t={t} />],
+    [32.0, <Palm key="pf2" x={16.3} y={15.9} h={66} t={t} lean={-0.2} />],
+    [33.5, <g key="umbrella"><line x1={P(20.5, 15.4)[0]} y1={P(20.5, 15.4)[1]} x2={P(20.5, 15.4, 40)[0]} y2={P(20.5, 15.4, 40)[1]} stroke="#5B6770" strokeWidth={2} /><path d={`M${P(20.5, 15.4, 40)[0] - 22} ${P(20.5, 15.4, 40)[1] + 6} Q${P(20.5, 15.4, 40)[0]} ${P(20.5, 15.4, 40)[1] - 16} ${P(20.5, 15.4, 40)[0] + 22} ${P(20.5, 15.4, 40)[1] + 6} Z`} fill="#E8742A" /></g>],
+    [25.2, <Palm key="pr1" x={24.6} y={0.6} h={84} t={t} />],
+    [29.4, <Palm key="pr2" x={24.9} y={4.5} h={70} t={t} lean={-0.2} />],
+    [33.0, <Palm key="pr3" x={24.5} y={8.5} h={88} t={t} />],
+    [30.0, <g key="lamp"><line x1={P(21.2, 8.8)[0]} y1={P(21.2, 8.8)[1]} x2={P(21.2, 8.8, 64)[0]} y2={P(21.2, 8.8, 64)[1]} stroke="#3E4A54" strokeWidth={3} /><circle cx={P(21.2, 8.8, 64)[0]} cy={P(21.2, 8.8, 64)[1]} r={4} fill="#FFF6C8" /></g>],
+    [21.5, <g key="psign" {...click('crm')}><line x1={P(21.2, 0.3)[0]} y1={P(21.2, 0.3)[1]} x2={P(21.2, 0.3, 58)[0]} y2={P(21.2, 0.3, 58)[1]} stroke="#3E4A54" strokeWidth={3} /><rect x={P(21.2, 0.3, 58)[0] - 13} y={P(21.2, 0.3, 58)[1] - 26} width={26} height={26} rx={5} fill="#2A6FDB" stroke="#FFFFFF" strokeWidth={2} /><text x={P(21.2, 0.3, 58)[0]} y={P(21.2, 0.3, 58)[1] - 7} textAnchor="middle" fontSize={17} fontWeight={800} fill="#FFFFFF">P</text></g>],
+  ]
+  deco.forEach(([depth, node]) => front.push({ depth, node }))
+  front.sort((a, b) => a.depth - b.depth)
+
   const zone = (id: string, label: string, x: number, y: number, color: string, dot?: string) => (
     <g key={`zone-${id}`} {...click(id)}>
       <Tag x={x} y={y} z={0} label={label} color={color} selected={sel === id} dot={dot} />
@@ -409,8 +585,17 @@ export default function Scene({
   const [cbx, cby] = P(0, 4.6, 46)
 
   return (
-    <svg viewBox="20 25 990 650" className="block h-auto w-full min-w-[820px] lg:h-[calc(100vh-230px)] lg:min-h-[600px] lg:min-w-0" role="group" aria-label="Bâtiment RCKY DIGITAL : touchez un poste, la salle de réunion ou l’accueil">
+    <div className="relative">
+    <div className="absolute right-3 top-3 z-10 flex overflow-hidden rounded-full border border-line bg-white/95 text-xs font-semibold shadow-sm">
+      {(['ville', 'bureau'] as const).map((v) => (
+        <button key={v} type="button" onClick={() => setView(v)} aria-pressed={view === v} className={`px-3 py-1.5 transition-colors ${view === v ? 'bg-ink text-white' : 'text-ink-soft hover:text-ink'}`}>
+          {v === 'ville' ? 'Ville' : 'Bureau'}
+        </button>
+      ))}
+    </div>
+    <svg viewBox={view === 'ville' ? '-250 -40 1720 960' : '20 25 990 650'} className={`block h-auto w-full ${view === 'ville' ? 'min-w-[1000px]' : 'min-w-[820px]'} lg:h-[calc(100vh-230px)] lg:min-h-[600px] lg:min-w-0`} role="group" aria-label="Quartier RCKY DIGITAL : touchez un poste, la salle de réunion, l’accueil ou le parking clients">
       <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#F2F0EC" /></marker>
         <filter id="neon" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2.2" result="b" />
           <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
@@ -420,6 +605,8 @@ export default function Scene({
           <stop offset="1" stopColor="#F2FAFC" />
         </linearGradient>
       </defs>
+
+      {view === 'ville' && cityBack}
 
       {/* Dalle du bâtiment */}
       <polygon points={pts(P(W, 0), P(W, D), P(W, D, -18), P(W, 0, -18))} fill="#B9AE9F" />
@@ -506,13 +693,17 @@ export default function Scene({
       </g>
 
       {items.map((it) => it.node)}
+      {view === 'ville' && front.map((f) => f.node)}
       {tags}
+      {view === 'ville' && carTags}
 
       {/* Étiquettes de pièces */}
       {zone('reunion', 'Salle de réunion', 2.5, 10.9, '#1E2A33', data.aValider.length ? '#E3A21A' : '#2FA65A')}
       {zone('crm', visitors.length ? `Accueil · ${visitors.length} en attente` : 'Accueil · personne en attente', 13.4, 11.3, '#C8383C', visitors.length ? '#C8383C' : '#9AA3AB')}
       {zone('directeur', 'Bureau du Directeur', 2.4, 4.3, '#E8742A')}
       {zone('dev', 'Labo Dev', 13.7, 6.75, '#7C3AED')}
+      {view === 'ville' && zone('crm', parked.length ? `Parking clients · ${clients.length} client${clients.length > 1 ? 's' : ''}` : 'Parking clients · vide pour l’instant', 19.6, 10.6, '#2FA65A', parked.length ? '#2FA65A' : '#9AA3AB')}
     </svg>
+    </div>
   )
 }

@@ -182,7 +182,7 @@ export type QGData = {
   })[]
   aValider: string[]
   priorites: string[]
-  crm: { total: number; nouveaux: number; prospects: number; enCours: number; actifs: number; recents: { nom: string; statut: string; source: string }[] }
+  crm: { total: number; nouveaux: number; prospects: number; enCours: number; actifs: number; clients: string[]; recents: { nom: string; statut: string; source: string }[] }
   objectifs: { clientsActifs: number; clientsCible: number }
   journal: JournalEntry[]
   operations: Operation[]
@@ -201,7 +201,7 @@ export async function loadQG(): Promise<QGData> {
     agents: AGENTS.map((a) => ({ ...a, recent: [], files: [], groups: [] })),
     aValider: [],
     priorites: [],
-    crm: { total: 0, nouveaux: 0, prospects: 0, enCours: 0, actifs: 0, recents: [] },
+    crm: { total: 0, nouveaux: 0, prospects: 0, enCours: 0, actifs: 0, clients: [], recents: [] },
     objectifs: { clientsActifs: 0, clientsCible: 4 },
     journal: [],
     operations: [],
@@ -303,6 +303,7 @@ export async function loadQG(): Promise<QGData> {
       prospects: count('Prospect'),
       enCours: count('Contacté') + count('Devis envoyé'),
       actifs: count('Client actif'),
+      clients: fm.filter((f) => (f.fm.statut || '').toLowerCase() === 'client actif').map((f) => f.fm.entreprise || f.name),
       recents: fm
         .filter((f) => ['nouveau', 'contacté', 'devis envoyé', 'client actif'].includes((f.fm.statut || '').toLowerCase()))
         .slice(0, 6)
