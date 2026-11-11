@@ -249,6 +249,15 @@ export default function Dashboard({ lang, paid, reset, plan: planHint, stripeTes
                       return <rect key={d.key} x={i * 10 + 1} y={100 - h} width="8" height={Math.max(h, 1)} rx="2" fill={d.n ? '#2A93A8' : '#ECE6DF'}><title>{`${d.key} : ${d.n}`}</title></rect>
                     })}
                   </svg>
+                  <div className="mt-1 flex justify-between text-[11px] text-ink-muted"><span>{lang === 'fr' ? 'il y a 30 jours' : '30 days ago'}</span><span>{lang === 'fr' ? 'aujourd’hui' : 'today'}</span></div>
+                  <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    {(['demande', 'reponse', 'relance', 'rdv'] as const).map((k) => (
+                      <div key={k} className="rounded-xl bg-sand px-3 py-3">
+                        <dt className="text-xs text-ink-muted">{t.types[k]}</dt>
+                        <dd className="mt-1 text-xl font-extrabold text-ink">{events.filter((e) => e.type === k).length}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
                 <div className="card">
                   <h2 className="font-bold text-ink">{t.recent}</h2>
