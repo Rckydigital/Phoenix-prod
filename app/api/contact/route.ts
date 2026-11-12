@@ -3,6 +3,7 @@ import { Resend } from 'resend'
 import { SITE, SERVICES, OPTIONS, AUDIT, LAB_SERVICES } from '@/lib/constants'
 import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
 import { track } from '@/lib/track'
+import { spamScore } from '@/lib/spam'
 
 // Reçoit le formulaire de contact (envoi classique ou JSON),
 // envoie un email à l'agence via Resend si RESEND_API_KEY est configurée,
@@ -78,6 +79,10 @@ export async function POST(request: NextRequest) {
   const serviceTitle =
     [AUDIT, ...SERVICES, ...OPTIONS, ...LAB_SERVICES].find((s) => s.id === data.service)?.title || data.service
 
+  // Filtre anti-spam : une demande suspecte est envoyée par e-mail avec « [Spam probable] » mais ne crée pas de fiche CRM
+  const sp = spamScore(data)
+  if (sp.spam) console.warn('Demande suspecte', { score: sp.score, reasons: sp.reasons })
+
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey && !crmConfigured()) {
     console.error('Ni RESEND_API_KEY ni CRM_GITHUB_TOKEN : demande non enregistrée', { name: data.name })
@@ -86,7 +91,7 @@ export async function POST(request: NextRequest) {
 
   // 1. Fiche client dans le cerveau (CRM Obsidian)
   let savedToCrm = false
-  if (crmConfigured()) {
+  if (crmConfigured() && !sp.spam) {
     try {
       await saveLeadToCrm({ ...data, service: serviceTitle })
       savedToCrm = true
@@ -111,11 +116,11 @@ export async function POST(request: NextRequest) {
         from: process.env.CONTACT_FROM_EMAIL || 'RCKY DIGITAL <onboarding@resend.dev>',
         to: process.env.CONTACT_EMAIL || 'rckydigital@outlook.fr', // destinataire du formulaire inchangé (compte Resend)
         reply_to: data.email,
-        subject: `Nouvelle demande site : ${data.name}${data.business ? ` (${data.business})` : ''}`,
+        subject: `${sp.spam ? '[Spam probable] ' : ''}Nouvelle demande site : ${data.name}${data.business ? ` (${data.business})` : ''}`,
         html: `<h2>Nouvelle demande depuis le site</h2>
 <table>${rows.map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${escapeHtml(v)}</td></tr>`).join('')}</table>
 <p><strong>Message :</strong></p><p>${escapeHtml(data.message).replace(/\n/g, '<br>')}</p>
-<p>${savedToCrm ? 'Fiche créée dans le CRM du cerveau.' : 'Attention : fiche CRM non créée.'}</p>`,
+<p>${sp.spam ? `⚠️ Spam probable (${escapeHtml(sp.reasons.join(' ; '))}) : aucune fiche CRM créée. Ne cliquez sur aucun lien ; si c'est une vraie demande, répondez normalement.` : savedToCrm ? 'Fiche créée dans le CRM du cerveau.' : 'Attention : fiche CRM non créée.'}</p>`,
       })
       if (error) throw error
       emailed = true
@@ -124,10 +129,10 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  if (!savedToCrm && !emailed) {
+  if (!savedToCrm && !emailed && !sp.spam) {
     return back(errorPage()) ?? NextResponse.json({ error: 'Erreur envoi' }, { status: 500 })
   }
 
-  await track('formulaire', page || '/contact', serviceTitle || '', clean(raw.src, 40))
+  if (!sp.spam) await track('formulaire', page || '/contact', serviceTitle || '', clean(raw.src, 40))
   return back(thanks) ?? NextResponse.json({ message: 'Message reçu' })
 }
