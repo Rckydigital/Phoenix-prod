@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { QG_COOKIE, isLoggedIn } from '@/lib/qgAuth'
 import { loadQG } from '@/lib/vault'
+import { demoQG } from '@/lib/qgDemo'
 import Office from '@/components/qg/Office'
 import { PhoenixIcon } from '@/components/Logo'
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function QGPage({ searchParams }: { searchParams: { erreur?: string } }) {
+export default async function QGPage({ searchParams }: { searchParams: { erreur?: string; demo?: string } }) {
   const logged = isLoggedIn(cookies().get(QG_COOKIE)?.value)
 
   if (!logged) {
@@ -51,6 +52,17 @@ export default async function QGPage({ searchParams }: { searchParams: { erreur?
     )
   }
 
+  // Mode démo (?demo=1) : données fictives, à utiliser pour toute présentation à un prospect
+  if (searchParams.demo === '1') {
+    return (
+      <>
+        <div className="fixed inset-x-0 top-16 z-40 bg-[#F2A65A] px-4 py-1.5 text-center text-xs font-semibold text-ink md:top-20">
+          Mode démo : toutes les données affichées sont fictives
+        </div>
+        <Office data={demoQG()} />
+      </>
+    )
+  }
   const data = await loadQG()
   return <Office data={data} />
 }
