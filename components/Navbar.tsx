@@ -87,7 +87,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color,box-shadow] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-        scrolled || isOpen ? 'material-bar py-2.5' : 'bg-transparent py-4'
+        scrolled || isOpen || pathname.startsWith('/labo') ? 'material-bar py-2.5' : 'bg-transparent py-4'
       }`}
     >
       <nav className="container-site flex items-center justify-between gap-4" aria-label={lang === 'fr' ? 'Navigation principale' : 'Main navigation'}>
