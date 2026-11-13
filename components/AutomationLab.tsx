@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import InboxDemo from '@/components/InboxDemo'
 import Reveal from '@/components/Reveal'
-import { Check, CtaBand, Faq, FlowVisual, IconTile, SectionHead } from '@/components/ui'
+import { Check, CtaBand, Faq, IconTile, SectionHead } from '@/components/ui'
 import { r, type Lang } from '@/lib/i18n'
 
 // Page « Automation Lab » (pôle automatisation de RCKY DIGITAL), en français et en anglais.
@@ -118,8 +119,7 @@ export default function AutomationLab({ lang }: { lang: Lang }) {
   const t = T[lang]
   return (
     <div lang={lang}>
-      <section className="bg-hero relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36">
-        <div aria-hidden="true" className="bg-grid absolute inset-0" />
+      <section className="relative overflow-hidden bg-white pb-16 pt-28 md:pb-24 md:pt-36">
         <div className="container-site relative grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
           <div>
             <span className="kicker hero-in">{t.kicker}</span>
@@ -133,8 +133,19 @@ export default function AutomationLab({ lang }: { lang: Lang }) {
             </div>
           </div>
           <div className="hero-in" style={{ '--d': '250ms' } as React.CSSProperties}>
-            <FlowVisual lang={lang} />
+            <InboxDemo lang={lang} />
           </div>
+        </div>
+      </section>
+
+      {/* Outils compatibles */}
+      <section className="border-y border-line bg-white py-6">
+        <div className="container-site flex flex-col items-center gap-4 md:flex-row md:justify-between">
+          <p className="text-sm font-semibold text-ink-muted">{lang === 'fr' ? 'Se branche sur vos outils' : 'Plugs into your tools'}</p>
+          <ul className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-base font-bold tracking-tight text-ink/70">
+            {['Gmail', 'Outlook', 'Google Agenda', 'Calendly', lang === 'fr' ? 'Formulaires de site' : 'Website forms'].map((n) => <li key={n}>{n}</li>)}
+            <li className="text-ink/45">WhatsApp Business <span className="text-xs font-semibold">({lang === 'fr' ? 'bientôt' : 'soon'})</span></li>
+          </ul>
         </div>
       </section>
 
@@ -154,6 +165,20 @@ export default function AutomationLab({ lang }: { lang: Lang }) {
               ))}
             </ul>
           </Reveal>
+        </div>
+      </section>
+
+      {/* Vidéo */}
+      <section className="bg-ink py-16 text-white md:py-24">
+        <div className="container-site grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+          <div>
+            <span className="kicker !bg-white/10 !text-[#F2A65A]">{lang === 'fr' ? 'En vidéo' : 'On video'}</span>
+            <h2 className="mt-5 text-3xl font-extrabold tracking-tight md:text-5xl">{lang === 'fr' ? '22h47 : une demande arrive. Regardez la suite.' : '10:47pm: a request comes in. See what happens.'}</h2>
+            <p className="mt-5 max-w-xl text-lg text-white/70">{lang === 'fr' ? 'En une minute : le tri, la réponse immédiate aux demandes simples, et la validation du reste par le gérant. Exemple avec des données fictives.' : 'In one minute: sorting, instant replies to simple requests, and owner approval for the rest. Example with sample data.'}</p>
+          </div>
+          <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-3xl ring-1 ring-white/10 shadow-[0_30px_80px_-30px_rgba(232,116,42,0.5)]">
+            <video src="/videos/automation-lab-22h47.mp4" poster="/videos/automation-lab-22h47.jpg" controls playsInline preload="none" className="block w-full" aria-label={lang === 'fr' ? 'Vidéo de présentation de l’Automation Lab' : 'Automation Lab presentation video'} />
+          </div>
         </div>
       </section>
 

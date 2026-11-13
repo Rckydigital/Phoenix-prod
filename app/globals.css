@@ -171,3 +171,6 @@ p { text-wrap: pretty; }
 }
 @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 .pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+/* Démo LeadFlow : ouverture d'une conversation */
+@keyframes slideIn { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
