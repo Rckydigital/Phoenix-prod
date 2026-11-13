@@ -64,7 +64,8 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
   const item2 = useRef<HTMLDivElement>(null)
   const btn = useRef<HTMLSpanElement>(null)
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    // Même si l'appareil demande moins d'animations, la démo se déroule (les textes changent),
+    // mais sans glissements : voir les classes motion-reduce ci-dessous.
     const start = performance.now()
     let raf = 0
     const tick = (now: number) => {
@@ -80,7 +81,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
   const sel = on(K.open) ? 1 : 0
   const typed1 = t.reply.slice(0, Math.max(0, Math.floor((s - K.rep1) * CPS)))
   const typed2 = t.draft.slice(0, Math.max(0, Math.floor((s - K.draft) * CPS)))
-  const show = (a: number) => `transition-all duration-500 ${on(a) ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`
+  const show = (a: number) => `transition-all duration-500 motion-reduce:translate-y-0 motion-reduce:transition-opacity ${on(a) ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}`
 
   // Curseur de souris (ordinateur seulement) : va sur la 2e demande, clique, puis sur « Valider »
   let cursor: { x: number; y: number; visible: boolean; pressed: boolean } = { x: 0, y: 0, visible: false, pressed: false }
@@ -154,7 +155,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
                 </div>
               </div>
             ) : (
-              <div key="c2" className="animate-[slideIn_.35s_ease-out] space-y-3 p-4">
+              <div key="c2" className="animate-[slideIn_.35s_ease-out] space-y-3 p-4 motion-reduce:animate-none">
                 <div className={show(K.m2)}>
                   <p className="text-[11px] text-ink-muted">{t.from}</p>
                   <div className="mt-1 max-w-[92%] rounded-2xl rounded-tl-sm bg-[#F1EFEC] px-3.5 py-2.5 text-ink">{t.msg2}</div>
