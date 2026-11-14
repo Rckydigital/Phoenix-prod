@@ -40,7 +40,7 @@ export default function ServiceCard({ service, detailed = false }: { service: Se
       )}
       <div className="mt-auto pt-6">
         <Link href={`/contact?service=${service.id}`} className="text-sm font-semibold text-brand-deep hover:underline">
-          Choisir cette offre →
+          {service.price === 'Sur devis' ? 'Demander un devis →' : 'Choisir cette offre →'}
         </Link>
       </div>
     </article>

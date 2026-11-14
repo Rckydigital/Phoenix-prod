@@ -26,11 +26,11 @@ export const GUIDES: Guide[] = [
     title: 'Combien coûte un site internet en Guadeloupe ?',
     metaTitle: 'Prix d’un site internet en Guadeloupe : ce qu’il faut prévoir',
     description:
-      'Prix d’un site internet pour une petite entreprise en Guadeloupe : ce qui fait varier le tarif, les coûts à prévoir chaque mois et nos prix fixes (site avec réservation 790 €).',
+      'Prix d’un site internet pour une petite entreprise en Guadeloupe : ce qui fait varier le tarif, les coûts à prévoir chaque mois et comment obtenir un devis gratuit sous 48 h.',
     answer:
-      'Chez RCKY DIGITAL, un site jusqu’à 5 pages avec réservation en ligne coûte 790 €, prix final. Il faut ajouter l’abonnement de la plateforme à votre nom (environ 30 € par mois chez Wix, forfait payé à l’année) et le nom de domaine (offert la première année par Wix, puis environ 15 à 25 € par an). Un site à votre nom vous permet de recevoir des réservations en direct, sans passer par une plateforme qui vous facture et affiche vos concurrents à côté de vous.',
+      'Le prix d’un site dépend surtout de son type (vitrine, réservation, boutique en ligne, page de vente, refonte), du nombre de pages et de ce que vous fournissez. Chez RCKY DIGITAL, chaque site est sur devis, gratuit et envoyé sous 48 h. Il faut ajouter l’abonnement de la plateforme à votre nom (environ 30 € par mois chez Wix, forfait payé à l’année) et le nom de domaine (offert la première année par Wix, puis environ 15 à 25 € par an). Un site à votre nom vous permet de recevoir des réservations en direct, sans passer par une plateforme qui vous facture et affiche vos concurrents à côté de vous.',
     published: '2026-10-16',
-    updated: '2026-10-16',
+    updated: '2026-11-14',
     readingMinutes: 4,
     body: [
       { type: 'h2', text: 'Ce qui fait varier le prix d’un site' },
@@ -81,24 +81,24 @@ export const GUIDES: Guide[] = [
       },
       {
         type: 'callout',
-        title: 'Nos prix, sans surprise',
-        text: 'Réservation en ligne : 790 € (site jusqu’à 5 pages, réservation, référencement local de base, 1 h de formation, 1 mois de maintenance offert, en ligne en 3 semaines). Vitrine Pro : 390 € (photos, Reels, grille de prix, fiche Google), si vous voulez d’abord des images qui donnent envie.',
-        href: '/services',
-        cta: 'Voir le détail des offres',
+        title: 'Votre devis gratuit sous 48 h',
+        text: 'Site vitrine, réservation en ligne, boutique, page de vente ou refonte : chaque site est créé sur mesure et amélioré grâce à l’IA, pour être livré plus vite et à moindre coût. Vous recevez un prix clair et détaillé, sans engagement.',
+        href: '/tarifs#sites',
+        cta: 'Voir les types de sites',
       },
     ],
     faq: [
       {
         q: 'Combien de temps faut-il pour créer un site avec réservation ?',
-        a: 'Chez RCKY DIGITAL, le site est en ligne en 3 semaines : appel de cadrage, maquette à J+7, site complet à J+14, corrections, puis mise en ligne et formation.',
+        a: 'Le délai dépend du type de site et est précisé sur le devis : une page de vente ou un site vitrine simple va plus vite qu’une boutique en ligne. Les étapes restent les mêmes : appel de cadrage, maquette, site complet, corrections, puis mise en ligne et formation.',
       },
       {
         q: 'Pourrai-je modifier mes prix et mes horaires moi-même ?',
         a: 'Oui. Une heure de formation est incluse pour que vous puissiez modifier vos prix, vos horaires et vos photos sans dépendre de nous.',
       },
       {
-        q: 'Le prix affiché est-il le prix final ?',
-        a: 'Oui, nos prix sont finaux, sans TVA à ajouter (TVA non applicable, art. 293 B du CGI). Seuls l’abonnement de la plateforme et le nom de domaine sont à payer en plus, directement à votre nom.',
+        q: 'Le prix du devis est-il le prix final ?',
+        a: 'Oui, le prix indiqué sur le devis est final, sans TVA à ajouter (TVA non applicable, art. 293 B du CGI). Seuls l’abonnement de la plateforme et le nom de domaine sont à payer en plus, directement à votre nom.',
       },
     ],
   },

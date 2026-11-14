@@ -54,7 +54,7 @@ export default function OffrePage({ searchParams }: { searchParams: { error?: st
       <section className="py-14 md:py-20">
         <div className="container-site">
           <h2 className="section-title text-center">Ce que vous pouvez choisir</h2>
-          <p className="section-subtitle mx-auto text-center">Prix nets, sans TVA à ajouter. Le site Réservation en ligne (790 €) reste au tarif normal.</p>
+          <p className="section-subtitle mx-auto text-center">Prix nets, sans TVA à ajouter. Le site internet sur mesure est sur devis et n’entre pas dans cette offre.</p>
           <div className="mx-auto mt-10 grid max-w-4xl gap-5 sm:grid-cols-2">
             {services.map((s) => {
               const base = priceNumber(s.price)
