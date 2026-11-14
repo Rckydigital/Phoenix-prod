@@ -5,7 +5,7 @@ import { SITE, LAST_UPDATE } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'À propos',
   description:
-    'RCKY DIGITAL est l’agence digitale de Ricky GALIN, en Guadeloupe : sites internet conçus avec l’aide de l’IA, visibilité sur Google et dans les IA (GEO), photo, vidéo, et automatisations IA (Automation Lab) à distance.',
+    'RCKY DIGITAL est l’agence digitale de Ricky GALIN, en Guadeloupe : sites internet sur mesure améliorés grâce à l’IA, visibilité sur Google et dans les IA (GEO), photo, vidéo, et automatisations IA (Automation Lab) à distance.',
   alternates: { canonical: '/a-propos', languages: { fr: '/a-propos', en: '/en/about' } },
 }
 

@@ -9,7 +9,7 @@ export const SITE = {
   owner: 'Ricky GALIN',
   tagline: 'Photos, vidéos et sites qui donnent envie de réserver',
   description:
-    "RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet rapides et abordables, conçus avec l’aide de l’IA, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO) pour les entreprises locales. Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
+    "RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet sur mesure, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO) pour les entreprises locales. Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
   email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',

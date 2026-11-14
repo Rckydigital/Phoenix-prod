@@ -8,7 +8,7 @@ import { langOf, r } from '@/lib/i18n'
 
 const T = {
   fr: {
-    pitch: 'Agence digitale en Guadeloupe. Sites internet conçus avec l’aide de l’IA, visibilité sur Google et dans les IA (GEO), et Automation Lab : des automatisations IA construites avec Claude.',
+    pitch: 'Agence digitale en Guadeloupe. Sites internet sur mesure améliorés grâce à l’IA, visibilité sur Google et dans les IA (GEO), et Automation Lab : des automatisations IA construites avec Claude.',
     lab: 'Automation Lab',
     local: 'Visibilité locale',
     company: 'Entreprise',
