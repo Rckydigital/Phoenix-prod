@@ -1,13 +1,18 @@
 import Link from 'next/link'
 import { Check, Faq, IconTile } from '@/components/ui'
 import { LAB_FAQ } from '@/components/AutomationLab'
+import SitesPricing from '@/components/SitesPricing'
 import { FOUNDER, PILOT, PLANS, eur, r, type Lang, bookLab } from '@/lib/i18n'
 
 const T = {
   fr: {
     kicker: 'Tarifs',
-    h1: 'Des prix affichés, du pilote à l’abonnement',
-    lead: 'On commence par un pilote de 10 jours sur vos vrais cas. S’il atteint les objectifs fixés ensemble, on installe la formule de votre choix. Prix nets : TVA non applicable (art. 293 B du CGI).',
+    h1: 'Nos tarifs',
+    lead: 'Sites internet : sur devis, selon votre projet. Automatisation IA : prix affichés, du pilote à l’abonnement. Prix nets : TVA non applicable (art. 293 B du CGI).',
+    jumpSites: 'Création de site internet',
+    jumpLab: 'Automatisation IA',
+    labTitle: 'Automatisation IA (Automation Lab)',
+    labLead: 'On commence par un pilote de 10 jours sur vos vrais cas. S’il atteint les objectifs fixés ensemble, on installe la formule de votre choix.',
     pilotKicker: 'Étape 1',
     pilotTitle: `Pilote ${PILOT.days} jours`,
     pilotSub: 'Testez l’automatisation sur vos propres demandes avant de vous engager.',
@@ -29,6 +34,10 @@ const T = {
   en: {
     kicker: 'Pricing',
     h1: 'Published prices, from pilot to subscription',
+    jumpSites: '',
+    jumpLab: '',
+    labTitle: '',
+    labLead: '',
     lead: 'We start with a 10-day pilot on your real cases. If it meets the goals we set together, we set up the plan of your choice. Prices in euros; VAT not applicable (French micro-business, art. 293 B CGI).',
     pilotKicker: 'Step 1',
     pilotTitle: `${PILOT.days}-day pilot`,
@@ -63,6 +72,23 @@ export default function PricingPage({ lang }: { lang: Lang }) {
           <p className="mx-auto mt-5 max-w-2xl text-lg text-ink-soft">{t.lead}</p>
         </div>
       </section>
+
+      {lang === 'fr' && (
+        <>
+          <nav aria-label="Rubriques" className="container-site flex justify-center gap-2 pb-8 pt-6 text-xs font-semibold sm:text-sm">
+            <a href="#sites" className="rounded-full bg-ink px-4 py-2 text-white">{t.jumpSites}</a>
+            <a href="#automatisation" className="rounded-full border border-line bg-white px-4 py-2 text-ink-soft hover:text-ink">{t.jumpLab}</a>
+          </nav>
+          <SitesPricing />
+          <section id="automatisation" className="scroll-mt-24 pb-6 pt-16">
+            <div className="container-site max-w-3xl text-center">
+              <span className="kicker">Automation Lab</span>
+              <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">{t.labTitle}</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-ink-soft">{t.labLead}</p>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* ÉTAPE 1 : PILOTE */}
       <section id="pilote" className="scroll-mt-24 pb-12 pt-6">

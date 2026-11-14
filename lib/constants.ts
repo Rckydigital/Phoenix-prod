@@ -63,6 +63,9 @@ export const AUDIT_IA = {
   text: "On pose à ChatGPT, Gemini, Perplexity et Google les questions que vos clients posent sur votre activité et votre commune. Vous recevez sous 48 h le résultat (cité ou non, qui est cité à votre place) et 3 actions concrètes. Gratuit, sans engagement.",
 }
 
+// Création de site internet sur devis (page /tarifs)
+export const SITE_DEVIS = { id: 'site-sur-mesure', title: 'Création de site internet (sur devis)' }
+
 // Les 3 offres (catalogue validé par Ricky le 2026-10-14)
 export const SERVICES: Service[] = [
   {
