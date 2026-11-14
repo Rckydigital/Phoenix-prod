@@ -192,9 +192,9 @@ export default function LeadFlowDemo({ lang }: { lang: Lang }) {
                     {i === 1 && (
                       <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                         {[[t.needLbl, res.need], [t.urgLbl, t.urg[res.urgency]], [t.budLbl, res.budget]].map(([k, v]) => (
-                          <div key={k} className="rounded-xl bg-sand px-3 py-2"><dt className="text-[11px] uppercase tracking-wider text-ink-muted">{k}</dt><dd className="font-medium text-ink">{v}</dd></div>
+                          <div key={k} className="rounded-xl bg-sand px-3 py-2"><dt className="text-xs uppercase tracking-wider text-ink-muted">{k}</dt><dd className="font-medium text-ink">{v}</dd></div>
                         ))}
-                        <div className={`rounded-xl px-3 py-2 ${scoreClass}`}><dt className="text-[11px] uppercase tracking-wider opacity-80">{t.scoreLbl}</dt><dd className="font-semibold">{t.score[res.score]}</dd></div>
+                        <div className={`rounded-xl px-3 py-2 ${scoreClass}`}><dt className="text-xs uppercase tracking-wider opacity-80">{t.scoreLbl}</dt><dd className="font-semibold">{t.score[res.score]}</dd></div>
                       </dl>
                     )}
                     {i === 2 && (

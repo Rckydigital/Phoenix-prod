@@ -108,7 +108,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
         <div className="flex items-center gap-2 border-b border-line bg-[#F7F5F2] px-4 py-2.5">
           <span className="h-3 w-3 rounded-full bg-[#FF5F57]" /><span className="h-3 w-3 rounded-full bg-[#FEBC2E]" /><span className="h-3 w-3 rounded-full bg-[#28C840]" />
           <span className="ml-3 truncate text-xs font-semibold text-ink-soft">{t.app}</span>
-          <span className="ml-auto flex items-center gap-1.5 rounded-full bg-teal-soft px-2 py-0.5 text-[11px] font-semibold text-teal-deep"><span className="pulse-dot h-1.5 w-1.5 rounded-full bg-teal" />{t.live}</span>
+          <span className="ml-auto flex items-center gap-1.5 rounded-full bg-teal-soft px-2 py-0.5 text-xs font-semibold text-teal-deep"><span className="pulse-dot h-1.5 w-1.5 rounded-full bg-teal" />{t.live}</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-[180px_1fr]">
           {/* liste des demandes */}
@@ -118,7 +118,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
               <div key={n} ref={i === 1 ? item2 : undefined} className={`mb-1 rounded-lg px-2 py-2 transition-all duration-300 ${i === sel ? 'bg-white shadow-sm ring-1 ring-line' : ''} ${i === 1 && !on(K.arrive2) ? '-translate-y-2 opacity-0' : 'translate-y-0'}`}>
                 <div className="flex items-center justify-between gap-1">
                   <span className="flex items-center gap-1.5 truncate font-semibold text-ink">{i === 1 && on(K.arrive2) && !on(K.open) && <span className="h-2 w-2 shrink-0 rounded-full bg-brand" />}{n}</span>
-                  <span className="shrink-0 text-[10px] text-ink-muted">{h}</span>
+                  <span className="shrink-0 text-xs text-ink-muted">{h}</span>
                 </div>
                 <p className="truncate text-ink-soft">{i === 0 && on(K.sent1) ? `✓ ${t.replied}` : i === 1 && on(K.done) ? `✓ ${t.validatedShort}` : sub}</p>
               </div>
@@ -129,12 +129,12 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
           <div className="min-h-[470px] overflow-hidden text-sm">
             <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
               <span className="font-semibold text-ink">{sel === 0 ? t.who1 : t.who2}</span>
-              <span className="text-[11px] text-ink-muted">{sel === 0 ? t.time : t.time2}</span>
+              <span className="text-xs text-ink-muted">{sel === 0 ? t.time : t.time2}</span>
             </div>
             {sel === 0 ? (
               <div key="c1" className="space-y-3 p-4">
                 <div className={show(K.m1)}>
-                  <p className="text-[11px] text-ink-muted">{t.from}</p>
+                  <p className="text-xs text-ink-muted">{t.from}</p>
                   <div className="mt-1 max-w-[92%] rounded-2xl rounded-tl-sm bg-[#F1EFEC] px-3.5 py-2.5 text-ink">{t.msg}</div>
                 </div>
                 <div className={show(K.an1)}>
@@ -142,7 +142,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
                     <p className="flex items-center gap-2 text-xs text-ink-muted"><span className="pulse-dot h-2 w-2 rounded-full bg-brand" />{t.analysing}</p>
                   ) : (
                     <div className="flex flex-wrap gap-1.5">
-                      {t.tags.map((tag, i) => <span key={tag} className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${i === 1 ? 'bg-brand-soft text-brand-deep' : 'bg-teal-soft text-teal-deep'}`}>{tag}</span>)}
+                      {t.tags.map((tag, i) => <span key={tag} className={`rounded-full px-2.5 py-1 text-xs font-semibold ${i === 1 ? 'bg-brand-soft text-brand-deep' : 'bg-teal-soft text-teal-deep'}`}>{tag}</span>)}
                     </div>
                   )}
                 </div>
@@ -150,14 +150,14 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
                   <div className="rounded-2xl rounded-tr-sm bg-ink px-3.5 py-2.5 text-white">
                     {typed1 || ' '}{typed1.length < t.reply.length && on(K.rep1) ? <span className="ml-0.5 inline-block h-3.5 w-0.5 animate-pulse bg-white align-middle" /> : null}
                   </div>
-                  <p className="mt-1 text-right text-[11px] text-ink-muted">{t.sign}</p>
-                  <p className={`mt-1 text-right text-[11px] font-semibold text-teal-deep transition-opacity duration-500 ${on(K.sent1) ? 'opacity-100' : 'opacity-0'}`}>✓ {t.sent}</p>
+                  <p className="mt-1 text-right text-xs text-ink-muted">{t.sign}</p>
+                  <p className={`mt-1 text-right text-xs font-semibold text-teal-deep transition-opacity duration-500 ${on(K.sent1) ? 'opacity-100' : 'opacity-0'}`}>✓ {t.sent}</p>
                 </div>
               </div>
             ) : (
               <div key="c2" className="animate-[slideIn_.35s_ease-out] space-y-3 p-4 motion-reduce:animate-none">
                 <div className={show(K.m2)}>
-                  <p className="text-[11px] text-ink-muted">{t.from}</p>
+                  <p className="text-xs text-ink-muted">{t.from}</p>
                   <div className="mt-1 max-w-[92%] rounded-2xl rounded-tl-sm bg-[#F1EFEC] px-3.5 py-2.5 text-ink">{t.msg2}</div>
                 </div>
                 <div className={show(K.an2)}>
@@ -165,7 +165,7 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
                     <p className="flex items-center gap-2 text-xs text-ink-muted"><span className="pulse-dot h-2 w-2 rounded-full bg-brand" />{t.analysing}</p>
                   ) : (
                     <div className="flex flex-wrap gap-1.5">
-                      {t.tags2.map((tag, i) => <span key={tag} className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${i === 0 || i === 2 ? 'bg-brand-soft text-brand-deep' : 'bg-teal-soft text-teal-deep'}`}>{tag}</span>)}
+                      {t.tags2.map((tag, i) => <span key={tag} className={`rounded-full px-2.5 py-1 text-xs font-semibold ${i === 0 || i === 2 ? 'bg-brand-soft text-brand-deep' : 'bg-teal-soft text-teal-deep'}`}>{tag}</span>)}
                     </div>
                   )}
                 </div>
@@ -173,11 +173,11 @@ export default function InboxDemo({ lang }: { lang: Lang }) {
                   <div className={`rounded-2xl rounded-tr-sm px-3.5 py-2.5 transition-colors duration-500 ${on(K.done) ? 'bg-ink text-white' : 'border-2 border-dashed border-brand/40 bg-white text-ink'}`}>
                     {typed2 || ' '}{typed2.length < t.draft.length && on(K.draft) ? <span className="ml-0.5 inline-block h-3.5 w-0.5 animate-pulse bg-ink align-middle" /> : null}
                   </div>
-                  <p className={`mt-1 text-right text-[11px] font-semibold ${on(K.done) ? 'text-teal-deep' : 'text-brand-deep'}`}>{on(K.done) ? `✓ ${t.validated}` : t.draftLabel}</p>
+                  <p className={`mt-1 text-right text-xs font-semibold ${on(K.done) ? 'text-teal-deep' : 'text-brand-deep'}`}>{on(K.done) ? `✓ ${t.validated}` : t.draftLabel}</p>
                 </div>
                 <div className={`${show(K.card)} flex items-center justify-between gap-3 rounded-xl border border-brand/30 bg-brand-soft/60 p-3`}>
                   <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-brand-deep">{t.validateTitle}</p>
+                    <p className="text-xs font-bold uppercase tracking-wider text-brand-deep">{t.validateTitle}</p>
                     <p className="mt-0.5 text-xs text-ink">{t.validateText}</p>
                   </div>
                   <span ref={btn} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold text-white transition-all ${on(K.done) ? 'bg-teal-deep' : 'bg-brand-deep'} ${cursor.pressed ? 'scale-95' : ''}`}>{on(K.done) ? '✓' : t.validate}</span>
