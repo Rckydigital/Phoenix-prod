@@ -99,3 +99,6 @@ export const eur = (n: number, lang: Lang) =>
   lang === 'fr'
     ? n.toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' €'
     : '€' + n.toLocaleString('en-GB', { maximumFractionDigits: 0 })
+
+// Lien « réserver un appel » depuis les pages Automation Lab : ouvre l'onglet automatisation
+export const bookLab = (lang: Lang) => (lang === 'fr' ? '/rendez-vous?sujet=automatisation' : '/en/book')

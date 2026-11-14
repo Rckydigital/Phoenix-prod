@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { SITE, SERVICES, LAB_SERVICES } from '@/lib/constants'
 import { Check, IconTile } from '@/components/ui'
-import { r, type Lang } from '@/lib/i18n'
+import { r, type Lang, bookLab } from '@/lib/i18n'
 
 const T = {
   fr: {
@@ -111,7 +111,7 @@ export default function QuotePage({ lang, error, preset }: { lang: Lang; error?:
                 <li className="flex gap-2"><Check className="h-5 w-5 text-[#7fd3e2]" /><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
                 <li className="flex gap-2"><Check className="h-5 w-5 text-[#7fd3e2]" /><a href={`tel:${SITE.phone.replace(/\s/g, '')}`} className="hover:text-white">{SITE.phone}</a></li>
               </ul>
-              <Link href={r('book', lang)} className="btn-primary mt-5 w-full">{t.altCta}</Link>
+              <Link href={bookLab(lang)} className="btn-primary mt-5 w-full">{t.altCta}</Link>
             </div>
           </aside>
         </div>

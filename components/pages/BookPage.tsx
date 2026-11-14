@@ -3,6 +3,15 @@ import { Check, IconTile } from '@/components/ui'
 import type { Lang } from '@/lib/i18n'
 
 const T = {
+  site: {
+    kicker: 'Appel découverte gratuit',
+    h1: 'Réservez votre appel de 15 minutes',
+    lead: 'Par téléphone ou WhatsApp, au créneau qui vous arrange. On parle de votre activité, de vos clients et du site qu’il vous faut pour être trouvé sur Google et recommandé par les IA comme ChatGPT. Sans engagement.',
+    steps: [['chat', 'Appel de 15 min', 'Vous présentez votre activité, vos clients et ce que vous attendez de votre site.'], ['bolt', 'Audit offert', 'Je regarde gratuitement si Google et les IA vous trouvent aujourd’hui, et qui ils citent à votre place.'], ['doc', 'Proposition sous 48 h', 'Un devis clair pour un site sur mesure, amélioré grâce à l’IA : livré plus vite, à moindre coût.']],
+    tz: 'Les créneaux s’affichent dans votre fuseau horaire. Je suis basé en Guadeloupe (UTC−4).',
+    prep: 'Pour gagner du temps',
+    prepItems: ['Votre site actuel, votre fiche Google ou votre Instagram', '2 ou 3 sites que vous aimez', 'Ce que le site doit faire : présenter, prendre des rendez-vous, vendre…'],
+  },
   fr: {
     kicker: 'Appel découverte gratuit',
     h1: 'Réservez votre appel de 15 minutes',
@@ -23,13 +32,32 @@ const T = {
   },
 }
 
-export default function BookPage({ lang }: { lang: Lang }) {
-  const t = T[lang]
+export type BookTopic = 'site' | 'automatisation'
+
+const TABS: [BookTopic, string][] = [['site', 'Création de site internet'], ['automatisation', 'Automatisation IA']]
+
+export default function BookPage({ lang, topic = 'site' }: { lang: Lang; topic?: BookTopic }) {
+  const t = lang === 'fr' && topic === 'site' ? T.site : T[lang]
   return (
     <div lang={lang}>
       <section className="bg-hero relative overflow-hidden pb-10 pt-28 md:pt-36">
         <div aria-hidden="true" className="bg-grid absolute inset-0" />
         <div className="container-site relative max-w-3xl">
+          {lang === 'fr' && (
+            <div role="tablist" aria-label="Sujet de l’appel" className="mb-6 flex w-fit rounded-full border border-line bg-white p-1 text-sm font-semibold">
+              {TABS.map(([id, label]) => (
+                <a
+                  key={id}
+                  role="tab"
+                  aria-selected={topic === id}
+                  href={`/rendez-vous?sujet=${id}`}
+                  className={`rounded-full px-4 py-2 transition ${topic === id ? 'bg-ink text-white' : 'text-ink-soft hover:text-ink'}`}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          )}
           <span className="kicker">{t.kicker}</span>
           <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-ink md:text-5xl">{t.h1}</h1>
           <p className="mt-5 text-lg text-ink-soft">{t.lead}</p>

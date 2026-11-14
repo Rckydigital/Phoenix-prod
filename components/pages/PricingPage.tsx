@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Check, Faq, IconTile } from '@/components/ui'
 import { LAB_FAQ } from '@/components/AutomationLab'
-import { FOUNDER, PILOT, PLANS, eur, r, type Lang } from '@/lib/i18n'
+import { FOUNDER, PILOT, PLANS, eur, r, type Lang, bookLab } from '@/lib/i18n'
 
 const T = {
   fr: {
@@ -76,7 +76,7 @@ export default function PricingPage({ lang }: { lang: Lang }) {
                 <p className="mt-2 text-white/75">{t.pilotSub}</p>
                 <p className="mt-6 text-5xl font-extrabold tracking-tight">{eur(PILOT.price, lang)}</p>
                 <p className="mt-2 font-semibold text-[#7fd3e2]">{t.pilotGuarantee}</p>
-                <Link href={r('book', lang)} data-track="Tarifs : pilote" className="btn-primary mt-7">{t.pilotCta} →</Link>
+                <Link href={bookLab(lang)} data-track="Tarifs : pilote" className="btn-primary mt-7">{t.pilotCta} →</Link>
               </div>
               <ul className="space-y-3">
                 {t.pilotItems.map((it, i) => (
@@ -115,7 +115,7 @@ export default function PricingPage({ lang }: { lang: Lang }) {
                     <li key={f} className="flex gap-2.5 text-sm text-ink"><Check />{f}</li>
                   ))}
                 </ul>
-                <Link href={`${r('book', lang)}?plan=${p.id}`} data-track={`Tarifs : ${p.id}`} className={`${p.popular ? 'btn-primary' : 'btn-outline'} mt-8 w-full`}>
+                <Link href={`${r('book', lang)}?plan=${p.id}${lang === 'fr' ? '&sujet=automatisation' : ''}`} data-track={`Tarifs : ${p.id}`} className={`${p.popular ? 'btn-primary' : 'btn-outline'} mt-8 w-full`}>
                   {t.choose} {p.name[lang]}
                 </Link>
               </div>

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import InboxDemo from '@/components/InboxDemo'
 import Reveal from '@/components/Reveal'
 import { Check, CtaBand, Faq, IconTile, SectionHead } from '@/components/ui'
-import { r, type Lang } from '@/lib/i18n'
+import { r, type Lang, bookLab } from '@/lib/i18n'
 
 // Page « Automation Lab » (pôle automatisation de RCKY DIGITAL), en français et en anglais.
 // Règle : aucun témoignage, client ou chiffre inventé.
@@ -128,7 +128,7 @@ export default function AutomationLab({ lang }: { lang: Lang }) {
             </h1>
             <p style={{ '--d': '200ms' } as React.CSSProperties} className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{t.lead}</p>
             <div style={{ '--d': '300ms' } as React.CSSProperties} className="hero-in mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={r('book', lang)} data-track="Lab : rendez-vous" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>
+              <Link href={bookLab(lang)} data-track="Lab : rendez-vous" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>
               <Link href={r('demo', lang)} data-track="Lab : démo" className="btn-ghost px-7 py-4 text-base"><span aria-hidden="true">▶</span> {t.cta2}</Link>
             </div>
           </div>

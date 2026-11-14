@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getSupabase, type Automation, type AutomationEvent, type Profile } from '@/lib/supabase'
 import { Icon } from '@/components/ui'
-import { PLANS, eur, r, type Lang, type PlanId } from '@/lib/i18n'
+import { PLANS, eur, r, type Lang, type PlanId, bookLab } from '@/lib/i18n'
 import { SITE } from '@/lib/constants'
 
 type Tab = 'overview' | 'automations' | 'billing' | 'settings'
@@ -236,7 +236,7 @@ export default function Dashboard({ lang, paid, reset, plan: planHint, stripeTes
                 <p className="mt-2 max-w-2xl text-ink-soft">{t.emptyText}</p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Link href={r('demo', lang)} className="btn-primary">{t.demo}</Link>
-                  <Link href={r('book', lang)} className="btn-outline">{t.audit}</Link>
+                  <Link href={bookLab(lang)} className="btn-outline">{t.audit}</Link>
                 </div>
               </div>
             ) : (
