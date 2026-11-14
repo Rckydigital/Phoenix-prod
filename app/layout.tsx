@@ -65,7 +65,7 @@ const schemaOrg = {
       currenciesAccepted: 'EUR',
       areaServed: [{ '@type': 'AdministrativeArea', name: 'Guadeloupe' }],
       address: { '@type': 'PostalAddress', addressRegion: 'Guadeloupe', addressCountry: 'FR' },
-      knowsAbout: ['Marketing digital', 'Gestion des réseaux sociaux', 'Photographie', 'Vidéo', 'Création de sites internet', 'Référencement local'],
+      knowsAbout: ['Création de sites internet', 'Référencement local', 'Visibilité dans les moteurs de réponse IA (GEO)', 'Fiche d’établissement Google', 'Automatisation IA', 'Marketing digital', 'Photographie', 'Vidéo'],
       sameAs: [SITE.social.instagram, SITE.social.google, SITE.social.linkedin],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',

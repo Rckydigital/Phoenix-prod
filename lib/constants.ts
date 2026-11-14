@@ -9,7 +9,7 @@ export const SITE = {
   owner: 'Ricky GALIN',
   tagline: 'Photos, vidéos et sites qui donnent envie de réserver',
   description:
-    "RCKY DIGITAL, agence digitale en Guadeloupe : photo, vidéo, réseaux sociaux et sites avec réservation pour les entreprises locales, et Automation Lab, des automatisations IA construites avec Claude pour les agences et PME, à distance.",
+    "RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet rapides et abordables, conçus avec l’aide de l’IA, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO) pour les entreprises locales. Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
   email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',
@@ -54,6 +54,13 @@ export const AUDIT = {
   id: 'audit',
   title: 'Audit Visibilité offert',
   text: "Une note sur 10 de votre présence en ligne (fiche Google, Instagram, photos, prix, réservation), les 3 points qui vous font perdre des clients et 3 actions concrètes. Reçu sous 48 h, sans engagement.",
+}
+
+// Audit gratuit « Visible par l'IA ? » (page /audit-ia)
+export const AUDIT_IA = {
+  id: 'audit-ia',
+  title: 'Audit gratuit : visible par l’IA ?',
+  text: "On pose à ChatGPT, Gemini, Perplexity et Google les questions que vos clients posent sur votre activité et votre commune. Vous recevez sous 48 h le résultat (cité ou non, qui est cité à votre place) et 3 actions concrètes. Gratuit, sans engagement.",
 }
 
 // Les 3 offres (catalogue validé par Ricky le 2026-10-14)
@@ -295,7 +302,7 @@ export const FAQ = [
 ]
 
 // Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
-export const LAST_UPDATE = '2026-11-10'
+export const LAST_UPDATE = '2026-11-14'
 
 export const priceNumber = (p: string) => {
   const m = p.match(/(\d[\d\s]*)/)

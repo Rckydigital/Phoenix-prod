@@ -237,6 +237,93 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: 'etre-recommande-par-chatgpt-guadeloupe',
+    title: 'Comment être recommandé par ChatGPT quand on est une entreprise en Guadeloupe ?',
+    metaTitle: 'Être cité par ChatGPT et les IA en Guadeloupe : le guide pour les petites entreprises',
+    description:
+      'ChatGPT, Gemini, Perplexity, Google : de plus en plus de clients demandent conseil à une IA. Les étapes concrètes pour que votre entreprise de Guadeloupe fasse partie des réponses.',
+    answer:
+      'Les IA comme ChatGPT, Gemini ou Perplexity recommandent les entreprises qu’elles trouvent décrites clairement et de la même façon à plusieurs endroits : fiche Google complète, site qui répond aux vraies questions (prix, zone, horaires), annuaires, avis réels et mentions sur d’autres sites. Ce travail s’appelle le GEO (Generative Engine Optimization). Il prolonge le référencement Google classique, il ne le remplace pas.',
+    published: '2026-11-14',
+    updated: '2026-11-14',
+    readingMinutes: 5,
+    body: [
+      { type: 'h2', text: 'Ce qui change : on ne cherche plus seulement, on demande' },
+      {
+        type: 'p',
+        text: 'Au lieu de taper « garage Baie-Mahault » et de comparer dix liens, un client peut maintenant demander à une IA : « Quel garage sérieux à Baie-Mahault pour une vidange ce samedi ? ». L’IA répond avec deux ou trois noms. Si le vôtre n’y est pas, le client ne saura jamais que vous existez.',
+      },
+      { type: 'h2', text: '1. Testez d’abord où vous en êtes' },
+      {
+        type: 'list',
+        items: [
+          'Posez à ChatGPT, Gemini et Perplexity 3 à 5 questions qu’un client poserait : votre activité + votre commune, « pas cher », « ouvert le dimanche », etc.',
+          'Notez si vous êtes cité, et surtout qui est cité à votre place, et d’où l’IA tire ses informations (les liens sous la réponse).',
+          'Refaites le test plusieurs fois : les réponses des IA changent d’une fois à l’autre.',
+        ],
+      },
+      { type: 'h2', text: '2. Une fiche Google complète' },
+      {
+        type: 'p',
+        text: 'Gemini et les réponses IA de Google s’appuient sur les mêmes informations que Google Maps. Une fiche d’établissement remplie à 100 % (catégorie, horaires, zone, photos, description, lien) reste la base. Notre guide dédié explique comment faire.',
+      },
+      { type: 'h2', text: '3. Un site qui répond aux vraies questions' },
+      {
+        type: 'list',
+        items: [
+          'Dites en une phrase, en haut de la page, ce que vous faites, où et pour qui.',
+          'Affichez vos prix ou au moins des fourchettes : une IA ne peut pas recommander un tarif qu’elle ne trouve nulle part.',
+          'Ajoutez une rubrique de questions fréquentes, avec les questions telles que vos clients les posent.',
+          'Indiquez la date de mise à jour : les IA préfèrent les informations récentes.',
+        ],
+      },
+      { type: 'h2', text: '4. Les mêmes informations partout' },
+      {
+        type: 'p',
+        text: 'Nom, téléphone, zone, activité : décrivez-vous de la même façon sur votre site, Google, Facebook, Instagram et les annuaires (PagesJaunes, annuaires professionnels…). Quand plusieurs sources disent la même chose, les IA vous font davantage confiance.',
+      },
+      { type: 'h2', text: '5. Être mentionné ailleurs que chez vous' },
+      {
+        type: 'list',
+        items: [
+          'Des avis réels de vos clients, sur Google en priorité. N’achetez jamais de faux avis.',
+          'Une inscription dans les annuaires sérieux de votre métier et de la Guadeloupe.',
+          'Un article dans la presse locale, un partenaire ou une association qui parle de vous et met un lien vers votre site.',
+        ],
+      },
+      { type: 'h2', text: 'Ce qu’il ne faut pas faire' },
+      {
+        type: 'p',
+        text: 'Répéter des mots-clés partout, publier des dizaines de pages vides ou inventer des avis : c’est inefficace et risqué. Google rappelle d’ailleurs qu’aucun fichier ou balisage spécial n’est obligatoire pour ses réponses IA : un contenu utile, clair et à jour reste la règle.',
+      },
+      {
+        type: 'callout',
+        title: 'On fait le test pour vous, gratuitement',
+        text: 'On pose aux IA les questions que vos clients posent sur votre activité et votre commune. Vous recevez sous 48 h le résultat (cité ou non, qui est cité à votre place) et 3 actions concrètes.',
+        href: '/audit-ia',
+        cta: 'Demander mon audit gratuit',
+      },
+    ],
+    faq: [
+      {
+        q: 'C’est quoi le GEO ?',
+        a: 'Le GEO (Generative Engine Optimization) regroupe ce qui aide une entreprise à être citée dans les réponses des IA comme ChatGPT, Gemini ou Perplexity. Il s’appuie sur les bases du référencement Google : informations claires, à jour, cohérentes et reprises par d’autres sites.',
+      },
+      {
+        q: 'Est-ce que ça remplace le référencement Google ?',
+        a: 'Non, ça le prolonge. Les réponses IA de Google s’appuient sur son moteur de recherche, et les autres IA lisent souvent les mêmes pages. Une entreprise bien présente sur Google part avec une longueur d’avance.',
+      },
+      {
+        q: 'Faut-il un site internet pour être cité par une IA ?',
+        a: 'Ce n’est pas obligatoire, mais c’est un gros avantage : c’est la source la plus complète sur votre entreprise. Une fiche Google et des annuaires bien remplis aident déjà.',
+      },
+      {
+        q: 'En combien de temps verrai-je un résultat ?',
+        a: 'Personne ne peut garantir une citation ni un délai : les IA mettent à jour leurs sources à leur rythme. Comptez plutôt en semaines qu’en jours, et mesurez en refaisant régulièrement les mêmes questions.',
+      },
+    ],
+  },
 ]
 
 export function getGuide(slug: string) {

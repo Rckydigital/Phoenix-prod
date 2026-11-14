@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { SITE, SERVICES, OPTIONS, AUDIT, LAB_SERVICES } from '@/lib/constants'
+import { SITE, SERVICES, OPTIONS, AUDIT, AUDIT_IA, LAB_SERVICES } from '@/lib/constants'
 import { crmConfigured, saveLeadToCrm } from '@/lib/crm'
 import { track } from '@/lib/track'
 import { spamScore } from '@/lib/spam'
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
   }
 
   const serviceTitle =
-    [AUDIT, ...SERVICES, ...OPTIONS, ...LAB_SERVICES].find((s) => s.id === data.service)?.title || data.service
+    [AUDIT, AUDIT_IA, ...SERVICES, ...OPTIONS, ...LAB_SERVICES].find((s) => s.id === data.service)?.title || data.service
 
   // Filtre anti-spam : une demande suspecte est envoyée par e-mail avec « [Spam probable] » mais ne crée pas de fiche CRM
   const sp = spamScore(data)

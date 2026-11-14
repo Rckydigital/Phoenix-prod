@@ -20,6 +20,7 @@ export const ROUTES = {
   services: { fr: '/services', en: '/services' },
   work: { fr: '/realisations', en: '/realisations' },
   guides: { fr: '/guides', en: '/guides' },
+  auditIa: { fr: '/audit-ia', en: '/audit-ia' },
   legal: { fr: '/mentions-legales', en: '/mentions-legales' },
   privacy: { fr: '/politique-confidentialite', en: '/politique-confidentialite' },
 } as const

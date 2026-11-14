@@ -8,13 +8,13 @@ import { langOf, r } from '@/lib/i18n'
 
 const T = {
   fr: {
-    pitch: 'Agence digitale en Guadeloupe. Visibilité locale (photo, vidéo, réseaux, sites) et Automation Lab : des automatisations IA construites avec Claude, 100 % à distance.',
+    pitch: 'Agence digitale en Guadeloupe. Sites internet conçus avec l’aide de l’IA, visibilité sur Google et dans les IA (GEO), et Automation Lab : des automatisations IA construites avec Claude.',
     lab: 'Automation Lab',
     local: 'Visibilité locale',
     company: 'Entreprise',
     contact: 'Contact',
     labLinks: [['lab', 'Solutions'], ['pricing', 'Tarifs'], ['demo', 'Démo LeadFlow'], ['book', 'Réserver un appel'], ['quote', 'Demander un devis'], ['dashboard', 'Espace client']],
-    localLinks: [['services', 'Services & tarifs'], ['work', 'Réalisations'], ['guides', 'Guides gratuits']],
+    localLinks: [['auditIa', 'Audit gratuit : visible par l’IA ?'], ['services', 'Services & tarifs'], ['work', 'Réalisations'], ['guides', 'Guides gratuits']],
     companyLinks: [['about', 'À propos'], ['contact', 'Contact'], ['legal', 'Mentions légales'], ['privacy', 'Confidentialité']],
     rights: 'entrepreneur individuel',
     updated: 'Mis à jour le',
