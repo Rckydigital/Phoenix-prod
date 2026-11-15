@@ -305,7 +305,7 @@ export const FAQ = [
 ]
 
 // Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
-export const LAST_UPDATE = '2026-11-14'
+export const LAST_UPDATE = '2026-11-15'
 
 export const priceNumber = (p: string) => {
   const m = p.match(/(\d[\d\s]*)/)
