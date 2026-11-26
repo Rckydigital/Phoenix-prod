@@ -21,7 +21,7 @@ function statusOf(last: JournalEntry | undefined, today: string): { key: 'on' | 
 
 type Sel = string // id d'agent, 'reunion', 'crm' ou 'tresorerie'
 
-export default function Office({ data }: { data: QGData }) {
+export default function Office({ data, embedded = false }: { data: QGData; embedded?: boolean }) {
   const [sel, setSel] = useState<Sel | null>(null)
   // Fermeture animée (la fenêtre repart par le même chemin) : on envoie un signal à la feuille
   const [closeSig, setCloseSig] = useState(0)
@@ -37,7 +37,7 @@ export default function Office({ data }: { data: QGData }) {
 
 
   return (
-    <section className="bg-sand pb-16 pt-28 md:pt-32">
+    <section className={embedded ? 'bg-sand pb-16' : 'bg-sand pb-16 pt-28 md:pt-32'}>
       <style>{`
         @keyframes qgbob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-3px) } }
         .qg-bob { animation: qgbob 1.6s ease-in-out infinite }
@@ -47,7 +47,8 @@ export default function Office({ data }: { data: QGData }) {
       `}</style>
 
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6">
-        {/* En-tête */}
+        {/* En-tête (masqué quand le bureau est affiché dans la coque du QG) */}
+        {!embedded && (
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">QG privé</p>
@@ -61,6 +62,8 @@ export default function Office({ data }: { data: QGData }) {
             <button className="btn-outline px-4 py-2 text-sm">Se déconnecter</button>
           </form>
         </div>
+
+        )}
 
         {data.error && (
           <p role="alert" className="mt-6 rounded-2xl bg-[#FDECEC] px-4 py-3 text-sm text-[#8F1F22]">

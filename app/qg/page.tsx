@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { QG_COOKIE, isLoggedIn } from '@/lib/qgAuth'
 import { loadQG } from '@/lib/vault'
 import { demoQG } from '@/lib/qgDemo'
-import Office from '@/components/qg/Office'
+import Shell from '@/components/qg/Shell'
 import { PhoenixIcon } from '@/components/Logo'
 
 export const metadata: Metadata = {
@@ -59,10 +59,10 @@ export default async function QGPage({ searchParams }: { searchParams: { erreur?
         <div className="fixed inset-x-0 top-16 z-40 bg-[#F2A65A] px-4 py-1.5 text-center text-xs font-semibold text-ink md:top-20">
           Mode démo : toutes les données affichées sont fictives
         </div>
-        <Office data={demoQG()} />
+        <Shell data={demoQG()} demo />
       </>
     )
   }
   const data = await loadQG()
-  return <Office data={data} />
+  return <Shell data={data} />
 }

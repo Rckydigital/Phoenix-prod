@@ -1,5 +1,6 @@
 // Lecture du cerveau (dépôt GitHub privé) pour le QG virtuel.
 import { readStats, trackingConfigured, type StatRow } from '@/lib/track'
+import { construirePipeline, type FichePipeline } from '@/lib/qgPipeline'
 // Utilise CRM_GITHUB_TOKEN (permission Contents en lecture suffit).
 
 const REPO = () => process.env.CRM_GITHUB_REPO || 'Rckydigital/cerveau-ricky-galin'
@@ -187,6 +188,7 @@ export type QGData = {
   journal: JournalEntry[]
   operations: Operation[]
   site: { configured: boolean; rows: StatRow[] }
+  pipeline: FichePipeline[]
   error?: string
 }
 
@@ -206,6 +208,7 @@ export async function loadQG(): Promise<QGData> {
     journal: [],
     operations: [],
     site: { configured: trackingConfigured(), rows: [] },
+    pipeline: [],
   }
 
   try {
@@ -293,9 +296,17 @@ export async function loadQG(): Promise<QGData> {
       .map((l) => clean(l.replace(/^\s*\d+\.\s*/, '')))
       .filter((l) => l && l !== '—')
 
-    const fm = await Promise.all(
-      fiches.filter((f) => f.name.endsWith('.md')).map(async (f) => ({ name: f.name.replace(/\.md$/, ''), fm: frontmatter((await readFile(f.path)) || '') })),
+    // Toutes les fiches (pôle 1 à la racine + sous-dossiers comme « Pôle 2 ») pour le pipeline ;
+    // les compteurs historiques du QG restent calculés sur la racine seulement.
+    const FICHES = '50 - Clients/Fiches/'
+    const toutes = tree.length
+      ? tree.filter((t) => t.path.startsWith(FICHES) && t.path.endsWith('.md')).map((t) => ({ name: t.path.split('/').pop()!, path: t.path }))
+      : fiches.filter((f) => f.name.endsWith('.md'))
+    const lues = await Promise.all(
+      toutes.map(async (f) => { const md = (await readFile(f.path)) || ''; return { path: f.path, name: f.name.replace(/\.md$/, ''), md, fm: frontmatter(md) } }),
     )
+    const fm = lues.filter((f) => !f.path.slice(FICHES.length).includes('/'))
+    const pipeline = construirePipeline(lues, today)
     const count = (s: string) => fm.filter((f) => (f.fm.statut || '').toLowerCase() === s.toLowerCase()).length
     const crm = {
       total: fm.length,
@@ -349,6 +360,7 @@ export async function loadQG(): Promise<QGData> {
       crm,
       objectifs: { clientsActifs: crm.actifs, clientsCible: 4 },
       journal: journal.slice(0, 12),
+      pipeline,
     }
   } catch (err) {
     return { ...empty, error: err instanceof Error ? err.message : 'Erreur de lecture du cerveau' }
