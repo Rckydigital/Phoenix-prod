@@ -9,10 +9,10 @@ export const SITE = {
   owner: 'Ricky GALIN',
   tagline: 'Photos, vidéos et sites qui donnent envie de réserver',
   description:
-    "RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet sur mesure, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO) pour les entreprises locales. Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
+    "RCKY DIGITAL, agence digitale basée en Guadeloupe : création de sites internet sur mesure pour tous les secteurs, partout en France et à distance, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO). Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
   // Description courte (≤ 160 caractères) pour les balises meta
   metaDescription:
-    'Agence digitale en Guadeloupe : création de sites internet sur mesure, améliorés grâce à l’IA, visibles sur Google et ChatGPT. Devis gratuit sous 48 h.',
+    'Création de sites internet sur mesure, améliorés grâce à l’IA et visibles sur Google et ChatGPT. Agence basée en Guadeloupe, partout à distance. Devis 48 h.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
   email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',
@@ -68,7 +68,7 @@ export const AUDIT_IA = {
 
 // Création de site internet sur devis (page /tarifs)
 // Image de partage (réseaux sociaux, aperçus de liens) : 1200x630
-export const OG_IMAGE = { url: '/og-rcky-digital.jpg', width: 1200, height: 630, alt: 'RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet visibles sur Google et l’IA' }
+export const OG_IMAGE = { url: '/og-rcky-digital.jpg', width: 1200, height: 630, alt: 'RCKY DIGITAL : création de sites internet sur mesure, visibles sur Google et l’IA' }
 export const SITE_DEVIS = { id: 'site-sur-mesure', title: 'Création de site internet (sur devis)' }
 
 // Les 3 offres (catalogue validé par Ricky le 2026-10-14)
@@ -301,7 +301,7 @@ export const FAQ = [
   },
   {
     q: 'Quels types d’entreprises accompagnez-vous ?',
-    a: 'Surtout les petites entreprises de Guadeloupe : gîtes, villas et locations saisonnières, excursions et activités, salons de coiffure, instituts de beauté, barbiers, ongleries et commerces locaux.',
+    a: 'Toutes les entreprises qui veulent un site efficace, en Guadeloupe comme ailleurs : commerces, artisans, gîtes et locations, beauté, restauration, services, indépendants et PME. Nous connaissons particulièrement bien le marché antillais, et nous travaillons à distance avec tout le monde.',
   },
   {
     q: 'Le site avec réservation inclut-il l’abonnement ?',

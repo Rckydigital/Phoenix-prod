@@ -329,7 +329,7 @@ export const GUIDES: Guide[] = [
     title: 'Instagram suffit-il, ou faut-il un site internet pour son entreprise ?',
     metaTitle: 'Instagram ou site internet : que choisir ?',
     description:
-      'Instagram et Facebook suffisent-ils pour une petite entreprise en Guadeloupe ? Ce que les réseaux font bien, leurs limites, et quand un site devient utile.',
+      'Instagram et Facebook suffisent-ils pour une petite entreprise ? Ce que les réseaux font bien, leurs limites, et quand un site internet devient utile.',
     answer:
       'Les réseaux sociaux sont parfaits pour vous faire connaître, mais votre compte ne vous appartient pas : un piratage, une suspension ou un changement de règles peut vous couper de vos clients du jour au lendemain. Un site à votre nom reste en place, apparaît sur Google et dans les réponses des IA, et peut recevoir des réservations. L’idéal : les réseaux attirent, le site convertit.',
     published: '2026-11-25',
@@ -466,8 +466,8 @@ export const GUIDES: Guide[] = [
   },
   {
     slug: 'reservation-en-ligne-petite-entreprise',
-    title: 'Prise de rendez-vous en ligne : comment faire pour une petite entreprise en Guadeloupe ?',
-    metaTitle: 'Prise de rendez-vous en ligne en Guadeloupe',
+    title: 'Prise de rendez-vous en ligne : comment faire pour une petite entreprise ?',
+    metaTitle: 'Prise de rendez-vous en ligne : comment faire',
     description:
       'Salon, institut, lavage auto, artisan, traiteur : comment proposer la prise de rendez-vous ou la demande en ligne, sans perdre le contact avec vos clients.',
     answer:

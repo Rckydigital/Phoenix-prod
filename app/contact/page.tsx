@@ -4,7 +4,7 @@ import { SITE, SERVICES, OPTIONS, AUDIT, AUDIT_IA, SITE_DEVIS } from '@/lib/cons
 export const metadata: Metadata = {
   title: 'Contact et échange gratuit',
   description:
-    'Contactez RCKY DIGITAL pour un échange gratuit ou un devis : création de site internet, visibilité Google et IA, automatisation, en Guadeloupe.',
+    'Contactez RCKY DIGITAL pour un échange gratuit ou un devis : création de site internet, visibilité Google et IA, automatisation. Partout à distance.',
 }
 
 const inputClass =
@@ -60,7 +60,7 @@ export default function ContactPage({
             </a>
             <div className="card">
               <p className="text-sm text-ink-muted">Zone d’intervention</p>
-              <p className="mt-1 text-lg font-bold text-ink">Toute la Guadeloupe, et à distance</p>
+              <p className="mt-1 text-lg font-bold text-ink">Guadeloupe, et partout à distance</p>
             </div>
           </div>
 

@@ -5,7 +5,7 @@ import { SITE, AUDIT_IA, LAST_UPDATE } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'Audit gratuit de visibilité IA et Google',
   description:
-    'Votre entreprise est-elle recommandée par ChatGPT et Google en Guadeloupe ? Audit gratuit : résultat sous 48 h et 3 actions concrètes, sans engagement.',
+    'Votre entreprise est-elle recommandée par ChatGPT et Google ? Audit gratuit : résultat sous 48 h et 3 actions concrètes, sans engagement.',
   alternates: { canonical: '/audit-ia' },
 }
 
@@ -58,7 +58,7 @@ const schema = {
       name: AUDIT_IA.title,
       description: AUDIT_IA.text,
       provider: { '@id': `${SITE.url}/#business` },
-      areaServed: { '@type': 'AdministrativeArea', name: 'Guadeloupe' },
+      areaServed: [{ '@type': 'AdministrativeArea', name: 'Guadeloupe' }, { '@type': 'Country', name: 'France' }],
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
     },
     {

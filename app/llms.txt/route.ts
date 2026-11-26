@@ -9,7 +9,7 @@ export function GET() {
     '',
     `> ${SITE.description}`,
     '',
-    `Agence digitale basée en Guadeloupe (971), fondée par ${SITE.owner} (Mastère E-business). Spécialité : création de sites internet sur mesure, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité des entreprises locales sur Google et dans les réponses des IA (ChatGPT, Gemini, Perplexity), aussi appelée GEO. Clients : petites entreprises de Guadeloupe (artisans, commerces, beauté, tourisme, services). Audit gratuit « Votre entreprise est-elle visible par l’IA ? ». Prix finaux, TVA non applicable (art. 293 B du CGI). Mise à jour : ${LAST_UPDATE}.`,
+    `Agence digitale basée en Guadeloupe (971), fondée par ${SITE.owner} (Mastère E-business). Spécialité : création de sites internet sur mesure, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité des entreprises sur Google et dans les réponses des IA (ChatGPT, Gemini, Perplexity), aussi appelée GEO. Clients : entreprises de tous secteurs, en Guadeloupe, en France et à l’international, à distance (artisans, commerces, beauté, tourisme, services, PME), avec une spécialité du marché antillais. Audit gratuit « Votre entreprise est-elle visible par l’IA ? ». Prix finaux, TVA non applicable (art. 293 B du CGI). Mise à jour : ${LAST_UPDATE}.`,
     '',
     '## Pages',
     `- [Accueil](${SITE.url}/): présentation de l'agence et de ses services`,
@@ -34,7 +34,7 @@ export function GET() {
     `- Téléphone / WhatsApp : ${SITE.phone}`,
     `- E-mail : ${SITE.email}`,
     `- Instagram : ${SITE.social.instagram}`,
-    `- Zone : toute la Guadeloupe, et à distance`,
+    `- Zone : clients partout en France et à l’international, à distance ; spécialiste du marché antillais (Guadeloupe)`,
     '',
   ]
   return new Response(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })

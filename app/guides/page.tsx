@@ -4,9 +4,9 @@ import { SITE } from '@/lib/constants'
 import { GUIDES } from '@/lib/guides'
 
 export const metadata: Metadata = {
-  title: 'Guides pour les entreprises de Guadeloupe',
+  title: 'Guides pratiques pour les petites entreprises',
   description:
-    'Prix d’un site, visibilité Google et ChatGPT, gîtes, réservation en ligne, Instagram : des réponses claires pour les petites entreprises de Guadeloupe.',
+    'Prix d’un site, visibilité Google et ChatGPT, gîtes, réservation en ligne, Instagram : des réponses claires pour les petites entreprises, ici et ailleurs.',
   alternates: { canonical: `${SITE.url}/guides` },
 }
 
@@ -17,7 +17,7 @@ export default function GuidesPage() {
         <div className="container-site">
           <span className="eyebrow">Guides</span>
           <h1 className="mt-5 max-w-3xl text-4xl font-extrabold tracking-tight text-ink md:text-5xl">
-            Des réponses claires pour les entreprises de Guadeloupe.
+            Des réponses claires pour les petites entreprises.
           </h1>
           <p className="section-subtitle">Les questions qu’on nous pose le plus, avec nos vrais prix et sans jargon.</p>
         </div>

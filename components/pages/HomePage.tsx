@@ -8,14 +8,14 @@ import { r, type Lang } from '@/lib/i18n'
 
 const T = {
   fr: {
-    kicker: 'Création de sites internet en Guadeloupe · IA',
+    kicker: 'Création de sites internet sur mesure · IA',
     h1a: 'Plus de clients,',
     h1b: 'moins de tâches répétitives.',
     lead: 'RCKY DIGITAL aide les entreprises à être trouvées et à mieux traiter leurs demandes : visibilité locale en Guadeloupe, et automatisations IA construites avec Claude, partout à distance.',
     cta1: 'Réserver un appel de 15 min',
     cta2: 'Voir la démo LeadFlow',
     noCard: 'Gratuit · Par téléphone ou WhatsApp · Sans engagement',
-    facts: [['globe', 'Basé en Guadeloupe'], ['link', 'Automatisation 100 % à distance'], ['bolt', 'Construit avec Claude (Anthropic)'], ['clock', 'Réponse sous 48 h']],
+    facts: [['globe', 'Basé en Guadeloupe, partout à distance'], ['link', 'Automatisation 100 % à distance'], ['bolt', 'Construit avec Claude (Anthropic)'], ['clock', 'Réponse sous 48 h']],
     twoKicker: 'Deux expertises',
     twoTitle: 'Une agence, deux façons de faire grandir votre activité',
     labTitle: 'Automation Lab',
