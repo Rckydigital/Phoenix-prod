@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { SITE } from '@/lib/constants'
+import { SITE, OG_IMAGE } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'Contact: AI automation, delivered remotely',
   description: 'Contact RCKY DIGITAL: AI automation for agencies and consultancies, delivered remotely. Reply within 48 hours.',
   alternates: { canonical: '/en/contact', languages: { fr: '/contact', en: '/en/contact' } },
-  openGraph: { locale: 'en_US' },
+  openGraph: { locale: 'en_US', images: [OG_IMAGE] },
 }
 
 export default function Page({ searchParams }: { searchParams: { error?: string } }) {

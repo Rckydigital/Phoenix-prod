@@ -4,7 +4,7 @@ import { SITE, SERVICES, OPTIONS, AUDIT, AUDIT_IA, SITE_DEVIS } from '@/lib/cons
 export const metadata: Metadata = {
   title: 'Contact et échange gratuit',
   description:
-    'Contactez RCKY DIGITAL pour un échange gratuit de 30 minutes ou un devis : photo, vidéo, réseaux sociaux et sites en Guadeloupe.',
+    'Contactez RCKY DIGITAL pour un échange gratuit ou un devis : création de site internet, visibilité Google et IA, automatisation, en Guadeloupe.',
 }
 
 const inputClass =

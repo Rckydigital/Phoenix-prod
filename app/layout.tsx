@@ -3,7 +3,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Tracker from '@/components/Tracker'
-import { SITE, SERVICES, LAST_UPDATE, priceNumber } from '@/lib/constants'
+import { SITE, SERVICES, LAST_UPDATE, priceNumber, OG_IMAGE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -11,14 +11,16 @@ export const metadata: Metadata = {
     default: `${SITE.name} | Agence digitale en Guadeloupe`,
     template: `%s | ${SITE.name}`,
   },
-  description: SITE.description,
+  description: SITE.metaDescription,
   keywords: [
+    'création site internet Guadeloupe',
+    'agence web Guadeloupe',
     'agence digitale Guadeloupe',
-    'photographe gîte Guadeloupe',
-    'vidéo réseaux sociaux Guadeloupe',
-    'community manager Guadeloupe',
     'site internet réservation Guadeloupe',
-    'marketing digital 971',
+    'référencement Google Guadeloupe',
+    'visibilité ChatGPT entreprise',
+    'automatisation IA TPE',
+    'site internet 971',
     'RCKY DIGITAL',
   ],
   authors: [{ name: SITE.owner }],
@@ -29,8 +31,10 @@ export const metadata: Metadata = {
     url: SITE.url,
     siteName: SITE.name,
     title: `${SITE.name} | Agence digitale en Guadeloupe`,
-    description: SITE.description,
+    description: SITE.metaDescription,
+    images: [OG_IMAGE],
   },
+  twitter: { card: 'summary_large_image', images: [OG_IMAGE.url] },
   robots: { index: true, follow: true },
   alternates: { canonical: './' },
   // Validation Google Search Console (code public, non secret)

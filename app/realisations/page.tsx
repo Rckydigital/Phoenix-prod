@@ -4,8 +4,8 @@ import { REALISATIONS, VIDEOS } from '@/lib/constants'
 import VideoEmbed from '@/components/VideoEmbed'
 
 export const metadata: Metadata = {
-  title: 'Réalisations',
-  description: 'Les projets réalisés par RCKY DIGITAL pour des entreprises de Guadeloupe.',
+  title: 'Réalisations : sites et contenus en Guadeloupe',
+  description: 'Les projets réalisés par RCKY DIGITAL pour des entreprises de Guadeloupe : sites internet, vidéos et contenus, présentés avec l’accord des clients.',
 }
 
 export default function RealisationsPage() {

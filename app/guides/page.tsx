@@ -6,7 +6,7 @@ import { GUIDES } from '@/lib/guides'
 export const metadata: Metadata = {
   title: 'Guides pour les entreprises de Guadeloupe',
   description:
-    'Prix d’un site internet, visibilité sur Google, photos pour Instagram : des réponses claires pour les petites entreprises de Guadeloupe, par RCKY DIGITAL.',
+    'Prix d’un site, visibilité Google et ChatGPT, gîtes, réservation en ligne, Instagram : des réponses claires pour les petites entreprises de Guadeloupe.',
   alternates: { canonical: `${SITE.url}/guides` },
 }
 

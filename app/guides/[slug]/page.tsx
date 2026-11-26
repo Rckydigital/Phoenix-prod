@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { SITE } from '@/lib/constants'
+import { SITE, OG_IMAGE } from '@/lib/constants'
 import { GUIDES, getGuide, type GuideBlock } from '@/lib/guides'
 
 export const dynamicParams = false
@@ -18,7 +18,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: g.metaTitle,
     description: g.description,
     alternates: { canonical: url },
-    openGraph: { title: g.metaTitle, description: g.description, url, type: 'article' },
+    openGraph: { title: g.metaTitle, description: g.description, url, type: 'article', images: [OG_IMAGE] },
   }
 }
 

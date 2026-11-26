@@ -3,9 +3,9 @@ import AboutPage from '@/components/pages/AboutPage'
 import { SITE, LAST_UPDATE } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'À propos',
+  title: 'À propos : agence web en Guadeloupe',
   description:
-    'Ricky GALIN, fondateur de RCKY DIGITAL (Guadeloupe, 2023) : création de sites internet sur mesure améliorés grâce à l’IA, visibilité sur Google et dans les IA, et automatisations IA (Automation Lab).',
+    'Ricky GALIN, fondateur de RCKY DIGITAL (Guadeloupe, 2023) : sites internet sur mesure améliorés grâce à l’IA, visibilité Google et IA, automatisations.',
   alternates: { canonical: '/a-propos', languages: { fr: '/a-propos', en: '/en/about' } },
 }
 

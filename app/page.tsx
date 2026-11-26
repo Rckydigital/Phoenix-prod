@@ -3,8 +3,8 @@ import HomePage from '@/components/pages/HomePage'
 import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Création de sites internet en Guadeloupe, visibles sur Google et l’IA | RCKY DIGITAL' },
-  description: SITE.description,
+  title: { absolute: 'Création de site internet en Guadeloupe | RCKY DIGITAL' },
+  description: SITE.metaDescription,
   alternates: { canonical: '/', languages: { fr: '/', en: '/en' } },
 }
 

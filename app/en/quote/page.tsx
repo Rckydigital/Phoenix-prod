@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import { OG_IMAGE } from '@/lib/constants'
 import QuotePage from '@/components/pages/QuotePage'
 
 export const metadata: Metadata = {
   title: 'Request a quote',
   description: 'Request a free quote from RCKY DIGITAL for AI automation (Automation Lab). Reply within 48 hours.',
   alternates: { canonical: '/en/quote', languages: { fr: '/devis', en: '/en/quote' } },
-  openGraph: { locale: 'en_US' },
+  openGraph: { locale: 'en_US', images: [OG_IMAGE] },
 }
 
 export default function Page({ searchParams }: { searchParams: { error?: string; service?: string } }) {

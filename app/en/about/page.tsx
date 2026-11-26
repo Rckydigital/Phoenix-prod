@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 import AboutPage from '@/components/pages/AboutPage'
-import { SITE, LAST_UPDATE } from '@/lib/constants'
+import { SITE, LAST_UPDATE, OG_IMAGE } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: 'About: web & AI agency in Guadeloupe',
   description:
-    'Ricky GALIN, founder of RCKY DIGITAL (Guadeloupe, 2023): custom websites enhanced with AI, visibility on Google and AI assistants, and AI automations with Claude (Automation Lab).',
+    'Ricky GALIN, founder of RCKY DIGITAL (Guadeloupe, 2023): custom websites enhanced with AI, Google and AI visibility, and AI automations with Claude.',
   alternates: { canonical: '/en/about', languages: { fr: '/a-propos', en: '/en/about' } },
-  openGraph: { locale: 'en_US' },
+  openGraph: { locale: 'en_US', images: [OG_IMAGE] },
 }
 
 const personSchema = {

@@ -24,9 +24,9 @@ export const GUIDES: Guide[] = [
   {
     slug: 'prix-site-internet-guadeloupe',
     title: 'Combien coûte un site internet en Guadeloupe ?',
-    metaTitle: 'Prix d’un site internet en Guadeloupe : ce qu’il faut prévoir',
+    metaTitle: 'Prix d’un site internet en Guadeloupe (2026)',
     description:
-      'Prix d’un site internet pour une petite entreprise en Guadeloupe : ce qui fait varier le tarif, les coûts à prévoir chaque mois et comment obtenir un devis gratuit sous 48 h.',
+      'Prix d’un site internet pour une petite entreprise en Guadeloupe : ce qui fait varier le tarif, les coûts mensuels et comment obtenir un devis gratuit.',
     answer:
       'Le prix d’un site dépend surtout de son type (vitrine, réservation, boutique en ligne, page de vente, refonte), du nombre de pages et de ce que vous fournissez. Chez RCKY DIGITAL, chaque site est sur devis, gratuit et envoyé sous 48 h. Il faut ajouter l’abonnement de la plateforme à votre nom (environ 30 € par mois chez Wix, forfait payé à l’année) et le nom de domaine (offert la première année par Wix, puis environ 15 à 25 € par an). Un site à votre nom vous permet de recevoir des réservations en direct, sans passer par une plateforme qui vous facture et affiche vos concurrents à côté de vous.',
     published: '2026-10-16',
@@ -105,7 +105,7 @@ export const GUIDES: Guide[] = [
   {
     slug: 'etre-trouve-sur-google-guadeloupe',
     title: 'Comment être trouvé sur Google quand on est une petite entreprise en Guadeloupe ?',
-    metaTitle: 'Être trouvé sur Google en Guadeloupe : le guide pour les petites entreprises',
+    metaTitle: 'Être trouvé sur Google en Guadeloupe',
     description:
       'Fiche Google, avis, photos, informations identiques partout : les étapes concrètes pour qu’un client vous trouve quand il cherche votre activité en Guadeloupe.',
     answer:
@@ -175,9 +175,9 @@ export const GUIDES: Guide[] = [
   {
     slug: 'photographe-professionnel-instagram',
     title: 'Faut-il un photographe professionnel pour son Instagram ?',
-    metaTitle: 'Photographe professionnel pour Instagram : est-ce nécessaire ?',
+    metaTitle: 'Photographe pro pour Instagram : utile ?',
     description:
-      'Smartphone ou photographe professionnel pour l’Instagram de votre entreprise ? Ce que vous pouvez faire seul, quand un pro fait la différence, et nos conseils pour de meilleures photos au téléphone.',
+      'Smartphone ou photographe pro pour l’Instagram de votre entreprise ? Ce que vous pouvez faire seul, quand un pro fait la différence, et nos conseils photo.',
     answer:
       'Pas pour tout. Un smartphone récent suffit pour les stories et le quotidien. Un photographe professionnel fait la différence pour les images qui restent : photos de votre lieu, de vos réalisations et de votre équipe, utilisées sur votre fiche Google, votre site, Airbnb ou Booking et vos posts importants. Une séance par saison suffit souvent.',
     published: '2026-10-16',
@@ -240,9 +240,9 @@ export const GUIDES: Guide[] = [
   {
     slug: 'etre-recommande-par-chatgpt-guadeloupe',
     title: 'Comment être recommandé par ChatGPT quand on est une entreprise en Guadeloupe ?',
-    metaTitle: 'Être cité par ChatGPT et les IA en Guadeloupe : le guide pour les petites entreprises',
+    metaTitle: 'Être recommandé par ChatGPT en Guadeloupe',
     description:
-      'ChatGPT, Gemini, Perplexity, Google : de plus en plus de clients demandent conseil à une IA. Les étapes concrètes pour que votre entreprise de Guadeloupe fasse partie des réponses.',
+      'De plus en plus de clients demandent conseil à une IA. Les étapes concrètes pour que votre entreprise de Guadeloupe soit citée par ChatGPT et Google.',
     answer:
       'Les IA comme ChatGPT, Gemini ou Perplexity recommandent les entreprises qu’elles trouvent décrites clairement et de la même façon à plusieurs endroits : fiche Google complète, site qui répond aux vraies questions (prix, zone, horaires), annuaires, avis réels et mentions sur d’autres sites. Ce travail s’appelle le GEO (Generative Engine Optimization). Il prolonge le référencement Google classique, il ne le remplace pas.',
     published: '2026-11-14',
@@ -321,6 +321,210 @@ export const GUIDES: Guide[] = [
       {
         q: 'En combien de temps verrai-je un résultat ?',
         a: 'Personne ne peut garantir une citation ni un délai : les IA mettent à jour leurs sources à leur rythme. Comptez plutôt en semaines qu’en jours, et mesurez en refaisant régulièrement les mêmes questions.',
+      },
+    ],
+  },
+  {
+    slug: 'site-internet-ou-instagram',
+    title: 'Instagram suffit-il, ou faut-il un site internet pour son entreprise ?',
+    metaTitle: 'Instagram ou site internet : que choisir ?',
+    description:
+      'Instagram et Facebook suffisent-ils pour une petite entreprise en Guadeloupe ? Ce que les réseaux font bien, leurs limites, et quand un site devient utile.',
+    answer:
+      'Les réseaux sociaux sont parfaits pour vous faire connaître, mais votre compte ne vous appartient pas : un piratage, une suspension ou un changement de règles peut vous couper de vos clients du jour au lendemain. Un site à votre nom reste en place, apparaît sur Google et dans les réponses des IA, et peut recevoir des réservations. L’idéal : les réseaux attirent, le site convertit.',
+    published: '2026-11-25',
+    updated: '2026-11-25',
+    readingMinutes: 4,
+    body: [
+      { type: 'h2', text: 'Ce que les réseaux sociaux font très bien' },
+      {
+        type: 'list',
+        items: [
+          'Montrer votre travail en images et en vidéos, au quotidien.',
+          'Créer un lien avec vos clients : commentaires, messages, stories.',
+          'Toucher des personnes qui ne vous connaissaient pas, grâce au partage et à la publicité.',
+        ],
+      },
+      { type: 'h2', text: 'Leurs limites' },
+      {
+        type: 'list',
+        items: [
+          'Le compte appartient à la plateforme : piratage, suspension ou changement de règles, et vos abonnés, vos photos et vos messages deviennent inaccessibles.',
+          'Les publications sont peu visibles sur Google : quand un client cherche « votre métier + votre commune », c’est surtout la fiche Google et les sites qui apparaissent.',
+          'Les réservations en message privé se perdent facilement entre deux clients, et il faut répondre soi-même à chaque question.',
+          'Les informations importantes (prix, horaires, zone, conditions) sont dispersées dans les publications.',
+        ],
+      },
+      { type: 'h2', text: 'Ce qu’un site apporte en plus' },
+      {
+        type: 'list',
+        items: [
+          'Une adresse à votre nom (votre-entreprise.fr), que personne ne peut vous retirer.',
+          'Une page claire par prestation, avec prix ou « à partir de », trouvable sur Google.',
+          'Une source complète que les IA comme ChatGPT peuvent lire et citer.',
+          'La réservation, la demande de devis ou la commande en ligne, même la nuit.',
+        ],
+      },
+      { type: 'h2', text: 'Les 3 réflexes à avoir dès maintenant' },
+      {
+        type: 'list',
+        items: [
+          'Activez la double authentification sur tous vos comptes.',
+          'Gardez la liste de vos clients ailleurs que dans vos messages privés.',
+          'Mettez en bio un lien vers un endroit qui vous appartient : site, page de réservation ou fiche Google.',
+        ],
+      },
+      {
+        type: 'callout',
+        title: 'Où en êtes-vous ?',
+        text: 'On regarde gratuitement comment votre entreprise apparaît sur Google et dans les IA, et on vous envoie 3 actions concrètes sous 48 h, sans engagement.',
+        href: '/audit-ia',
+        cta: 'Demander mon audit gratuit',
+      },
+    ],
+    faq: [
+      {
+        q: 'Mon Instagram a beaucoup d’abonnés, un site est-il vraiment utile ?',
+        a: 'Oui, si vous voulez être trouvé par des personnes qui ne vous suivent pas encore, notamment sur Google, et ne pas dépendre d’une seule plateforme. Gardez vos réseaux : ils montrent le chemin vers le site.',
+      },
+      {
+        q: 'Un site remplace-t-il les réseaux sociaux ?',
+        a: 'Non. Les deux se complètent : les réseaux font connaître l’entreprise, le site rassure, informe et prend les demandes.',
+      },
+      {
+        q: 'Combien coûte un site pour une petite entreprise ?',
+        a: 'Cela dépend du nombre de pages et des fonctions (réservation, boutique…). Chez RCKY DIGITAL, les sites sont sur devis gratuit sous 48 h ; notre guide sur le prix d’un site détaille ce qui fait varier le tarif.',
+      },
+    ],
+  },
+  {
+    slug: 'site-internet-gite-location-guadeloupe',
+    title: 'Faut-il un site internet pour son gîte ou sa location saisonnière en Guadeloupe ?',
+    metaTitle: 'Site internet pour gîte en Guadeloupe',
+    description:
+      'Gîte, villa ou location saisonnière en Guadeloupe : pourquoi un site à votre nom en plus des plateformes, ce qu’il doit contenir et pourquoi penser à l’anglais.',
+    answer:
+      'Les plateformes de réservation restent utiles pour être vu, mais elles prennent une commission et gardent la relation avec le voyageur. Un site à votre nom permet de recevoir des réservations directes, de faire revenir vos anciens clients et d’être trouvé sur Google. Pour un gîte, il doit montrer de belles photos, les disponibilités, les tarifs et un moyen simple de réserver, idéalement aussi en anglais.',
+    published: '2026-11-25',
+    updated: '2026-11-25',
+    readingMinutes: 5,
+    body: [
+      { type: 'h2', text: 'Plateformes et site : les deux ensemble' },
+      {
+        type: 'p',
+        text: 'Les grandes plateformes apportent de la visibilité, surtout au début. Mais chaque réservation passe par elles, avec leurs frais et leurs règles. Un site vous donne un deuxième canal : les voyageurs qui vous ont trouvé une première fois, ou qui cherchent directement votre nom, peuvent réserver chez vous.',
+      },
+      { type: 'h2', text: 'Ce qu’un site de gîte doit contenir' },
+      {
+        type: 'list',
+        items: [
+          'Des photos récentes et lumineuses : extérieur, chambres, salle de bain, vue, piscine.',
+          'Le calendrier des disponibilités, à jour.',
+          'Les tarifs (ou « à partir de ») et les conditions : caution, ménage, durée minimale.',
+          'La localisation : commune, plages et commerces à proximité, temps de trajet depuis l’aéroport.',
+          'Un moyen simple de réserver ou de demander les dates : formulaire, réservation en ligne, WhatsApp.',
+          'Vos avis, avec un lien vers votre fiche Google.',
+        ],
+      },
+      { type: 'h2', text: 'Pourquoi penser à l’anglais' },
+      {
+        type: 'p',
+        text: 'En Guadeloupe, la clientèle hôtelière reste majoritairement française : en 2024, environ 14 % des nuitées dans les hôtels étaient celles de clients non résidents (Insee). Cette part est petite, mais ces voyageurs (Canada, États-Unis, Europe) comparent dans leur langue : selon une étude CSA Research de 2020 menée dans 29 pays, 76 % des acheteurs en ligne préfèrent les informations dans leur langue et 40 % n’achètent jamais sur un site dans une autre langue. Une version anglaise, même courte, vous ouvre à eux.',
+      },
+      { type: 'h2', text: 'Être trouvé sur Google et par les IA' },
+      {
+        type: 'list',
+        items: [
+          'Créez et remplissez votre fiche d’établissement Google (gratuite).',
+          'Utilisez les mots que tapent les voyageurs : « gîte Sainte-Anne piscine », « villa Deshaies vue mer ».',
+          'Gardez le même nom, téléphone et adresse partout (site, Google, plateformes, réseaux).',
+          'Demandez un avis à chaque voyageur satisfait.',
+        ],
+      },
+      {
+        type: 'callout',
+        title: 'Un site de gîte, en français et en anglais',
+        text: 'RCKY DIGITAL crée des sites sur mesure pour les gîtes et locations de Guadeloupe : photos mises en valeur, disponibilités, réservation ou demande de dates, version anglaise. Devis gratuit sous 48 h.',
+        href: '/tarifs#sites',
+        cta: 'Voir les types de sites',
+      },
+    ],
+    faq: [
+      {
+        q: 'Faut-il quitter les plateformes de réservation ?',
+        a: 'Non. Gardez-les pour la visibilité ; le site sert à recevoir aussi des réservations directes et à garder le contact avec vos clients.',
+      },
+      {
+        q: 'Peut-on afficher le même calendrier que sur les plateformes ?',
+        a: 'Oui, la plupart des outils de réservation peuvent se synchroniser avec les calendriers des plateformes pour éviter les doubles réservations. On choisit l’outil avec vous selon votre situation.',
+      },
+      {
+        q: 'Une traduction automatique suffit-elle pour la version anglaise ?',
+        a: 'Elle peut servir de base, mais faites relire les pages importantes (description, conditions, réservation) : un texte maladroit fait perdre confiance au voyageur.',
+      },
+    ],
+  },
+  {
+    slug: 'reservation-en-ligne-petite-entreprise',
+    title: 'Prise de rendez-vous en ligne : comment faire pour une petite entreprise en Guadeloupe ?',
+    metaTitle: 'Prise de rendez-vous en ligne en Guadeloupe',
+    description:
+      'Salon, institut, lavage auto, artisan, traiteur : comment proposer la prise de rendez-vous ou la demande en ligne, sans perdre le contact avec vos clients.',
+    answer:
+      'La prise de rendez-vous en ligne permet au client de choisir sa prestation et son créneau seul, à toute heure, au lieu d’attendre une réponse par message. Pour une petite entreprise, le plus simple est une page de réservation ou de demande sur votre site, reliée à votre agenda ou à votre e-mail, avec des règles claires (délai, horaires, acompte si besoin). Vous gardez la main : vous pouvez toujours rappeler le client.',
+    published: '2026-11-25',
+    updated: '2026-11-25',
+    readingMinutes: 4,
+    body: [
+      { type: 'h2', text: 'Le problème des demandes par message' },
+      {
+        type: 'p',
+        text: 'Quand tout passe par les messages privés ou le téléphone, il faut souvent plusieurs échanges pour connaître la date, la prestation, le nombre de personnes ou le véhicule. Un message oublié entre deux clients, c’est une demande perdue et un créneau vide.',
+      },
+      { type: 'h2', text: 'Deux façons de faire' },
+      {
+        type: 'list',
+        items: [
+          'Réservation directe : le client choisit un créneau libre et reçoit une confirmation (salon, institut, lavage auto, coach).',
+          'Demande guidée : le client remplit un formulaire en quelques étapes et vous recevez une demande complète, puis vous le rappelez (traiteur, artisan, événementiel, devis).',
+        ],
+      },
+      { type: 'h2', text: 'Les règles à décider avant' },
+      {
+        type: 'list',
+        items: [
+          'Les prestations proposées et leur durée.',
+          'Vos horaires et le délai minimum (par exemple 24 h, ou plusieurs semaines pour un événement).',
+          'Ce qui se fait toujours par téléphone (dernière minute, gros devis).',
+          'Un acompte ou non, et la politique d’annulation.',
+          'Où arrivent les demandes : e-mail, agenda, WhatsApp.',
+        ],
+      },
+      { type: 'h2', text: 'Garder le contact humain' },
+      {
+        type: 'p',
+        text: 'La réservation en ligne ne remplace pas votre façon de travailler : elle vous évite seulement les allers-retours. Beaucoup de professionnels continuent d’appeler chaque client, mais en sachant déjà tout ce qu’il veut.',
+      },
+      {
+        type: 'callout',
+        title: 'Voir à quoi ça ressemble pour vous',
+        text: 'On prépare gratuitement une maquette de votre page de réservation ou de demande, avec vos prestations, avant tout engagement.',
+        href: '/rendez-vous?sujet=site',
+        cta: 'Réserver un appel de 15 min',
+      },
+    ],
+    faq: [
+      {
+        q: 'Faut-il un site internet pour proposer la réservation en ligne ?',
+        a: 'Ce n’est pas obligatoire, mais une page de réservation sur votre propre site vous appartient, apparaît sur Google et peut être reliée à votre fiche Google et à vos réseaux.',
+      },
+      {
+        q: 'Mes clients préfèrent appeler, est-ce utile ?',
+        a: 'Oui, si une partie de vos clients écrit le soir ou le week-end. Ceux qui préfèrent appeler peuvent toujours le faire.',
+      },
+      {
+        q: 'Peut-on demander un acompte en ligne ?',
+        a: 'Oui, avec un paiement en ligne sécurisé. Ce n’est pas obligatoire : beaucoup commencent sans acompte et l’ajoutent plus tard.',
       },
     ],
   },

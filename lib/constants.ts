@@ -10,6 +10,9 @@ export const SITE = {
   tagline: 'Photos, vidéos et sites qui donnent envie de réserver',
   description:
     "RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet sur mesure, améliorés grâce à l’IA pour être livrés plus vite et à moindre coût, et visibilité sur Google et dans les réponses des IA comme ChatGPT (GEO) pour les entreprises locales. Aussi : photo, vidéo, réseaux sociaux, et Automation Lab, des automatisations IA construites avec Claude, à distance.",
+  // Description courte (≤ 160 caractères) pour les balises meta
+  metaDescription:
+    'Agence digitale en Guadeloupe : création de sites internet sur mesure, améliorés grâce à l’IA, visibles sur Google et ChatGPT. Devis gratuit sous 48 h.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rckydigital.fr',
   email: 'contact@rckydigital.fr',
   phone: '+590 690 05 73 87',
@@ -64,6 +67,8 @@ export const AUDIT_IA = {
 }
 
 // Création de site internet sur devis (page /tarifs)
+// Image de partage (réseaux sociaux, aperçus de liens) : 1200x630
+export const OG_IMAGE = { url: '/og-rcky-digital.jpg', width: 1200, height: 630, alt: 'RCKY DIGITAL, agence digitale en Guadeloupe : création de sites internet visibles sur Google et l’IA' }
 export const SITE_DEVIS = { id: 'site-sur-mesure', title: 'Création de site internet (sur devis)' }
 
 // Les 3 offres (catalogue validé par Ricky le 2026-10-14)
@@ -305,7 +310,7 @@ export const FAQ = [
 ]
 
 // Mise à jour du contenu (signal de fraîcheur pour Google et les IA)
-export const LAST_UPDATE = '2026-11-15'
+export const LAST_UPDATE = '2026-11-25'
 
 export const priceNumber = (p: string) => {
   const m = p.match(/(\d[\d\s]*)/)

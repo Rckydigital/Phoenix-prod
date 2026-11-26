@@ -8,7 +8,7 @@ import { r, type Lang } from '@/lib/i18n'
 
 const T = {
   fr: {
-    kicker: 'Agence digitale · Guadeloupe & à distance',
+    kicker: 'Création de sites internet en Guadeloupe · IA',
     h1a: 'Plus de clients,',
     h1b: 'moins de tâches répétitives.',
     lead: 'RCKY DIGITAL aide les entreprises à être trouvées et à mieux traiter leurs demandes : visibilité locale en Guadeloupe, et automatisations IA construites avec Claude, partout à distance.',
@@ -98,10 +98,10 @@ export default function HomePage({ lang }: { lang: Lang }) {
         <div aria-hidden="true" className="bg-grid absolute inset-0" />
         <div className="container-site relative grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
           <div>
-            <span className="kicker hero-in">{t.kicker}</span>
-            <h1 style={{ '--d': '100ms' } as React.CSSProperties} className="hero-in mt-6 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl md:text-6xl">
+            <h1 className="kicker hero-in">{t.kicker}</h1>
+            <p style={{ '--d': '100ms' } as React.CSSProperties} className="hero-in mt-6 text-4xl font-extrabold leading-tight tracking-tight text-ink sm:text-5xl md:text-6xl">
               {t.h1a} <span className="text-brand-deep">{t.h1b}</span>
-            </h1>
+            </p>
             <p style={{ '--d': '200ms' } as React.CSSProperties} className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">{t.lead}</p>
             <div style={{ '--d': '300ms' } as React.CSSProperties} className="hero-in mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href={r('book', lang)} data-track="Accueil : rendez-vous" className="btn-primary px-7 py-4 text-base">{t.cta1}</Link>

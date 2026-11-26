@@ -3,9 +3,9 @@ import Link from 'next/link'
 import { SITE, AUDIT_IA, LAST_UPDATE } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Audit gratuit : votre entreprise est-elle visible par l’IA ?',
+  title: 'Audit gratuit de visibilité IA et Google',
   description:
-    'On demande à ChatGPT, Gemini, Perplexity et Google de recommander une entreprise comme la vôtre en Guadeloupe. Résultat sous 48 h et 3 actions concrètes. Gratuit, sans engagement.',
+    'Votre entreprise est-elle recommandée par ChatGPT et Google en Guadeloupe ? Audit gratuit : résultat sous 48 h et 3 actions concrètes, sans engagement.',
   alternates: { canonical: '/audit-ia' },
 }
 

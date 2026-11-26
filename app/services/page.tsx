@@ -5,9 +5,9 @@ import InfoButton from '@/components/InfoButton'
 import ServiceCard from '@/components/ServiceCard'
 
 export const metadata: Metadata = {
-  title: 'Services et tarifs',
+  title: 'Création de site et visibilité en Guadeloupe',
   description:
-    'Vitrine Pro (390 €), site internet sur mesure (sur devis), Visibilité Mensuelle (349 €/mois) : les offres de RCKY DIGITAL en Guadeloupe, avec un audit de visibilité offert.',
+    'Site internet sur mesure (sur devis), Vitrine Pro (390 €), Visibilité Mensuelle (349 €/mois) : les offres de RCKY DIGITAL en Guadeloupe. Audit offert.',
 }
 
 
