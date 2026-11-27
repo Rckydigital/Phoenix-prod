@@ -67,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.7,
     },
-    ...['/tarifs', '/demo', '/devis', '/rendez-vous', '/en/book', '/en', '/en/pricing', '/en/demo', '/en/quote', '/en/about', '/en/contact'].map((path) => ({
+    ...['/tarifs', '/demo', '/demo/crm', '/devis', '/rendez-vous', '/en/book', '/en', '/en/pricing', '/en/demo', '/en/quote', '/en/about', '/en/contact'].map((path) => ({
       url: `${SITE.url}${path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,

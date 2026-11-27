@@ -20,14 +20,18 @@ const VUES: { id: Vue; titre: string; aide: string }[] = [
 ]
 const CLE = 'qg-vue'
 
-export default function Shell({ data, demo = false }: { data: QGData; demo?: boolean }) {
+// publique = page /demo/crm : données fictives, sans connexion, sans l'onglet Bureau (fichiers, Trésorerie)
+export default function Shell({ data, demo = false, publique = false }: { data: QGData; demo?: boolean; publique?: boolean }) {
+  const vues = publique
+    ? VUES.filter((v) => v.id !== 'bureau').map((v) => (v.id === 'pipeline' ? { ...v, aide: 'Vos prospects par étape' } : v))
+    : VUES
   const [vue, setVue] = useState<Vue>('pipeline')
   const [ouverte, setOuverte] = useState<FichePipeline | null>(null)
 
   useEffect(() => {
     try {
       const v = localStorage.getItem(CLE) as Vue | null
-      if (v && VUES.some((x) => x.id === v)) setVue(v)
+      if (v && vues.some((x) => x.id === v)) setVue(v)
     } catch { /* stockage indisponible */ }
   }, [])
   const choisir = (v: Vue) => {
@@ -44,18 +48,22 @@ export default function Shell({ data, demo = false }: { data: QGData; demo?: boo
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="eyebrow">QG privé</p>
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">Le QG de RCKY DIGITAL</h1>
+            <p className="eyebrow">{publique ? 'Démo · données fictives' : 'QG privé'}</p>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-ink md:text-4xl">{publique ? 'LeadFlow, le CRM qui ressemble à votre agence' : 'Le QG de RCKY DIGITAL'}</h1>
             <p className="mt-1 text-ink-soft">
               {new Date(data.today + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}
               {' · '}{data.pipeline.length} fiches · {enCours} en cours · {clients} client(s)
               {dues > 0 && <span className="ml-2 rounded-full bg-[#FDE9E4] px-2 py-0.5 text-xs font-bold text-[#B4511A]">{dues} relance(s) due(s)</span>}
             </p>
           </div>
-          <form action="/api/qg/login" method="POST">
-            <input type="hidden" name="action" value="logout" />
-            <button className="btn-outline px-4 py-2 text-sm">Se déconnecter</button>
-          </form>
+          {publique ? (
+            <a href="/rendez-vous" className="btn-primary px-4 py-2 text-sm">Le même pour mon entreprise</a>
+          ) : (
+            <form action="/api/qg/login" method="POST">
+              <input type="hidden" name="action" value="logout" />
+              <button className="btn-outline px-4 py-2 text-sm">Se déconnecter</button>
+            </form>
+          )}
         </div>
 
         {data.error && (
@@ -66,7 +74,7 @@ export default function Shell({ data, demo = false }: { data: QGData; demo?: boo
 
         {/* Onglets */}
         <nav aria-label="Vues du QG" className="mt-6 flex gap-2 overflow-x-auto rounded-2xl border border-line bg-white p-1.5">
-          {VUES.map((v) => (
+          {vues.map((v) => (
             <button
               key={v.id}
               type="button"
@@ -93,7 +101,7 @@ export default function Shell({ data, demo = false }: { data: QGData; demo?: boo
             <Agence3D data={data} onOuvrir={setOuverte} choisie={ouverte?.id ?? null} />
           </div>
         )}
-        {vue === 'bureau' && <Office data={data} embedded />}
+        {vue === 'bureau' && !publique && <Office data={data} embedded />}
       </div>
 
       <FichePanel fiche={ouverte} demo={demo} onFermer={() => setOuverte(null)} />
